@@ -1,0 +1,184 @@
+{
+  "version": "1.0.0",
+  "locale": "zh-cn",
+  "meta": {
+    "module": "settings/hooks"
+  },
+  "replacements": [
+    {
+      "originalText": "Hooks",
+      "changeText": "钩子",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Hooks let you run custom scripts at specific points during the agent's execution to modify behavior, enforce policies, or add custom logging.",
+      "changeText": "Hooks 允许在智能体执行的特定节点运行自定义脚本，以修改行为、强制执行策略或添加自定义日志。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Configured Hooks",
+      "changeText": "已配置的钩子",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "No hooks configured",
+      "changeText": "尚未配置钩子",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add a hooks.json file to your user, project, or enterprise config to start running custom scripts.",
+      "changeText": "在用户、项目或企业配置中添加 hooks.json 文件，即可开始运行自定义脚本。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Execution Log",
+      "changeText": "执行日志",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Clear log",
+      "changeText": "清除日志",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Clear logs",
+      "changeText": "清除日志",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Clear",
+      "changeText": "清除",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "No hook executions yet",
+      "changeText": "暂无 Hook 执行记录",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "sessionStart",
+      "changeText": "会话开始",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "sessionEnd",
+      "changeText": "会话结束",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "beforeSubmitPrompt",
+      "changeText": "提交提示前",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "afterAgentResponse",
+      "changeText": "智能体回复后",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "afterAgentThought",
+      "changeText": "智能体思考后",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "preToolUse",
+      "changeText": "工具使用前",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "postToolUse",
+      "changeText": "工具使用后",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "postToolUseFailure",
+      "changeText": "工具使用失败后",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "beforeShellExecution",
+      "changeText": "Shell 执行前",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "afterShellExecution",
+      "changeText": "Shell 执行后",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "beforeMCPExecution",
+      "changeText": "MCP 执行前",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "afterMCPExecution",
+      "changeText": "MCP 执行后",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "beforeReadFile",
+      "changeText": "读取文件前",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "afterFileEdit",
+      "changeText": "文件编辑后",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "beforeTabFileRead",
+      "changeText": "Tab 读文件前",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "afterTabFileEdit",
+      "changeText": "Tab 编辑文件后",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "stop",
+      "changeText": "停止",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "preCompact",
+      "changeText": "压缩前",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "subagentStart",
+      "changeText": "子智能体启动",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "subagentStop",
+      "changeText": "子智能体停止",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "workspaceOpen",
+      "changeText": "工作区打开",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Error Output:",
+      "changeText": "错误输出：",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Input:",
+      "changeText": "输入：",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "View Hooks",
+      "changeText": "查看 Hooks",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Composer Session End Hooks",
+      "changeText": "Composer 会话结束 Hooks",
+      "searchType": "exact"
+    }
+  ]
+}

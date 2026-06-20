@@ -1,0 +1,314 @@
+{
+  "version": "1.0.0",
+  "locale": "zh-cn",
+  "meta": {
+    "module": "settings/rules"
+  },
+  "replacements": [
+    {
+      "originalText": "Rules, Skills, Subagents",
+      "changeText": "规则、技能与子智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Provide domain-specific knowledge and workflows for the agent",
+      "changeText": "为智能体提供领域知识与工作流",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Provide domain-specific knowledge and workflows for the agent.",
+      "changeText": "为智能体提供领域知识与工作流。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Include third-party Plugins, Skills, and other configs",
+      "changeText": "包含第三方插件、技能及其他配置",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Automatically import agent configs from other tools",
+      "changeText": "自动从其他工具导入智能体配置",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Loading Rules...",
+      "changeText": "正在加载规则…",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Loading Skills...",
+      "changeText": "正在加载技能…",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Loading Subagents...",
+      "changeText": "正在加载子智能体…",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Loading Commands...",
+      "changeText": "正在加载命令…",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Rules",
+      "changeText": "规则",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "User Rules",
+      "changeText": "用户规则",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Project Rules",
+      "changeText": "项目规则",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add Rule",
+      "changeText": "添加规则",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add new rule",
+      "changeText": "添加新规则",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "+ New",
+      "changeText": "+ 新建",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "New",
+      "changeText": "新建",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "New User Rule",
+      "changeText": "新建用户规则",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "New Project Rule",
+      "changeText": "新建项目规则",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Project Rule",
+      "changeText": "项目规则",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "User Rule",
+      "changeText": "用户规则",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Learn about Rules",
+      "changeText": "了解规则",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Rules provide system-level instructions to Agent",
+      "changeText": "规则为智能体提供系统级指令",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Use Rules to guide agent behavior, like enforcing best practices or coding standards. Rules can be applied always, by file path, or manually.",
+      "changeText": "使用规则引导智能体行为，如强制执行最佳实践或编码规范。规则可始终生效、按文件路径生效或手动触发。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "No Rules Yet",
+      "changeText": "暂无规则",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Create rules to guide Agent behavior",
+      "changeText": "创建规则以引导智能体行为",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Import from GitHub/GitLab",
+      "changeText": "从 GitHub/GitLab 导入",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Could Not Load Rules",
+      "changeText": "无法加载规则",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Failed to load workspace rules.",
+      "changeText": "加载工作区规则失败。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Create with Agent",
+      "changeText": "用智能体创建",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Rule content...",
+      "changeText": "规则内容…",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Saving...",
+      "changeText": "保存中…",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Skills",
+      "changeText": "技能",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Learn about Skills",
+      "changeText": "了解技能",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Skills are specialized capabilities that help the agent accomplish specific tasks. Skills will be invoked by the agent when relevant or can be triggered manually with / in chat.",
+      "changeText": "技能是帮助智能体完成特定任务的专项能力。相关时由智能体自动调用，也可在聊天中用 / 手动触发。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Skills are reusable prompts for common tasks. The agent can invoke skills automatically when they’re appropriate, or you can trigger them yourself via a slash command. Use skills when you notice yourself spelling out the same steps over and over.",
+      "changeText": "技能是可复用的常见任务提示。智能体可在合适时自动调用，也可通过斜杠命令手动触发。当你反复说明相同步骤时，适合封装为技能。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "No Skills Yet",
+      "changeText": "暂无技能",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Skills help the agent accomplish specific tasks",
+      "changeText": "技能帮助智能体完成特定任务",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "New Skill",
+      "changeText": "新建技能",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Show all (",
+      "changeText": "显示全部（",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "View (\\d+) More",
+      "changeText": "查看 $1 项更多",
+      "searchType": "regex"
+    },
+    {
+      "originalText": " more)",
+      "changeText": " 更多）",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Show less",
+      "changeText": "收起",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Subagents",
+      "changeText": "子智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Learn about Subagents",
+      "changeText": "了解子智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Create specialized agents for complex tasks. Subagents can be invoked by the agent to handle focused work in parallel.",
+      "changeText": "为复杂任务创建专用智能体。子智能体可被主智能体调用，并行处理专项工作。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "No Subagents Yet",
+      "changeText": "暂无子智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Create specialized agents to handle focused tasks",
+      "changeText": "创建专用智能体处理专项任务",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "New Subagent",
+      "changeText": "新建子智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Commands",
+      "changeText": "命令",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Learn about Commands",
+      "changeText": "了解命令",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Create reusable workflows triggered with / prefix in chat. Use commands to standardize processes and make common tasks more efficient.",
+      "changeText": "创建可在聊天中用 / 前缀触发的可复用工作流。用命令标准化流程，提升常见任务效率。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "No Commands Yet",
+      "changeText": "暂无命令",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Create commands to build reusable workflows",
+      "changeText": "创建命令以构建可复用工作流",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "New Command",
+      "changeText": "新建命令",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "User Command",
+      "changeText": "用户命令",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Project Command",
+      "changeText": "项目命令",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Delete Command",
+      "changeText": "删除命令",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Are you sure you want to delete \"",
+      "changeText": "确定要删除「",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "\"? This action cannot be undone.",
+      "changeText": "」吗？此操作无法撤销。",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Cannot delete team or third-party commands",
+      "changeText": "无法删除团队或第三方命令",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "No commands match \"",
+      "changeText": "没有匹配的命令「",
+      "searchType": "partial"
+    }
+  ]
+}

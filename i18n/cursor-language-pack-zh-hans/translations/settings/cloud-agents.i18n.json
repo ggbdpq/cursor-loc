@@ -1,0 +1,44 @@
+{
+  "version": "1.0.0",
+  "locale": "zh-cn",
+  "meta": {
+    "module": "settings/cloud-agents"
+  },
+  "replacements": [
+    {
+      "originalText": "Cloud Agents",
+      "changeText": "云端智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Get Started",
+      "changeText": "开始使用",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cloud Agents require a Git repository in an open folder.",
+      "changeText": "云端智能体需要在已打开的文件夹中包含 Git 仓库。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Open a Git repository",
+      "changeText": "打开 Git 仓库",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Background agents only work in folders with a git repository. Please open a folder that contains a git repository to use this feature.",
+      "changeText": "后台智能体仅在包含 Git 仓库的文件夹中工作。请打开包含 Git 仓库的文件夹以使用此功能。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Open Folder",
+      "changeText": "打开文件夹",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Loading Cloud Agents settings...",
+      "changeText": "正在加载云端智能体设置…",
+      "searchType": "exact"
+    }
+  ]
+}

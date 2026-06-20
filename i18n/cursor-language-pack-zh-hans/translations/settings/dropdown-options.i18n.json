@@ -1,0 +1,344 @@
+{
+  "version": "1.0.0",
+  "locale": "zh-cn",
+  "meta": {
+    "module": "settings/dropdown-options"
+  },
+  "replacements": [
+    {
+      "originalText": "Compact",
+      "changeText": "紧凑(Compact)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Balanced",
+      "changeText": "平衡(Balanced)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Detailed",
+      "changeText": "详细(Detailed)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Breadcrumb",
+      "changeText": "面包屑(Breadcrumb)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Island",
+      "changeText": "浮动岛(Island)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Agent",
+      "changeText": "智能体(Agent)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Editor",
+      "changeText": "编辑器(Editor)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Share Data",
+      "changeText": "共享数据(Share Data)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Privacy Mode",
+      "changeText": "隐私模式(Privacy Mode)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Privacy Mode (Legacy)",
+      "changeText": "隐私模式旧版(Privacy Mode (Legacy))",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Disable Privacy Mode",
+      "changeText": "关闭隐私模式(Disable Privacy Mode)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Small",
+      "changeText": "小(Small)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Large",
+      "changeText": "大(Large)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Extra Large",
+      "changeText": "特大(Extra Large)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Unlimited",
+      "changeText": "无限制(Unlimited)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Custom",
+      "changeText": "自定义(Custom)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Send after current message",
+      "changeText": "当前消息后发送(Send after current message)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Stop & send right away",
+      "changeText": "停止并立即发送(Stop & send right away)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Auto",
+      "changeText": "自动(Auto)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Always",
+      "changeText": "始终(Always)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Never",
+      "changeText": "从不(Never)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Deep",
+      "changeText": "深度(Deep)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Ask Every Time",
+      "changeText": "每次询问(Ask Every Time)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Allowlist",
+      "changeText": "允许列表(Allowlist)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Allowlist (with Sandbox)",
+      "changeText": "允许列表(含沙箱)(Allowlist (with Sandbox))",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Auto-review",
+      "changeText": "自动审查(Auto-review)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Auto-review (with Sandbox)",
+      "changeText": "自动审查(含沙箱)(Auto-review (with Sandbox))",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Run Everything",
+      "changeText": "全部运行(Run Everything)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Run Everything (Unsandboxed)",
+      "changeText": "全部运行(无沙箱)(Run Everything (Unsandboxed))",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Allow All",
+      "changeText": "全部允许(Allow All)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Disable",
+      "changeText": "禁用(Disable)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Inherit from parent",
+      "changeText": "继承父级(Inherit from parent)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Inherit",
+      "changeText": "继承(Inherit)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Manual",
+      "changeText": "手动(Manual)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Quick",
+      "changeText": "快速(Quick)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Thorough",
+      "changeText": "深入(Thorough)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Default",
+      "changeText": "默认(Default)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Default Approach",
+      "changeText": "默认方案(Default Approach)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Plan",
+      "changeText": "计划(Plan)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Ask",
+      "changeText": "问答(Ask)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Debug",
+      "changeText": "调试(Debug)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Always applied",
+      "changeText": "始终应用(Always applied)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Agent decides when to apply",
+      "changeText": "由智能体决定是否应用(Agent decides when to apply)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Apply to Specific Files & Folders",
+      "changeText": "应用于特定文件和文件夹(Apply to Specific Files & Folders)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Applied intelligently",
+      "changeText": "智能应用(Applied intelligently)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Early Access",
+      "changeText": "早期访问(Early Access)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Nightly",
+      "changeText": "每夜构建(Nightly)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Dogfood",
+      "changeText": "内部测试(Dogfood)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Candidate",
+      "changeText": "候选版(Candidate)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Fixed",
+      "changeText": "固定(Fixed)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Disabled",
+      "changeText": "已禁用(Disabled)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "auto",
+      "changeText": "自动(auto)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "never",
+      "changeText": "从不(never)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "always",
+      "changeText": "始终(always)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "queue",
+      "changeText": "排队(queue)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Inline",
+      "changeText": "内联(Inline)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Private",
+      "changeText": "私有(Private)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Project",
+      "changeText": "项目(Project)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Team",
+      "changeText": "团队(Team)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "All",
+      "changeText": "全部(All)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "User",
+      "changeText": "用户(User)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "projects",
+      "changeText": "项目(projects)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Sync",
+      "changeText": "同步",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Delete Index",
+      "changeText": "删除索引",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "BETA",
+      "changeText": "测试版(BETA)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Search settings",
+      "changeText": "搜索设置",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Search models",
+      "changeText": "搜索模型",
+      "searchType": "partial"
+    }
+  ]
+}

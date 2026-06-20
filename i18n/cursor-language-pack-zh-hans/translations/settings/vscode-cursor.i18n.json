@@ -1,0 +1,179 @@
+{
+  "version": "1.0.0",
+  "locale": "zh-cn",
+  "meta": {
+    "module": "settings/vscode-cursor"
+  },
+  "replacements": [
+    {
+      "originalText": "Cursor",
+      "changeText": "Cursor",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cursor: Chat Max Width",
+      "changeText": "Cursor：聊天最大宽度",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Controls the maximum width in pixels of chat content.",
+      "changeText": "控制聊天内容的最大宽度（像素）。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cursor: Code Tab Theme Diff Backgrounds",
+      "changeText": "Cursor：代码 Tab 主题差异背景",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Use themed background colors for inline diffs.",
+      "changeText": "为内联差异使用主题背景色。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cursor: Composer: Cmd K In Recent",
+      "changeText": "Cursor：Composer 最近使用 Cmd+K",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Enable Cmd+K (Ctrl+K) shortcut for the selected Composer.",
+      "changeText": "为选中的 Composer 启用 Cmd+K（Ctrl+K）快捷键。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cursor: Composer: Diffusion",
+      "changeText": "Cursor：Composer 扩散",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Controls how draft and side-file text edits are displayed and grouped in the Agent conversations.",
+      "changeText": "控制草稿和侧文件文本编辑在智能体对话中的显示与分组方式。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cursor: Composer: Custom Chime Sound Path",
+      "changeText": "Cursor：Composer 自定义提示音路径",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Custom sound file (.mp3, .wav, .ogg) to play when agent finishes responding. Leave empty to use the default sound.",
+      "changeText": "智能体完成回复时播放的自定义音效文件（.mp3、.wav、.ogg）。留空则使用默认音效。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cursor: Composer: Inline Presentation Family",
+      "changeText": "Cursor：Composer 内联展示系列",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cursor: Composer: Max Window Size",
+      "changeText": "Cursor：Composer 最大窗口尺寸",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cursor: Composer: Queue Message Default Behavior",
+      "changeText": "Cursor：Composer 排队消息默认行为",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Adjust the default behavior of sending a message while agent is responding.",
+      "changeText": "调整智能体回复期间发送消息的默认行为。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cursor: Composer: Should Auto Save Non-Agent",
+      "changeText": "Cursor：Composer 非智能体自动保存",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Automatically save files in normal composer.",
+      "changeText": "在普通 Composer 中自动保存文件。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cursor: Composer: Should Chime After User Creates",
+      "changeText": "Cursor：Composer 用户创建后提示音",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Play a sound when a chat response is complete.",
+      "changeText": "聊天回复完成时播放提示音。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cursor: Composer: Usage Summary Display",
+      "changeText": "Cursor：Composer 用量摘要显示",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "When to display the usage summary at the bottom of the chat pane: automatically when approaching limits, always, or never.",
+      "changeText": "何时在聊天面板底部显示用量摘要：接近上限时自动、始终或从不。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cursor: Cpp: Disabled Languages",
+      "changeText": "Cursor：Cpp 禁用语言",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Disable Cursor Tab for these languages.",
+      "changeText": "对这些语言禁用 Cursor Tab。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cursor: Cpp: Enable Partial Accepts",
+      "changeText": "Cursor：Cpp 启用部分接受",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Enable partial accepts for Cursor Tab, using the arrow keys to accept words/lines without committing.",
+      "changeText": "为 Cursor Tab 启用部分接受，使用方向键接受单词/行而不提交。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cursor: General: Enable Http2",
+      "changeText": "Cursor：常规 启用 HTTP/2",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Enable HTTP/2 for the agent chat. This increases resource utilization and latency, but is useful if you're behind a corporate proxy that does not support HTTP/1.1 for streaming responses.",
+      "changeText": "为智能体聊天启用 HTTP/2。会增加资源占用和延迟，但适用于不支持 HTTP/1.1 流式响应的企业代理环境。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cursor: General: Git Index Indexing",
+      "changeText": "Cursor：常规 Git 索引",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Index your git history to help Cursor understand which files are related to each other.",
+      "changeText": "索引 Git 历史，帮助 Cursor 理解文件之间的关联。",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Cursor: Terminal: Enable Ai Checks",
+      "changeText": "Cursor：终端 启用 AI 检测",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "AI-based Terminal Completion Detection.",
+      "changeText": "基于 AI 的终端完成检测。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cursor: Terminal: Live Preview Box",
+      "changeText": "Cursor：终端 实时预览框",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Use a preview box for terminal chat. If turned off, responses are streamed directly into the chat.",
+      "changeText": "为终端聊天使用预览框。关闭后，回复将直接流式输出到聊天中。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add Item",
+      "changeText": "添加项",
+      "searchType": "exact"
+    }
+  ]
+}

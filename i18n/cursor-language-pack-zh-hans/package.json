@@ -1,0 +1,121 @@
+{
+  "name": "cursor-language-pack-zh-hans",
+  "displayName": "Cursor 专有界面汉化 (简体中文)",
+  "description": "为 Cursor Settings、Agent、Composer 等专有界面提供简体中文。建议与 Microsoft 中文语言包配合使用。当前仅支持 Windows。",
+  "version": "0.0.1",
+  "publisher": "ggbdpq",
+  "author": {
+    "name": "ggbdpq"
+  },
+  "icon": "icon.png",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ggbdpq/cursor-loc"
+  },
+  "homepage": "https://github.com/ggbdpq/cursor-loc#readme",
+  "bugs": {
+    "url": "https://github.com/ggbdpq/cursor-loc/issues"
+  },
+  "categories": [
+    "Language Packs",
+    "Other"
+  ],
+  "keywords": [
+    "chinese",
+    "simplified",
+    "zh-cn",
+    "localization",
+    "i18n",
+    "cursor",
+    "汉化",
+    "中文",
+    "语言包"
+  ],
+  "extensionKind": [
+    "ui"
+  ],
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "localizations": [
+      {
+        "languageId": "zh-cn",
+        "languageName": "Chinese (Simplified)",
+        "localizedLanguageName": "中文(简体)",
+        "translations": [
+          {
+            "id": "cursor-proprietary-ui",
+            "path": "./translations"
+          }
+        ]
+      }
+    ],
+    "commands": [
+      {
+        "command": "cursorZh.applyPatch",
+        "title": "Cursor 中文：应用界面汉化",
+        "category": "Cursor 中文"
+      },
+      {
+        "command": "cursorZh.revertPatch",
+        "title": "Cursor 中文：恢复英文界面",
+        "category": "Cursor 中文"
+      },
+      {
+        "command": "cursorZh.showStatus",
+        "title": "Cursor 中文：查看汉化状态",
+        "category": "Cursor 中文"
+      },
+      {
+        "command": "cursorZh.doctor",
+        "title": "Cursor 中文：环境诊断",
+        "category": "Cursor 中文"
+      }
+    ],
+    "configuration": {
+      "title": "Cursor 专有界面汉化",
+      "properties": {
+        "cursorZh.appRoot": {
+          "type": "string",
+          "default": "",
+          "description": "Cursor 安装根目录（留空则自动检测），例如 D:\\WEBDEV\\cursor"
+        },
+        "cursorZh.autoApplyOnInstall": {
+          "type": "boolean",
+          "default": true,
+          "description": "启动时若检测到专有界面未汉化，是否弹出引导并提示应用补丁"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build:i18n": "node ../../tools/build-i18n.mjs",
+    "build:core": "npm run build -w @cursor-loc/patch-core",
+    "compile": "npm run build:i18n && npm run build:core && tsc -p .",
+    "watch": "tsc -watch -p .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "update": "node ../../tools/build-i18n.mjs",
+    "prepare:package": "node scripts/prepare-package.mjs",
+    "package": "npm run compile && npm run prepare:package && vsce package --no-dependencies",
+    "vscode:prepublish": "npm run compile"
+  },
+  "dependencies": {
+    "@cursor-loc/patch-core": "file:../../packages/patch-core"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/vscode": "^1.85.0",
+    "@vitest/coverage-v8": "^4.1.9",
+    "@vscode/vsce": "^3.2.0",
+    "fast-check": "^4.8.0",
+    "typescript": "^5.7.0",
+    "vitest": "^4.1.9"
+  }
+}

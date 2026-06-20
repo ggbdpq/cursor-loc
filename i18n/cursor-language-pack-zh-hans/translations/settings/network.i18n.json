@@ -1,0 +1,99 @@
+{
+  "version": "1.0.0",
+  "locale": "zh-cn",
+  "meta": {
+    "module": "settings/network"
+  },
+  "replacements": [
+    {
+      "originalText": "Network",
+      "changeText": "网络",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "HTTP Compatibility Mode",
+      "changeText": "HTTP 兼容模式",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "HTTP/2 is recommended for low-latency streaming. In some corporate proxy and VPN environments, the compatibility mode may need to be lowered.",
+      "changeText": "建议使用 HTTP/2 以降低流式传输延迟。部分企业代理或 VPN 环境可能需要降低兼容模式。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Disable HTTP/2 for all requests, and use HTTP/1.1 instead. This increases resource utilization and latency, but is useful if you're behind a corporate proxy that blocks HTTP/2.",
+      "changeText": "对所有请求禁用 HTTP/2 并改用 HTTP/1.1。会增加资源占用和延迟，但适用于阻止 HTTP/2 的企业代理环境。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Disable HTTP/1.1 SSE for agent chat. This increases resource utilization and latency, but is useful if you're behind a corporate proxy that does not support HTTP/1.1 SSE streaming responses.",
+      "changeText": "为智能体聊天禁用 HTTP/1.1 SSE。会增加资源占用和延迟，但适用于不支持 HTTP/1.1 SSE 流式响应的企业代理环境。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Required Domains",
+      "changeText": "必需域名",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "These domains must be accessible for Cursor to function. Add them to your firewall or proxy allowlist.",
+      "changeText": "Cursor 正常运行需要访问这些域名。请将它们加入防火墙或代理允许列表。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Copy Domains",
+      "changeText": "复制域名",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Copied",
+      "changeText": "已复制",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Network Diagnostics",
+      "changeText": "网络诊断",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Network Diagnostic",
+      "changeText": "网络诊断",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Check network connectivity to all Cursor services",
+      "changeText": "检查与所有 Cursor 服务的网络连接",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Run Diagnostic",
+      "changeText": "运行诊断",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Running Diagnostic",
+      "changeText": "正在诊断",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Run network diagnostics",
+      "changeText": "运行网络诊断",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Proxy Settings",
+      "changeText": "代理设置",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Auto-Run Network Access",
+      "changeText": "自动运行网络访问",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Network Access Notification",
+      "changeText": "网络访问通知",
+      "searchType": "exact"
+    }
+  ]
+}

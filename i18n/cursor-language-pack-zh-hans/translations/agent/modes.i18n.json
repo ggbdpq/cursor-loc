@@ -1,0 +1,129 @@
+{
+  "version": "1.0.0",
+  "locale": "zh-cn",
+  "meta": {
+    "module": "agent/modes"
+  },
+  "replacements": [
+    {
+      "originalText": "Agent Mode",
+      "changeText": "智能体模式",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Plan Mode",
+      "changeText": "计划模式",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Ask Mode",
+      "changeText": "问答模式",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Debug Mode",
+      "changeText": "调试模式",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Full implementation with tool access",
+      "changeText": "完整实现，可使用工具",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Design implementation approach before coding",
+      "changeText": "编码前先设计实现方案",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Read-only exploration and questions",
+      "changeText": "只读探索与提问",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Systematic troubleshooting with runtime evidence",
+      "changeText": "基于运行时证据的系统化排查",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Switch to Agent",
+      "changeText": "切换到智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Switch to Plan",
+      "changeText": "切换到计划",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Switch to Ask",
+      "changeText": "切换到问答",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Switch to Debug",
+      "changeText": "切换到调试",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Multitask Mode",
+      "changeText": "多任务模式",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Background Agent",
+      "changeText": "后台智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "New Agent",
+      "changeText": "新建智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "New Chat",
+      "changeText": "新对话",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Stop",
+      "changeText": "停止",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Resume",
+      "changeText": "继续",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Running",
+      "changeText": "运行中",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Waiting",
+      "changeText": "等待中",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Completed",
+      "changeText": "已完成",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Failed",
+      "changeText": "失败",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Thinking",
+      "changeText": "思考中",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Generating",
+      "changeText": "生成中",
+      "searchType": "exact"
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "version": "1.0.0",
+  "locale": "zh-cn",
+  "meta": {
+    "module": "review/pr-review"
+  },
+  "replacements": [
+    {
+      "originalText": "Agent Review",
+      "changeText": "智能体审查",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Review",
+      "changeText": "审查",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Find Issues",
+      "changeText": "查找问题",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Fix in Chat",
+      "changeText": "在聊天中修复",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Fix in Agent",
+      "changeText": "在智能体中修复",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Create PR",
+      "changeText": "创建 PR",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Create Pull Request",
+      "changeText": "创建 Pull Request",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Merge",
+      "changeText": "合并",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Commit",
+      "changeText": "提交",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Commit changes",
+      "changeText": "提交更改",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Stage all",
+      "changeText": "全部暂存",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Unstage all",
+      "changeText": "全部取消暂存",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Staged changes",
+      "changeText": "已暂存的更改",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Unstaged changes",
+      "changeText": "未暂存的更改",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Changes",
+      "changeText": "更改",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Diff",
+      "changeText": "差异",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "No changes",
+      "changeText": "无更改",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "No issues found",
+      "changeText": "未发现问题",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Issues found",
+      "changeText": "发现问题",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Approve",
+      "changeText": "批准",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Request changes",
+      "changeText": "请求更改",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Inline review",
+      "changeText": "内联审查",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Open in GitHub",
+      "changeText": "在 GitHub 中打开",
+      "searchType": "exact"
+    }
+  ]
+}

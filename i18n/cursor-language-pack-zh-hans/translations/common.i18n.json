@@ -1,0 +1,234 @@
+{
+  "version": "1.0.0",
+  "locale": "zh-cn",
+  "meta": {
+    "module": "common"
+  },
+  "replacements": [
+    {
+      "originalText": "Open",
+      "changeText": "打开",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Import",
+      "changeText": "导入",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Show",
+      "changeText": "显示",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Edit",
+      "changeText": "编辑",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Save",
+      "changeText": "保存",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cancel",
+      "changeText": "取消",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Delete",
+      "changeText": "删除",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add",
+      "changeText": "添加",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Remove",
+      "changeText": "移除",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Enable",
+      "changeText": "启用",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Enabled",
+      "changeText": "已启用",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Learn more",
+      "changeText": "了解更多",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Upgrade",
+      "changeText": "升级",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Verify",
+      "changeText": "验证",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Loading",
+      "changeText": "加载中",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Try it now",
+      "changeText": "立即体验",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Log Out",
+      "changeText": "退出登录(Log Out)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Log out?",
+      "changeText": "退出登录？(Log out?)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "You'll be logged out of your Cursor account on this device.",
+      "changeText": "你将从此设备退出 Cursor 账户。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Sign In",
+      "changeText": "登录(Sign In)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Sign Out",
+      "changeText": "退出登录(Sign Out)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "On",
+      "changeText": "开",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Off",
+      "changeText": "关",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Reset",
+      "changeText": "重置",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Apply",
+      "changeText": "应用",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Close",
+      "changeText": "关闭",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Copy",
+      "changeText": "复制",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Refresh",
+      "changeText": "刷新",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Retry",
+      "changeText": "重试",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Continue",
+      "changeText": "继续",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Back",
+      "changeText": "返回",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Next",
+      "changeText": "下一步",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Done",
+      "changeText": "完成",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Submit",
+      "changeText": "提交",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Confirm",
+      "changeText": "确认",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "minutes ago",
+      "changeText": "分钟前",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "hours ago",
+      "changeText": "小时前",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "days ago",
+      "changeText": "天前",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "weeks ago",
+      "changeText": "周前",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "just now",
+      "changeText": "刚刚",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "NEW",
+      "changeText": "新",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Copied",
+      "changeText": "已复制",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Copy results",
+      "changeText": "复制结果",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Show Logs",
+      "changeText": "显示日志",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Hide Logs",
+      "changeText": "隐藏日志",
+      "searchType": "exact"
+    }
+  ]
+}

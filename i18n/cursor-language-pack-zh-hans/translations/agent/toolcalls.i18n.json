@@ -1,0 +1,209 @@
+{
+  "version": "1.0.0",
+  "locale": "zh-cn",
+  "meta": {
+    "module": "agent/toolcalls"
+  },
+  "replacements": [
+    {
+      "originalText": "Reading",
+      "changeText": "读取",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Read file",
+      "changeText": "读取文件",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Reading file",
+      "changeText": "正在读取文件",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Searching",
+      "changeText": "搜索",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Searching for",
+      "changeText": "正在搜索",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Grep",
+      "changeText": "搜索",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Glob",
+      "changeText": "文件匹配",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Semantic search",
+      "changeText": "语义搜索",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Running command",
+      "changeText": "运行命令",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Ran command",
+      "changeText": "已运行命令",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Terminal",
+      "changeText": "终端",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Shell",
+      "changeText": "Shell",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Editing",
+      "changeText": "编辑",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Edited",
+      "changeText": "已编辑",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Writing",
+      "changeText": "写入",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Wrote",
+      "changeText": "已写入",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Creating",
+      "changeText": "创建",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Created",
+      "changeText": "已创建",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Deleting",
+      "changeText": "删除",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Deleted",
+      "changeText": "已删除",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Fetching",
+      "changeText": "获取",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Fetched",
+      "changeText": "已获取",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Waiting for approval",
+      "changeText": "等待批准",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Awaiting",
+      "changeText": "等待",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Waited",
+      "changeText": "已等待",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Tool call",
+      "changeText": "工具调用",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Tool calls",
+      "changeText": "工具调用",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "MCP tool",
+      "changeText": "MCP 工具",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Called MCP",
+      "changeText": "已调用 MCP",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Browser",
+      "changeText": "浏览器",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Web search",
+      "changeText": "网页搜索",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Web fetch",
+      "changeText": "网页获取",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Explored",
+      "changeText": "已探索",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Exploring",
+      "changeText": "探索中",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Listed",
+      "changeText": "已列出",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Listing",
+      "changeText": "列出",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Applied patch",
+      "changeText": "已应用补丁",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Applying patch",
+      "changeText": "应用补丁",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Lint errors",
+      "changeText": "Lint 错误",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "No linter errors",
+      "changeText": "无 linter 错误",
+      "searchType": "exact"
+    }
+  ]
+}

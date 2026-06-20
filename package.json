@@ -1,0 +1,39 @@
+{
+  "name": "cursor-loc",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Cursor IDE 专有界面简体中文汉化（语言包 + 补丁引擎）",
+  "license": "MIT",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "i18n/*"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "npm run build -w @cursor-loc/patch-core && npm run build:i18n && npm run build -w @cursor-loc/patch-cli",
+    "build:core": "npm run build -w @cursor-loc/patch-core",
+    "build:cli": "npm run build -w @cursor-loc/patch-cli",
+    "build:i18n": "node tools/build-i18n.mjs",
+    "build:ext": "npm run compile -w cursor-language-pack-zh-hans",
+    "package:ext": "npm run package -w cursor-language-pack-zh-hans",
+    "migrate:i18n": "tsx tools/migrate-locales-ts-to-json.ts",
+    "validate:i18n": "node tools/validate-i18n.mjs",
+    "doctor": "npm run build -w @cursor-loc/patch-cli && node packages/patch-cli/dist/cli.js doctor",
+    "apply": "npm run build -w @cursor-loc/patch-cli && node packages/patch-cli/dist/cli.js apply",
+    "status": "npm run build -w @cursor-loc/patch-cli && node packages/patch-cli/dist/cli.js status",
+    "revert": "npm run build -w @cursor-loc/patch-cli && node packages/patch-cli/dist/cli.js revert",
+    "extract": "tsx tools/extract-candidates.ts",
+    "extract:settings": "tsx tools/extract-settings-section.ts",
+    "validate:dropdown": "tsx tools/validate-dropdown-options.ts",
+    "test": "npm run test -w cursor-language-pack-zh-hans",
+    "test:all": "npm run build && npm run validate:i18n && npm run test"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}

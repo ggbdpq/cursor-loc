@@ -1,0 +1,244 @@
+{
+  "version": "1.0.0",
+  "locale": "zh-cn",
+  "meta": {
+    "module": "settings/plugins"
+  },
+  "replacements": [
+    {
+      "originalText": "Plugins",
+      "changeText": "插件",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Extend Cursor with Skills, Rules, Agents, Hooks, and MCPs",
+      "changeText": "通过技能、规则、智能体、Hooks 和 MCP 扩展 Cursor",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Browse Marketplace",
+      "changeText": "浏览扩展市场",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Import Marketplace...",
+      "changeText": "导入市场…",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Manage plugins",
+      "changeText": "管理插件",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Search for Plugins",
+      "changeText": "搜索插件",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Search or Paste Link",
+      "changeText": "搜索或粘贴链接",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Search plugins",
+      "changeText": "搜索插件",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Search",
+      "changeText": "搜索",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Installed",
+      "changeText": "已安装",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Suggested",
+      "changeText": "推荐",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Imported",
+      "changeText": "已导入",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Pasted Link",
+      "changeText": "已粘贴链接",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Uninstall",
+      "changeText": "卸载",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Try in Chat",
+      "changeText": "在聊天中试用",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Remove from Cursor",
+      "changeText": "从 Cursor 移除",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add for Myself",
+      "changeText": "添加给自己",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add to Project",
+      "changeText": "添加到项目",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add to Team",
+      "changeText": "添加到团队",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add Plugin",
+      "changeText": "添加插件",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add plugins to marketplace",
+      "changeText": "添加插件到市场",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Add to marketplace",
+      "changeText": "添加到市场",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Opening…",
+      "changeText": "正在打开…",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Authenticating…",
+      "changeText": "正在认证…",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Commands",
+      "changeText": "命令",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Skills",
+      "changeText": "技能",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Rules",
+      "changeText": "规则",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Hooks",
+      "changeText": "钩子",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "MCP Servers",
+      "changeText": "MCP 服务器",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Variables",
+      "changeText": "变量",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Learn about Subagents",
+      "changeText": "了解子智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "MCPs",
+      "changeText": "MCP",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Agent that simplifies and refines code for clarity, consistency, and maintainability while preserving functionality",
+      "changeText": "简化并精炼代码以提升清晰度、一致性和可维护性，同时保留全部功能的智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Simplifies and refines code for clarity, consistency, and maintainability while preserving all functionality. Focuses on recently modified code unless instructed otherwise.",
+      "changeText": "简化并精炼代码以提升清晰度、一致性和可维护性，同时保留全部功能。默认聚焦最近修改的代码，除非另有说明。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cursor plugin that saves 98% of your context window. Sandboxed code execution in 11 languages, FTS5 knowledge base with BM25 ranking, intent-driven search, and native Cursor v1.7+ hook routing for context protection.",
+      "changeText": "可节省约 98% 上下文窗口的 Cursor 插件。支持 11 种语言沙箱执行、FTS5 知识库（BM25 排序）、意图驱动搜索，以及 Cursor v1.7+ 原生 Hook 路由以保护上下文。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "No result",
+      "changeText": "无结果",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Try changing your search query",
+      "changeText": "尝试更改搜索词",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "This plugin is managed by ~/.cursor/settings.json",
+      "changeText": "此插件由 ~/.cursor/settings.json 管理",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "This plugin is managed by a VS Code extension",
+      "changeText": "此插件由 VS Code 扩展管理",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Plugin configuration is managed by your team",
+      "changeText": "插件配置由你的团队管理",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Automated code review for pull requests using multiple specialized agents with confidence-based scoring",
+      "changeText": "使用多个专用智能体对 Pull Request 进行自动化代码审查，并基于置信度评分",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Code review a pull request",
+      "changeText": "审查 Pull Request 代码",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Streamline your git workflow with simple commands for committing, pushing, and creating pull requests",
+      "changeText": "通过简单命令简化 Git 工作流：提交、推送和创建 Pull Request",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Upstash Context7 MCP server for up-to-date documentation lookup. Pull version-specific documentation and code examples",
+      "changeText": "Upstash Context7 MCP 服务器，用于查询最新文档。拉取特定版本的文档与代码示例",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Frontend design skill for UI/UX implementation",
+      "changeText": "用于 UI/UX 实现的前端设计技能",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Official GitHub MCP server for repository management. Create issues, manage pull requests, review code, search repositories",
+      "changeText": "官方 GitHub MCP 服务器，用于仓库管理：创建 Issue、管理 PR、审查代码、搜索仓库",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Security review for Claude-generated code. Pattern-based warnings on edits, LLM-powered diff review on Stop, and an agent",
+      "changeText": "对 Claude 生成代码的安全审查：编辑时模式警告、停止时 LLM 差异审查及智能体分析",
+      "searchType": "partial"
+    }
+  ]
+}

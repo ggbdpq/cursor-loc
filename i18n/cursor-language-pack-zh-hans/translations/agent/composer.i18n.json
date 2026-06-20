@@ -1,0 +1,169 @@
+{
+  "version": "1.0.0",
+  "locale": "zh-cn",
+  "meta": {
+    "module": "agent/composer"
+  },
+  "replacements": [
+    {
+      "originalText": "Ask anything",
+      "changeText": "随便问…",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Ask anything...",
+      "changeText": "随便问…",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add context",
+      "changeText": "添加上下文",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add Context",
+      "changeText": "添加上下文",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Send message",
+      "changeText": "发送消息",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Send",
+      "changeText": "发送",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Stop generating",
+      "changeText": "停止生成",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Regenerate",
+      "changeText": "重新生成",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Copy message",
+      "changeText": "复制消息",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Accept all",
+      "changeText": "全部接受",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Reject all",
+      "changeText": "全部拒绝",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Accept",
+      "changeText": "接受",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Reject",
+      "changeText": "拒绝",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Undo",
+      "changeText": "撤销",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Keep",
+      "changeText": "保留",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Undo All",
+      "changeText": "全部撤销",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Keep All",
+      "changeText": "全部保留",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "(\\d+) Files",
+      "changeText": "$1 个文件",
+      "searchType": "regex"
+    },
+    {
+      "originalText": "(\\d+) File$",
+      "changeText": "$1 个文件",
+      "searchType": "regex"
+    },
+    {
+      "originalText": "Discard",
+      "changeText": "丢弃",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Review changes",
+      "changeText": "审查更改",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "View diff",
+      "changeText": "查看差异",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Apply changes",
+      "changeText": "应用更改",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Context cleared",
+      "changeText": "上下文已清除",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "No results",
+      "changeText": "无结果",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Empty chat",
+      "changeText": "空对话",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Start a new chat",
+      "changeText": "开始新对话",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Past chats",
+      "changeText": "历史对话",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Chat history",
+      "changeText": "聊天历史",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "How was this response?",
+      "changeText": "这条回复怎么样？",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Good response",
+      "changeText": "回复不错",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Bad response",
+      "changeText": "回复不佳",
+      "searchType": "exact"
+    }
+  ]
+}

@@ -1,0 +1,367 @@
+{
+  "version": "1.0.0",
+  "locale": "zh-cn",
+  "meta": {
+    "module": "settings/mcp"
+  },
+  "replacements": [
+    {
+      "originalText": "Tools",
+      "changeText": "工具",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Manage View",
+      "changeText": "管理视图",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Authentication",
+      "changeText": "认证",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Wait for MCP Authentication",
+      "changeText": "等待 MCP 认证",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Wait indefinitely to authenticate when prompted. When off, skip authentication prompts after 30 seconds.",
+      "changeText": "提示认证时无限等待。关闭后，30 秒后跳过认证提示。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Authenticate MCP",
+      "changeText": "认证 MCP",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Needs authentication",
+      "changeText": "需要认证",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Authentication required",
+      "changeText": "需要认证",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Logout",
+      "changeText": "退出登录",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Browser",
+      "changeText": "浏览器",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Browser automation disabled",
+      "changeText": "浏览器自动化已禁用",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Browser automation disabled by admin",
+      "changeText": "浏览器自动化已被管理员禁用",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Browser Automation",
+      "changeText": "浏览器自动化",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Show Localhost Links in Browser",
+      "changeText": "在浏览器中显示 Localhost 链接",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Automatically open localhost links in the Browser Tab",
+      "changeText": "在浏览器标签页中自动打开 localhost 链接",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Automatically open http and https links in the Browser Tab",
+      "changeText": "在浏览器标签页中自动打开 http 和 https 链接",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Open Web Links in Browser",
+      "changeText": "在浏览器中打开网页链接",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Browser Tab",
+      "changeText": "浏览器标签页",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Checking status...",
+      "changeText": "正在检查状态…",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Installed MCP Servers",
+      "changeText": "已安装的 MCP 服务器",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Plugin MCP Servers",
+      "changeText": "插件 MCP 服务器",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Home MCP Servers",
+      "changeText": "本地 MCP 服务器",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cloud MCP Servers",
+      "changeText": "云端 MCP 服务器",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "MCP Servers",
+      "changeText": "MCP 服务器",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "New MCP Server",
+      "changeText": "新建 MCP 服务器",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add a Custom MCP Server",
+      "changeText": "添加自定义 MCP 服务器",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add a Custom MCP",
+      "changeText": "添加自定义 MCP",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add Custom MCP",
+      "changeText": "添加自定义 MCP",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add MCP Server",
+      "changeText": "添加 MCP 服务器",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add a custom MCP tool here or configure project-specific tools in <project-root>/.cursor/mcp.json",
+      "changeText": "在此添加自定义 MCP 工具，或在 <project-root>/.cursor/mcp.json 中配置项目专用工具",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add a custom MCP tool in your user MCP config or configure workspace-specific tools in <project-root>/.cursor/mcp.json.",
+      "changeText": "在用户 MCP 配置中添加自定义 MCP 工具，或在 <project-root>/.cursor/mcp.json 中配置工作区专用工具。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add a custom MCP tool in your Home MCP config.",
+      "changeText": "在本地 MCP 配置中添加自定义 MCP 工具。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Delete MCP Server",
+      "changeText": "删除 MCP 服务器",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Open MCP Settings",
+      "changeText": "打开 MCP 设置",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "New MCP Configuration",
+      "changeText": "新建 MCP 配置",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Edit MCP configuration",
+      "changeText": "编辑 MCP 配置",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "No MCP servers configured",
+      "changeText": "未配置 MCP 服务器",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "No MCP servers",
+      "changeText": "无 MCP 服务器",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "No MCP Tools",
+      "changeText": "无 MCP 工具",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "No Home MCP Tools",
+      "changeText": "无本地 MCP 工具",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Model Context Protocol servers extend Agent capabilities with external tools and data sources.",
+      "changeText": "模型上下文协议服务器通过外部工具和数据源扩展智能体能力。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Configuration for MCP (Model Control Protocol) servers",
+      "changeText": "MCP（模型上下文协议）服务器配置",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Loading tools",
+      "changeText": "正在加载工具",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Loading installed MCP servers...",
+      "changeText": "正在加载已安装的 MCP 服务器…",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Error - Show Output",
+      "changeText": "错误 - 显示输出",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "No tools, prompts, or resources",
+      "changeText": "无工具、提示或资源",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Blocked by admin",
+      "changeText": "已被管理员阻止",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Blocked by Hook",
+      "changeText": "已被 Hook 阻止",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Server is not on the team network allowlist",
+      "changeText": "服务器不在团队网络允许列表中",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "(\\d+) tools",
+      "changeText": "$1 个工具",
+      "searchType": "regex",
+      "flags": "g"
+    },
+    {
+      "originalText": "(\\d+) prompts",
+      "changeText": "$1 个提示",
+      "searchType": "regex",
+      "flags": "g"
+    },
+    {
+      "originalText": "(\\d+) resources",
+      "changeText": "$1 个资源",
+      "searchType": "regex",
+      "flags": "g"
+    },
+    {
+      "originalText": " enabled",
+      "changeText": " 已启用",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Enabled Tools",
+      "changeText": "已启用的工具",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Disabled Tools",
+      "changeText": "已禁用的工具",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Refresh MCP",
+      "changeText": "刷新 MCP",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Show less",
+      "changeText": "收起",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Show Output",
+      "changeText": "显示输出",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cloud MCP servers shared by your team.",
+      "changeText": "团队共享的云端 MCP 服务器。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Could Not Load Cloud MCP Servers",
+      "changeText": "无法加载云端 MCP 服务器",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Could Not Load Workspace MCP Servers",
+      "changeText": "无法加载工作区 MCP 服务器",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Sign In to View Cloud MCP Servers",
+      "changeText": "登录以查看云端 MCP 服务器",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Search MCP servers...",
+      "changeText": "搜索 MCP 服务器…",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "View Hooks",
+      "changeText": "查看 Hooks",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Team MCP Servers",
+      "changeText": "团队 MCP 服务器",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "User MCP Servers",
+      "changeText": "用户 MCP 服务器",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Workspace MCP Servers",
+      "changeText": "工作区 MCP 服务器",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "No Team MCP Servers",
+      "changeText": "无团队 MCP 服务器",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "No User MCP Servers",
+      "changeText": "无用户 MCP 服务器",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "MCP Tools Protection",
+      "changeText": "MCP 工具保护",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "MCP Allowlist",
+      "changeText": "MCP 允许列表",
+      "searchType": "exact"
+    }
+  ]
+}

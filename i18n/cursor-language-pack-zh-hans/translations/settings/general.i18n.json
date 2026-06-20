@@ -1,0 +1,254 @@
+{
+  "version": "1.0.0",
+  "locale": "zh-cn",
+  "meta": {
+    "module": "settings/general"
+  },
+  "replacements": [
+    {
+      "originalText": "Meet the new Agents Window",
+      "changeText": "认识全新的智能体窗口",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Run many agents in parallel — across repos, locally, on remote SSH, and in the cloud.",
+      "changeText": "并行运行多个智能体——跨仓库、本地、远程 SSH 与云端。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cursor Account",
+      "changeText": "Cursor 账户",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Manage your account",
+      "changeText": "管理你的账户",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Manage your account and billing",
+      "changeText": "管理账户与账单",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "PR Preferences",
+      "changeText": "PR 偏好设置",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Preferred PR destination",
+      "changeText": "首选 PR 打开方式",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Choose where PR links open across web, the desktop app and IDE.",
+      "changeText": "选择 PR 链接在网页、桌面应用和 IDE 中的打开方式。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Preferences",
+      "changeText": "偏好设置",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Editor Settings",
+      "changeText": "编辑器设置",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Configure font, formatting, minimap and more",
+      "changeText": "配置字体、格式化、小地图等",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Keyboard Shortcuts",
+      "changeText": "键盘快捷键",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Configure keyboard shortcuts",
+      "changeText": "配置键盘快捷键",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Import Settings from VS Code",
+      "changeText": "从 VS Code 导入设置",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Import settings, extensions, and keybindings from VS Code",
+      "changeText": "从 VS Code 导入设置、扩展和按键绑定",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Are you sure? This replaces your settings and extensions with your vscode ones. This cannot be undone.",
+      "changeText": "确定吗？这将用你的 VS Code 设置和扩展替换当前内容，且无法撤销。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Reset \"Don't Ask Again\" Dialogs",
+      "changeText": "重置「不再询问」对话框",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Reset \"Don’t Ask Again\" Dialogs",
+      "changeText": "重置「不再询问」对话框",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "See warnings and tips that you’ve hidden",
+      "changeText": "查看你已隐藏的警告和提示",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Layout",
+      "changeText": "布局",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Window Layout",
+      "changeText": "窗口布局",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Switch between Agent and Editor default layouts",
+      "changeText": "在智能体与编辑器默认布局之间切换",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Conversation Density",
+      "changeText": "对话密度",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Choose how much detail Agent tool calls show in the conversation",
+      "changeText": "选择智能体工具调用在对话中显示的详细程度",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Status Bar",
+      "changeText": "状态栏",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Show status bar at the bottom of the window",
+      "changeText": "在窗口底部显示状态栏",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Review Control Location",
+      "changeText": "审查控件位置",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Show inline diff review controls in top-level breadcrumbs reflecting island",
+      "changeText": "在顶级面包屑中显示内联差异审查控件",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Privacy",
+      "changeText": "隐私",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Enabled (Code Remains Private)",
+      "changeText": "已启用（代码保持私有）",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Disabled (Data Shared with Cursor)",
+      "changeText": "已禁用（数据与 Cursor 共享）",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Prevent the use of codebase, prompts, and telemetry to improve Cursor.",
+      "changeText": "禁止将代码库、提示和遥测数据用于改进 Cursor。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "This is a",
+      "changeText": "这是一个",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "machine-level",
+      "changeText": "机器级",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "setting, not account-level.",
+      "changeText": "设置，而非账户级。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Sign in to get started with Cursor's AI features",
+      "changeText": "登录以开始使用 Cursor 的 AI 功能",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Show inline diff review controls in top level breadcrumbs or floating island",
+      "changeText": "在顶级面包屑或浮动面板中显示内联差异审查控件",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Floating Island",
+      "changeText": "浮动面板",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Improve Cursor for everyone",
+      "changeText": "改进 Cursor，惠及所有用户",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "No training. Code may be stored for Background Agent and other features.",
+      "changeText": "不用于训练。代码可能为 Background Agent 等功能而存储。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Your code data will not be trained on or used to improve the product. Code may be stored to provide features such as Background Agent.",
+      "changeText": "你的代码数据不会用于训练或改进产品。代码可能为 Background Agent 等功能而存储。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Auto-hide editor when empty",
+      "changeText": "无编辑器时自动隐藏",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "When all editors are closed, hide the editor area and maximize chat",
+      "changeText": "关闭所有编辑器时，隐藏编辑区并最大化聊天区域",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Open chat as editor tabs",
+      "changeText": "以编辑器标签页打开聊天",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Show chats as editor tabs inside the chat area instead of the legacy stacked view",
+      "changeText": "在聊天区域内以编辑器标签页显示对话，而非旧版堆叠视图",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "System Notifications",
+      "changeText": "系统通知",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Show system notifications when Agent completes or needs attention",
+      "changeText": "智能体完成或需要关注时显示系统通知",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "System Tray Icon",
+      "changeText": "系统托盘图标",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Show Cursor in system tray",
+      "changeText": "在系统托盘中显示 Cursor",
+      "searchType": "exact"
+    }
+  ]
+}

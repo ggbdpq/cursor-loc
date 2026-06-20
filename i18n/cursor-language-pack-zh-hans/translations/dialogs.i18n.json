@@ -1,0 +1,64 @@
+{
+  "version": "1.0.0",
+  "locale": "zh-cn",
+  "meta": {
+    "module": "dialogs"
+  },
+  "replacements": [
+    {
+      "originalText": "Quit Cursor?",
+      "changeText": "退出 Cursor？",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Are you sure you want to quit?",
+      "changeText": "确定要退出吗？",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Close this window?",
+      "changeText": "关闭此窗口？",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Are you sure you want to close this window?",
+      "changeText": "确定要关闭此窗口吗？",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Quit",
+      "changeText": "退出",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cancel (esc)",
+      "changeText": "取消",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cancel (Esc)",
+      "changeText": "取消",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Don't ask again",
+      "changeText": "不再询问",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Don't Ask Again",
+      "changeText": "不再询问",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Don\u2019t ask again",
+      "changeText": "不再询问",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Don\u2019t Ask Again",
+      "changeText": "不再询问",
+      "searchType": "exact"
+    }
+  ]
+}

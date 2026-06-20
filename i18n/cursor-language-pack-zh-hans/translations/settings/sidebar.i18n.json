@@ -1,0 +1,104 @@
+{
+  "version": "1.0.0",
+  "locale": "zh-cn",
+  "meta": {
+    "module": "settings/sidebar"
+  },
+  "replacements": [
+    {
+      "originalText": "General",
+      "changeText": "常规",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "VS Code Settings",
+      "changeText": "VS Code 设置",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Plan & Usage",
+      "changeText": "套餐与用量",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Agents",
+      "changeText": "智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Tab",
+      "changeText": "标签",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Models",
+      "changeText": "模型",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cloud Agents",
+      "changeText": "云端智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Plugins",
+      "changeText": "插件",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Rules, Skills, Subagents",
+      "changeText": "规则、技能与子智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Tools & MCPs",
+      "changeText": "工具与 MCP",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Hooks",
+      "changeText": "钩子",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Indexing & Docs",
+      "changeText": "索引与文档",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Network",
+      "changeText": "网络",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Beta",
+      "changeText": "测试版",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Docs",
+      "changeText": "文档",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Chat",
+      "changeText": "聊天",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Rules",
+      "changeText": "规则",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "MCP Tools",
+      "changeText": "MCP 工具",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "MCP",
+      "changeText": "MCP",
+      "searchType": "exact"
+    }
+  ]
+}

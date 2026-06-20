@@ -1,0 +1,144 @@
+{
+  "version": "1.0.0",
+  "locale": "zh-cn",
+  "meta": {
+    "module": "settings/skills-catalog"
+  },
+  "replacements": [
+    {
+      "originalText": "Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task. Triggers include requests to \"open a website\", \"fill out a form\", \"click a button\", \"take a screenshot\", \"scrape data from a page\", \"test this web app\", \"login to a site\", \"automate browser actions\", or any task requiring programmatic web interaction. Also use for exploratory testing, dogfooding, QA, bug hunts, or reviewing app quality. Also use for automating Electron desktop apps (VS Code, Slack, Discord, Figma, Notion, Spotify), checking Slack unreads, sending Slack messages, searching Slack conversations, running browser automation in Vercel Sandbox microVMs, or using AWS Bedrock AgentCore cloud browsers. Prefer agent-browser over any built-in browser automation or web tools.",
+      "changeText": "面向 AI 智能体的浏览器自动化 CLI。适用于访问网站、填表、点击、截图、抓取数据、测试 Web 应用或自动化浏览器任务；也适用于 Electron 应用、Slack、Vercel Sandbox、AWS Bedrock 浏览器等。优先于内置浏览器工具。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.",
+      "changeText": "在任何创意工作（新功能、组件、行为修改）之前必须使用。先探索用户意图、需求与设计，再开始实现。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Helps users discover and install agent skills when they ask questions like \"how do I do X\", \"find a skill for X\", \"is there a skill that can...\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.",
+      "changeText": "帮助用户发现并安装技能。适用于「怎么做 X」「有没有技能可以…」等提问，或用户想扩展能力时。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "API 字段契约排查与映射修复。Use this skill when API fields, DTOs, route schemas, list/detail mapping, dictionary keys, permission codes, task status, storage adapters, pagination, UTC time, customer/order/service fields, reservation board interfaces, audio editing tasks, Fastify schemas, object-storage/local URL, or 前后端联调字段口径 are unclear or buggy.",
+      "changeText": "API 字段契约排查与映射修复。适用于 API 字段、DTO、路由 schema、列表/详情映射、字典键、权限码、任务状态、分页、UTC 时间、前后端联调字段口径等问题。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "CSS/SCSS/CSS Modules 样式治理与 UI 还原。Use this skill when writing, refactoring, reviewing, or standardizing CSS/SCSS, Stylelint property order, Taro H5 UI restoration, reservation board tablet layout, selector 对照, z-index 台账, gap/inset 老安卓兼容, form modal layout, timeline card density, CSS Modules, token/mixin, or 样式回归测试.",
+      "changeText": "CSS/SCSS/CSS Modules 样式治理与 UI 还原。适用于编写/重构/审查样式、Stylelint 顺序、Taro H5 还原、平板布局、z-index 台账、CSS Modules 与样式回归等。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Expert frontend development standards consultant based on proven React + TypeScript + Taro conventions. Use this skill whenever initializing new frontend projects, setting up project structure, generating code templates, checking code against standards, or querying frontend development conventions (naming, comments, architecture). This skill provides comprehensive guidance on project organization (three-layer separation: index.tsx → index.hook.ts → hooks/), naming conventions (camelCase for variables/functions, PascalCase for components, SCREAMING_SNAKE_CASE for constants, kebab-case for files), documentation standards (JSDoc for functions, inline comments for complex logic), and architectural patterns (dictionary-driven development, pure function design, separation of concerns). Use for project scaffolding, code review, template generation, or when asked \"how should I organize this feature?\", \"is this naming correct?\", or \"what's the standard pattern for components?\".",
+      "changeText": "基于 React + TypeScript + Taro 实践的前端规范顾问。适用于初始化项目、目录结构、代码模板、规范检查、命名/注释/架构约定与脚手架。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "最小改动修复与轻量回归。Use this skill when fixing a clear bug, unblock-first issue, startup failure, reservation board regression, audio editing ffmpeg/task bug, field mapping bug, Android compatibility issue, local environment blocker, minimal patch, scope creep risk, test-first bugfix, node --test, Fastify app.inject, or 用户要求只改必要部分、不要顺手重构、先跑起来.",
+      "changeText": "最小改动修复与轻量回归。适用于明确 bug、启动失败、字段映射错误、Android 兼容、环境阻塞等，且用户要求只改必要部分、不要顺手重构。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "PRD、原型截图、模块蓝图、dev/docs 知识库和交接文档入口。Use this skill when turning PRD/prototype/UI screenshots/interface notes into Taro/Umi/Node implementation blueprint, reading local dev/docs projects, building module docs, onboarding guides, architecture maps, test plans, or development knowledge bases.",
+      "changeText": "PRD、原型截图、模块蓝图、dev/docs 知识库和交接文档入口。适用于从 PRD/原型/界面说明生成实现蓝图、模块文档、上手指南与架构图。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Use this after editing code in JavaScript, TypeScript, React, Taro, SCSS, CSS Modules, JSON, or frontend files when the user expects clean formatting, sorted imports, Stylelint compliance, ESLint autofix, Prettier formatting, lint-staged style behavior, or a post-edit quality gate. This skill is mandatory when code changes could trigger prettier/prettier, simple-import-sort/imports, stylelint color-function-notation, SCSS style order, or import ordering diagnostics.",
+      "changeText": "编辑 JS/TS/React/Taro/SCSS 等代码后的质量门禁。适用于格式化、import 排序、Stylelint/ESLint/Prettier 修复与 lint-staged 类检查。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Taro 3.6 + React 17 多端开发工作流。Use this skill when working on Taro H5, weapp, mini program subpackages, APP_TYPE, API_ENV, writeId/reWriteId, dev:h5, dev:weapp, build:h5, build:weapp, app.config.ts, app.h5.tsx, authWrapper/loginWrapper, App SDK, ScrollView, route params, chooseMessageFile, InnerAudioContext.duration, Android tablet, old WebView, or 真机多端差异.",
+      "changeText": "Taro 3.6 + React 17 多端开发工作流。适用于 H5/小程序分包、环境变量、构建命令、路由参数、ScrollView、真机差异等。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "技术文档终稿化、去 AI 味和工程留痕。Use this skill when translating technical Markdown, polishing Chinese docs, writing README, docs index, development log, bug retrospective, handoff guide, project summary, commit/change explanation, rollback note, deployment/testing/audit docs, module docs, or 用户要求逻辑严谨、条理清晰、结构分明、详细得当、循序渐进、少套话.",
+      "changeText": "技术文档终稿化、去 AI 味和工程留痕。适用于 Markdown 翻译润色、README/开发日志/交接文档/变更说明等。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "React 17 + Zustand 4 模块状态管理。Use this skill when designing, reviewing, or fixing Zustand stores in Taro H5, mini program, Umi/Max, React 17 projects, global stores, reservation board state, AI chat state, audio editing task state, selectors, async actions, page lifecycle cleanup, cross-page cache, stale state, unnecessary re-render, service/hook/store boundaries, or store splitting.",
+      "changeText": "React 17 + Zustand 4 模块状态管理。适用于设计/审查/修复 store、selector、异步 action、跨页缓存与不必要的重渲染。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "You need to execute the following bash commands to clean up stale local branches that have been deleted from the remote repository.",
+      "changeText": "执行以下 bash 命令，清理远程已删除但本地仍存在的过期分支。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "- Current git status: !`git status`",
+      "changeText": "- 当前 git 状态：!`git status`",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Provide a code review for the given pull request.",
+      "changeText": "对指定 Pull Request 进行代码审查。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Commit, push, and open a PR",
+      "changeText": "提交、推送并创建 PR",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Create a git commit",
+      "changeText": "创建 git 提交",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Code review a pull request",
+      "changeText": "审查 Pull Request 代码",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cleans up all git branches marked as [gone] (branches that have been deleted on the remote but still exist locally), including removing associated worktrees.",
+      "changeText": "清理标记为 [gone] 的 git 分支（远程已删、本地仍在），并移除关联 worktree。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Use context-mode tools (ctx_execute, ctx_execute_file) instead of Bash/cat when processing large outputs. Triggers: 'analyze logs', 'summarize file', 'process output', or when Bash would dump huge text into context.",
+      "changeText": "处理大输出时优先使用 context-mode 工具（ctx_execute、ctx_execute_file），而非 Bash/cat。适用于分析日志、汇总文件、处理输出等场景。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Run context-mode diagnostics. Checks runtimes, hooks, FTS5, plugin registration, npm and marketplace versions. Trigger: /context-mode doctor or when context-mode tools fail unexpectedly.",
+      "changeText": "运行 context-mode 诊断：检查运行时、Hooks、FTS5、插件注册及 npm/市场版本。适用于 /context-mode doctor 或工具异常时。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Index a local file or directory into context-mode's persistent FTS5 knowledge base so future ctx_search calls can retrieve focused snippets without re-reading full files.",
+      "changeText": "将本地文件或目录索引到 context-mode 持久化 FTS5 知识库，供后续 ctx_search 检索片段而无需重读完整文件。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Open the context-mode Insight analytics dashboard in the browser. Shows personal metrics: session activity, tool usage, error rate, parallel execution stats, and optimization hints.",
+      "changeText": "在浏览器打开 context-mode Insight 分析面板，展示会话活动、工具使用、错误率、并行执行统计与优化建议。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Purge the context-mode knowledge base. Permanently deletes all indexed content and resets session stats. This is destructive and cannot be undone.",
+      "changeText": "清空 context-mode 知识库：永久删除全部索引内容并重置会话统计。此操作不可撤销。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Use this skill whenever the user asks to create AI audio, MP3, TTS, podcast-style audio, long-form narration, male/female dialogue audio, male/female dialogue, generate audio, export mp3, one-hour audio, dialogue with background music, or when a simple topic description should become a finished spoken audio file.",
+      "changeText": "适用于生成 AI 音频、MP3、TTS、播客式旁白、男女对话音频、长音频导出 MP3、带背景音乐对话等需求。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Ultra-compressed commit message generator. Cuts noise from commit messages while preserving intent and reasoning. Conventional Commits format. Subject <=50 chars, body only when 'why' isn't obvious. Use when user says 'write a commit', 'commit message', or before git commit.",
+      "changeText": "超压缩 commit message 生成器：保留意图与理由、去除冗余，遵循 Conventional Commits。主题 ≤50 字，正文仅在「为何」不明显时添加。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Compress natural language memory files (CLAUDE.md, todos, preferences) into caveman format to save input tokens. Preserves all technical substance, code, URLs, and structure. Compressed version overwrites the original file. Human-readable caveman shorthand for AI context efficiency.",
+      "changeText": "将 CLAUDE.md、todos、偏好等自然语言记忆文件压缩为 caveman 格式以节省 token，保留技术要点、代码、URL 与结构。",
+      "searchType": "exact"
+    }
+  ]
+}

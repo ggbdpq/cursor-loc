@@ -1,0 +1,801 @@
+{
+  "version": "1.0.0",
+  "locale": "zh-cn",
+  "meta": {
+    "module": "settings/agents"
+  },
+  "replacements": [
+    {
+      "originalText": "Default Mode",
+      "changeText": "默认模式",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Mode for new chats",
+      "changeText": "新聊天的默认模式",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Text Size",
+      "changeText": "文字大小",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Adjust the conversation text size",
+      "changeText": "调整对话文字大小",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Submit with Ctrl + Enter",
+      "changeText": "Ctrl + Enter 提交",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Submit with ⌘ + Enter",
+      "changeText": "⌘ + Enter 提交",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "When enabled, Ctrl + Enter submits chat and Enter inserts a newline",
+      "changeText": "启用后，Ctrl + Enter 提交聊天，Enter 换行",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "When enabled, ⌘ + Enter submits chat and Enter inserts a newline",
+      "changeText": "启用后，⌘ + Enter 提交聊天，Enter 换行",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Max Tab Count",
+      "changeText": "最大标签页数",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Limit how many chat tabs can be open at once",
+      "changeText": "限制同时打开的聊天标签页数量",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Queue Messages",
+      "changeText": "消息排队",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Adjust the default behavior of sending a message while Agent is running",
+      "changeText": "调整智能体运行时发送消息的默认行为",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Usage Summary",
+      "changeText": "用量摘要",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "When to show the usage summary at the bottom of the chat pane",
+      "changeText": "何时在聊天面板底部显示用量摘要",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Agent Autocomplete",
+      "changeText": "智能体自动补全",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Contextual suggestions while prompting Agent",
+      "changeText": "向智能体输入时提供上下文建议",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Auto-Clear Chat",
+      "changeText": "自动清除聊天",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "After periods of inactivity, open the Chat Pane to a new chat",
+      "changeText": "长时间无操作后，打开聊天面板为新对话",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Scroll to New Messages",
+      "changeText": "滚动到新消息",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Scroll Chat to incoming message",
+      "changeText": "聊天自动滚动到收到的消息",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Completion Sound",
+      "changeText": "完成提示音",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Play a sound when Agent finishes responding",
+      "changeText": "智能体完成回复时播放提示音",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Custom Modes",
+      "changeText": "自定义模式",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Create custom modes with specific models, tools, keybindings, and instructions tailored to your workflow",
+      "changeText": "根据工作流创建包含特定模型、工具、快捷键和指令的自定义模式",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Auto-Run",
+      "changeText": "自动运行",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Auto-Run Mode",
+      "changeText": "自动运行模式",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Run Mode",
+      "changeText": "运行模式",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Allow Agent to run tools like command execution and file writes without asking for confirmation",
+      "changeText": "允许智能体无需确认即可运行命令执行和文件写入等工具",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Choose how Agents run tools like command execution, MCP, and file writes.",
+      "changeText": "选择智能体运行命令执行、MCP 和文件写入等工具的方式。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Auto-Approve Mode Transitions",
+      "changeText": "自动批准模式切换",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Allow Agent to switch modes without asking for confirmation",
+      "changeText": "允许智能体无需确认即可切换模式",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Allow Agent to switch modes without asking first, such as Agent to Plan or Agent to Debug. When off, Cursor asks before switching.",
+      "changeText": "允许智能体无需确认切换模式（如智能体→计划、智能体→调试）。关闭时，切换前会询问。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Subagents",
+      "changeText": "子智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Create specialized agents for complex tasks. Subagents can be invoked by the agent to handle focused work in parallel.",
+      "changeText": "为复杂任务创建专用智能体。子智能体可被主智能体调用，并行处理专项工作。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Learn about Subagents",
+      "changeText": "了解子智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Explore subagent model",
+      "changeText": "Explore 子智能体模型",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "The Explore subagent is used to do initial research for the main agent",
+      "changeText": "Explore 子智能体用于为主智能体做初步调研",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Agent Review",
+      "changeText": "智能体审查",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Start Agent Review on Commit",
+      "changeText": "提交时启动智能体审查",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Automatically review your changes for issues after each commit",
+      "changeText": "每次提交后自动审查更改中的问题",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Include Submodules in Agent Review",
+      "changeText": "审查包含子模块",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Include changes from Git submodules in the review",
+      "changeText": "在审查中包含 Git 子模块的更改",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Include Untracked Files in Agent Review",
+      "changeText": "审查包含未跟踪文件",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Include untracked files (new files not yet added to Git) in the review",
+      "changeText": "包含未跟踪文件（尚未加入 Git 的新文件）",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Choose between quick or more thorough, higher-cost analysis",
+      "changeText": "在快速与更深入、成本更高的分析之间选择",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Context",
+      "changeText": "上下文",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Include Full-Folder Context",
+      "changeText": "包含整个文件夹上下文",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Allow full contents of the selected folder to be included in the context",
+      "changeText": "允许将所选文件夹的全部内容包含在上下文中",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Include Project Structure",
+      "changeText": "包含项目结构",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Include a simplified directory tree as context",
+      "changeText": "将简化的目录树作为上下文包含",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Web Search Tool",
+      "changeText": "网页搜索工具",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Enable Web Search",
+      "changeText": "启用网页搜索",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Allow Agent to search the web for relevant information",
+      "changeText": "允许智能体在网页上搜索相关信息",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Allow Agent to search the web for current information",
+      "changeText": "允许智能体搜索网页获取最新信息",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Auto-Accept Web Search",
+      "changeText": "自动接受网页搜索",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Skip approval dialog and immediately search the web",
+      "changeText": "跳过确认对话框并立即搜索网页",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Skip approval dialog; Agent may run web searches automatically",
+      "changeText": "跳过确认对话框；智能体可自动执行网页搜索",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Allow Agent to fetch content from URLs",
+      "changeText": "允许智能体从 URL 获取内容",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Web Fetch Tool",
+      "changeText": "网页抓取工具",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Allow Agent to fetch and read web page content from URLs",
+      "changeText": "允许智能体从 URL 抓取并读取网页内容",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Auto-Approved: Web Search",
+      "changeText": "自动批准：网页搜索",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Automatically approve web searches the agent initiates",
+      "changeText": "自动批准智能体发起的网页搜索",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Browser Automation",
+      "changeText": "浏览器自动化",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Allow Agent to interact with browser for frontend testing and web automation",
+      "changeText": "允许智能体通过浏览器进行前端测试和网页自动化",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Command Allowlist",
+      "changeText": "命令允许列表",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Allowlist options",
+      "changeText": "允许列表选项",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "You can configure Shell, MCP and Fetch allowlists for Auto mode. However, Auto works well without these.",
+      "changeText": "可为自动模式配置 Shell、MCP 和 Fetch 允许列表。不过，自动模式在不配置这些的情况下也能良好运行。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Command Denylist",
+      "changeText": "命令拒绝列表",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "MCP Allowlist",
+      "changeText": "MCP 允许列表",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Fetch Domain Allowlist",
+      "changeText": "抓取域名允许列表",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Domains that Agent can fetch from automatically. Use '*' for all domains, '*.example.com' for wildcard subdomains.",
+      "changeText": "智能体可自动抓取的域名。使用 '*' 表示全部域名，'*.example.com' 表示通配符子域。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add domains...",
+      "changeText": "添加域名…",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "MCP Tool Protection",
+      "changeText": "MCP 工具保护",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Prevent Agent from automatically running MCP tools",
+      "changeText": "阻止智能体自动运行 MCP 工具",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Browser Protection",
+      "changeText": "浏览器保护",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Prevent Agent from automatically running browser tools",
+      "changeText": "阻止智能体自动运行浏览器工具",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Prevent Agent from automatically running Browser tools",
+      "changeText": "阻止智能体自动运行 Browser 工具",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "File-Deletion Protection",
+      "changeText": "文件删除保护",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Prevent Agent from deleting files automatically",
+      "changeText": "阻止智能体自动删除文件",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Dotfile Protection",
+      "changeText": "点文件保护",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Prevent Agent from modifying dot files like .gitignore automatically",
+      "changeText": "阻止智能体自动修改 .gitignore 等点文件",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "External-File Protection",
+      "changeText": "外部文件保护",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "External File Protection",
+      "changeText": "外部文件保护",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Prevent Agent from modifying files outside of the workspace",
+      "changeText": "阻止智能体修改工作区外的文件",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Prevent Agent from creating or modifying files outside of the workspace automatically.",
+      "changeText": "阻止智能体自动在工作区外创建或修改文件。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Prevent Agent from creating or modifying files outside of the workspace automatically",
+      "changeText": "阻止智能体自动在工作区外创建或修改文件",
+      "searchType": "partial"
+    },
+    {
+      "originalText": " (controlled by admin)",
+      "changeText": "（由管理员控制）",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Hierarchical Cursor Ignore",
+      "changeText": "分层 Cursor 忽略",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Apply .cursorignore files to all subdirectories. Changing this setting will require a restart of Cursor.",
+      "changeText": "将 .cursorignore 文件应用于所有子目录。更改此设置需要重启 Cursor。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Ignore Symlinks in Cursor Ignore Search",
+      "changeText": "Cursor 忽略搜索中忽略符号链接",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "⚠️ Use with caution. Skip symlinks during .cursorignore file discovery. Only enable if your repository has many symlinks and all .cursorignore files are reachable without them. Changing this setting will require a restart of Cursor.",
+      "changeText": "⚠️ 请谨慎使用。在 .cursorignore 文件发现过程中跳过符号链接。仅当仓库有大量符号链接且无需符号链接即可访问所有 .cursorignore 文件时启用。更改此设置需要重启 Cursor。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Approvals & Execution for commands, MCP and more",
+      "changeText": "命令、MCP 等的审批与执行",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Agent will ask for approval before running tools.",
+      "changeText": "智能体运行工具前会请求批准。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Commands that are allowlisted will run automatically.",
+      "changeText": "允许列表中的命令将自动运行。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Many commands will run automatically inside the sandbox, and you can also allowlist other actions.",
+      "changeText": "许多命令将在沙箱内自动运行，你也可以将其他操作加入允许列表。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "A classifier will run for each action and decide whether it's safe to execute this command. Allowlists are still respected.",
+      "changeText": "分类器将评估每个操作是否可安全执行。允许列表仍然生效。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Many commands will run automatically inside the sandbox, and a classifier will run for the actions that cannot run in the sandbox. Allowlists are still respected.",
+      "changeText": "许多命令将在沙箱内自动运行；无法沙箱化的操作由分类器评估。允许列表仍然生效。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "All commands will run without approval, classification or sandboxing.",
+      "changeText": "所有命令将不经批准、分类或沙箱直接运行。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Commands that can run automatically",
+      "changeText": "可自动运行的命令",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Add commands...",
+      "changeText": "添加命令…",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add Suggestions",
+      "changeText": "添加建议",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "MCP tools that can run automatically. Format: 'server:tool', 'server:*' for all tools from a server, '*:tool' for a tool from any server, or *:* for all tools from all servers",
+      "changeText": "可自动运行的 MCP 工具。格式：'server:tool'、'server:*'（某服务器全部工具）、'*:tool'（任意服务器的某工具）或 *:*（全部工具）。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add MCP tools...",
+      "changeText": "添加 MCP 工具…",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Backspace Removes Context",
+      "changeText": "退格键移除上下文",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Remove the last context pill in the composer when pressing backspace at the start of the input",
+      "changeText": "在输入开头按退格键时，移除 Composer 中的最后一个上下文标签",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Applying Changes",
+      "changeText": "应用更改",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Out-of-Context Edits in Manual Mode",
+      "changeText": "手动模式下的上下文外编辑",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Allow Agent to edit files outside of the selected context in Manual Mode",
+      "changeText": "在手动模式下允许智能体编辑所选上下文之外的文件",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Auto-Fix Lints",
+      "changeText": "自动修复 Lint",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Automatically fix lint errors in the chat",
+      "changeText": "在聊天中自动修复 lint 错误",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Auto-Accept on Commit",
+      "changeText": "提交时自动接受",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Automatically accept all changes when files are committed and no longer in the worktree",
+      "changeText": "当文件已提交且不再在工作区时，自动接受所有更改",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Inline Diffs",
+      "changeText": "内联差异",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Show inline diff decorations in the editor instead of only showing changes in the review panel",
+      "changeText": "在编辑器中显示内联差异装饰，而非仅在审查面板中显示更改",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Jump to Next Diff on Accept",
+      "changeText": "接受后跳转到下一处差异",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Automatically jump to the next diff when accepting changes with Ctrl+Y",
+      "changeText": "使用 Ctrl+Y 接受更改时自动跳转到下一处差异",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Automatically jump to the next diff when accepting changes with ⌘+Y",
+      "changeText": "使用 ⌘+Y 接受更改时自动跳转到下一处差异",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Auto Format on Agent Finish",
+      "changeText": "智能体完成后自动格式化",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Automatically format files when the agent finishes",
+      "changeText": "智能体完成时自动格式化文件",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Inline Editing & Terminal",
+      "changeText": "内联编辑与终端",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Legacy Terminal Tool",
+      "changeText": "旧版终端工具",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Use the legacy terminal tool in agent mode, for use on systems with unsupported shell configurations",
+      "changeText": "在智能体模式下使用旧版终端工具，适用于 shell 配置不受支持的系统",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Toolbar on Selection",
+      "changeText": "选中时显示工具栏",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Show Add to Chat & Quick Edit buttons when selecting code",
+      "changeText": "选中代码时显示「添加到聊天」和「快速编辑」按钮",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Auto-Parse Links",
+      "changeText": "自动解析链接",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Automatically parse links when pasted into Quick Edit (Ctrl+K) input",
+      "changeText": "粘贴到快速编辑 (Ctrl+K) 输入框时自动解析链接",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Automatically parse links when pasted into Quick Edit (⌘+K) input",
+      "changeText": "粘贴到快速编辑 (⌘+K) 输入框时自动解析链接",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Themed Diff Backgrounds",
+      "changeText": "主题化差异背景",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Terminal Hint",
+      "changeText": "终端提示",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Show a hint for Ctrl+K in the Terminal",
+      "changeText": "在终端显示 Ctrl+K 提示",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Show a hint for ⌘+K in the Terminal",
+      "changeText": "在终端显示 ⌘+K 提示",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Use a preview box instead of streaming responses directly into the shell",
+      "changeText": "使用预览框，而非将响应直接流式输出到 shell",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Preview Box for Terminal Ctrl+K",
+      "changeText": "终端 Ctrl+K 预览框",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Preview Box for Terminal ⌘+K",
+      "changeText": "终端 ⌘+K 预览框",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Voice Mode",
+      "changeText": "语音模式",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Submit Keywords",
+      "changeText": "提交关键词",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Custom keywords that trigger auto-submit in voice mode. Only single words (no spaces) are allowed. Punctuation and capitalization are ignored.",
+      "changeText": "语音模式下触发自动提交的自定义关键词。仅允许单个词（不含空格），忽略标点与大小写。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Include partially accepted diffs",
+      "changeText": "包含部分接受的差异",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Use themed background colors for inline code diffs",
+      "changeText": "为内联代码差异使用主题背景色",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Use preview box instead of inline responses in chat",
+      "changeText": "在聊天中使用预览框而非内联响应",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Attribution",
+      "changeText": "归属",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Commit Attribution",
+      "changeText": "提交归属",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Mark commits as created by AI or co-authored by AI",
+      "changeText": "将提交标记为由 AI 创建或 AI 合著",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Mark Agent commits as 'Made with Cursor'",
+      "changeText": "将智能体提交标记为「Made with Cursor」",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Mark pull requests as made with Cursor",
+      "changeText": "将 Pull Request 标记为由 Cursor 创建",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Mark pull requests as 'made with Cursor'",
+      "changeText": "将 Pull Request 标记为「由 Cursor 创建」",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "PR Attribution",
+      "changeText": "PR 归属",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Branch Prefix",
+      "changeText": "分支前缀",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Prefix for new branches created by Agent (e.g., cursor/, username/)",
+      "changeText": "智能体创建新分支的前缀（如 cursor/、username/）",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Prefix for new branches created by Agent (e.g., cursor/username)",
+      "changeText": "智能体创建新分支的前缀（如 cursor/username）",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Git",
+      "changeText": "Git",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Include commit attribution in git commits",
+      "changeText": "在 git 提交中包含提交归属信息",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Background Agents",
+      "changeText": "后台智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Allow agents to run in the background",
+      "changeText": "允许智能体在后台运行",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Notifications",
+      "changeText": "通知",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Play sound on agent completion",
+      "changeText": "智能体完成时播放提示音",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Auto-Select Code Regions for Quick Edit \\((Ctrl|Cmd)\\+K\\)",
+      "changeText": "快速编辑 ($1+K) 自动选择代码区域",
+      "searchType": "regex",
+      "flags": "g"
+    },
+    {
+      "originalText": "Show a hint for (Ctrl|Cmd)\\+K in the Terminal",
+      "changeText": "在终端显示 $1+K 提示",
+      "searchType": "regex",
+      "flags": "g"
+    }
+  ]
+}

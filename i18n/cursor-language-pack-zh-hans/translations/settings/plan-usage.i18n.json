@@ -1,0 +1,174 @@
+{
+  "version": "1.0.0",
+  "locale": "zh-cn",
+  "meta": {
+    "module": "settings/plan-usage"
+  },
+  "replacements": [
+    {
+      "originalText": "Plan & Usage",
+      "changeText": "套餐与用量",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Current Plan",
+      "changeText": "当前套餐",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Upgrade Available",
+      "changeText": "可升级",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Manage",
+      "changeText": "管理",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Included in Pro",
+      "changeText": "Pro 套餐包含",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Included in (.+) Plan",
+      "changeText": "包含于 $1 套餐",
+      "searchType": "regex"
+    },
+    {
+      "originalText": "Total",
+      "changeText": "总计",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Auto + Composer",
+      "changeText": "Auto 与 Composer",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Auto and",
+      "changeText": "Auto 与",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "API used",
+      "changeText": "API 已用",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Auto used",
+      "changeText": "Auto 已用",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "^ used$",
+      "changeText": " 已用",
+      "searchType": "regex"
+    },
+    {
+      "originalText": "Additional usage beyond limits consumes API quota or on-demand spend.",
+      "changeText": "超出限额后的额外用量将消耗 API 配额或按需消费额度。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Additional usage beyond limits consumes on-demand spend. Your plan includes at least $20 of API usage.",
+      "changeText": "超出限额后的额外用量将产生按需消费。您的套餐至少包含 $20 的 API 用量。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Additional usage beyond limits consumes on-demand spend.",
+      "changeText": "超出限额后的额外用量将产生按需消费。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Consumed by Auto. Additional usage consumes API quota.",
+      "changeText": "由 Auto 消耗。额外用量将消耗 API 配额。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Consumed by named models.",
+      "changeText": "由指定模型消耗。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Your plan includes at least $",
+      "changeText": "您的套餐至少包含 $",
+      "searchType": "partial"
+    },
+    {
+      "originalText": " of API usage.",
+      "changeText": " 的 API 用量。",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "On-Demand Usage",
+      "changeText": "按需用量",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "On-Demand",
+      "changeText": "按需",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Enable on-demand usage to go beyond your plan's included usage. Requires a paid plan.",
+      "changeText": "启用按需用量以超出套餐包含额度。需要付费套餐。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "On-demand spending is currently disabled",
+      "changeText": "按需消费当前已禁用",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "On-Demand Spending",
+      "changeText": "按需消费",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Monthly Limit",
+      "changeText": "月度上限",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Set a fixed amount or make it unlimited.",
+      "changeText": "设置固定额度或设为无限制。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Unlock 3x more usage on Agent & more",
+      "changeText": "解锁 3 倍智能体用量及更多权益",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Resets on",
+      "changeText": "重置于",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "days",
+      "changeText": "天",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Meet the new Agents Window",
+      "changeText": "认识全新的智能体窗口",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Run many agents in parallel — across repos, locally, on remote SSH, and in the cloud.",
+      "changeText": "并行运行多个智能体——跨仓库、本地、远程 SSH 与云端。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Jump back to the Agents Window to keep working across repos.",
+      "changeText": "返回智能体窗口，继续跨仓库工作。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Switch to Agents Window",
+      "changeText": "切换到智能体窗口",
+      "searchType": "exact"
+    }
+  ]
+}

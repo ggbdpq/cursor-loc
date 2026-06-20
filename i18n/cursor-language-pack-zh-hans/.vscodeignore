@@ -1,0 +1,14 @@
+.vscode/**
+src/**
+scripts/**
+vendor/**
+node_modules/**
+**/*.ts
+**/*.map
+.gitignore
+tsconfig.json
+vitest.config.ts
+README.developer.md
+**/__tests__/**
+**/.DS_Store
+**/*.vsix

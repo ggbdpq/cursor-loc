@@ -1,0 +1,99 @@
+{
+  "version": "1.0.0",
+  "locale": "zh-cn",
+  "meta": {
+    "module": "settings/beta"
+  },
+  "replacements": [
+    {
+      "originalText": "Beta",
+      "changeText": "测试版",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Beta Features",
+      "changeText": "测试功能",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Enable beta features",
+      "changeText": "启用测试功能",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Experimental features that may change or be removed",
+      "changeText": "可能变更或移除的实验性功能",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Update Access",
+      "changeText": "更新渠道",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "By default, get notifications for stable updates. In Early Access, pre-release builds may be unstable for production work.",
+      "changeText": "默认接收稳定版更新通知。早期访问中的预发布版本可能不适合生产环境。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Update Access is managed by internal release-track policy.",
+      "changeText": "更新渠道由内部发布轨道策略管理。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Enterprise users can only be notified on stable updates.",
+      "changeText": "企业用户仅可接收稳定版更新通知。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Open Statsig config",
+      "changeText": "打开 Statsig 配置",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Warning: Updates Apply Automatically",
+      "changeText": "警告：更新将自动应用",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "This track will silently download and install updates without prompting whenever Cursor is closed.",
+      "changeText": "此渠道会在 Cursor 关闭时静默下载并安装更新，不会提示确认。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Extension RPC Tracer",
+      "changeText": "扩展 RPC 追踪器",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Log extension host RPC messages to JSON files viewable in Perfetto for performance analysis. Requires a restart to take effect.",
+      "changeText": "将扩展宿主 RPC 消息记录为 JSON 文件，可在 Perfetto 中查看以进行性能分析。需要重启后生效。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Enable logging of extension host RPC messages to JSON files viewable in Perfetto. Requires restart.",
+      "changeText": "启用扩展宿主 RPC 消息日志（JSON 格式，可在 Perfetto 中查看）。需要重启。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Notepads",
+      "changeText": "记事本",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Enable Notepads feature",
+      "changeText": "启用记事本功能",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Enable Solid Dev Tools",
+      "changeText": "启用 Solid 开发工具",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Solid Dev Tools",
+      "changeText": "Solid 开发工具",
+      "searchType": "exact"
+    }
+  ]
+}
