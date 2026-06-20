@@ -2,6 +2,13 @@
 
 本文件遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循 [语义化版本](https://semver.org/lang/zh-CN/)。
 
+## [0.0.2] - 2026-06-20
+
+### Fixed
+
+- 修复正常退出 / Reload Window 时误 revert 补丁，导致 Settings 仍英文且每次启动重复弹重启提示
+- 卸载扩展时仍自动 revert 并冷重启
+
 ## [0.0.1] - 2026-06-20
 
 ### Added
@@ -14,4 +21,5 @@
 - 词典 SSOT（`translations/**/*.i18n.json`）与构建校验工具链
 - GitHub Actions CI（build / validate:i18n / test）
 
+[0.0.2]: https://github.com/ggbdpq/cursor-loc/releases/tag/v0.0.2
 [0.0.1]: https://github.com/ggbdpq/cursor-loc/releases/tag/v0.0.1

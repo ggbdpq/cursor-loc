@@ -286,7 +286,7 @@ async function recoverPatchAfterReload(context: vscode.ExtensionContext): Promis
     return;
   }
   logLine('[startup] 检测到重载扩展宿主后补丁缺失，正在自动重新应用…');
-  await handleApply(context, { silent: true, autoRestart: false });
+  await handleApply(context, { silent: true, autoRestart: true });
 }
 
 /**
@@ -361,12 +361,16 @@ export function activate(context: vscode.ExtensionContext): void {
 }
 
 /**
- * 扩展停用：同步 revert 安装目录补丁，卸载时自动冷重启以恢复英文界面。
+ * 扩展卸载时 revert 安装目录补丁并冷重启。
+ *
+ * 不在 deactivate 中同步 revert：否则正常退出 / Reload Window 会清掉补丁，
+ * 导致 Settings 仍英文且每次启动重复弹「需要重启」。
  *
  * - 冷重启：`suppressDeactivateRevert` / {@link GLOBAL_KEY_RESTARTING} 跳过。
  * - F5 调试：`ExtensionMode.Development` 下不 revert。
- * - 卸载 VSIX：await revert 后立即写回磁盘；扩展消失后自动冷重启。
- * - Reload Window：revert 后由 {@link recoverPatchAfterReload} 在 activate 写回补丁。
+ * - Reload Window：延迟后扩展已 re-activate，跳过 revert。
+ * - 正常退出 Cursor：进程结束，定时器通常不执行，补丁保留在磁盘。
+ * - 卸载 VSIX：延迟后扩展 ID 从列表消失 → revert + 冷重启。
  */
 export async function deactivate(): Promise<void> {
   if (suppressDeactivateRevert) {
@@ -387,32 +391,37 @@ export async function deactivate(): Promise<void> {
 
   const installRoot = getEffectiveInstallRoot();
 
-  try {
-    const patched = await isPatchInstalled(installRoot);
-    if (!patched) {
-      return;
-    }
+  setTimeout(() => {
+    void (async () => {
+      try {
+        const ext = vscode.extensions.getExtension(EXTENSION_ID);
+        if (ext?.isActive) {
+          return;
+        }
+        if (ext) {
+          // 仍注册但未激活：多为退出过程，勿误 revert（禁用扩展请用手动「恢复英文」）
+          return;
+        }
 
-    const result = await runRevert(installRoot);
-    logSection('扩展停用，已恢复英文界面（安装目录补丁已移除）', result.lines);
+        const patched = await isPatchInstalled(installRoot);
+        if (!patched) {
+          return;
+        }
 
-    if (!result.ok) {
-      return;
-    }
+        const result = await runRevert(installRoot);
+        logSection('扩展已卸载，已恢复英文界面（安装目录补丁已移除）', result.lines);
+        if (!result.ok) {
+          return;
+        }
 
-    // 卸载或禁用后冷重启主进程；Reload Window 会再次 activate，不会进入此分支
-    setTimeout(() => {
-      const ext = vscode.extensions.getExtension(EXTENSION_ID);
-      if (ext?.isActive) {
-        return;
+        suppressDeactivateRevert = true;
+        logLine('[deactivate] 扩展已卸载，正在自动重启 Cursor 以显示英文界面…');
+        await coldRestartCursor(installRoot);
+      } catch (err) {
+        logLine(
+          `[deactivate] revert 失败: ${err instanceof Error ? err.message : String(err)}`,
+        );
       }
-      suppressDeactivateRevert = true;
-      logLine('[deactivate] 扩展已卸载或禁用，正在自动重启 Cursor 以显示英文界面…');
-      void coldRestartCursor(installRoot);
-    }, POST_UNINSTALL_RESTART_DELAY_MS);
-  } catch (err) {
-    logLine(
-      `[deactivate] revert 失败: ${err instanceof Error ? err.message : String(err)}`,
-    );
-  }
+    })();
+  }, POST_UNINSTALL_RESTART_DELAY_MS);
 }
