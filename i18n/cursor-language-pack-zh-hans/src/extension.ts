@@ -236,6 +236,10 @@ async function handleStatus(silent = false): Promise<void> {
     void vscode.window.showWarningMessage(
       `词典针对 Cursor ${result.versionMismatch.tested} 测试，当前 ${result.versionMismatch.current}，建议重新应用或补充翻译。`,
     );
+  } else if (result.patchStale) {
+    void vscode.window.showWarningMessage(
+      '安装目录补丁已过期，Agent Window 等新词条可能未生效。请执行「Cursor 中文：应用界面汉化」或 npm run apply。',
+    );
   } else if (!result.ok) {
     if (!silent) {
       void vscode.window.showErrorMessage(result.error ?? '查询失败，详见输出面板。');

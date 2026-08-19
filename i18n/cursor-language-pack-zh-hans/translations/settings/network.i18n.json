@@ -94,6 +94,16 @@
       "originalText": "Network Access Notification",
       "changeText": "网络访问通知",
       "searchType": "exact"
+    },
+    {
+      "originalText": "Browser & Network",
+      "changeText": "浏览器与网络",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Browser Settings",
+      "changeText": "浏览器设置",
+      "searchType": "exact"
     }
   ]
 }

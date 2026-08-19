@@ -124,6 +124,56 @@
       "originalText": "Generating",
       "changeText": "生成中",
       "searchType": "exact"
+    },
+    {
+      "originalText": "In progress",
+      "changeText": "进行中",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cancelled",
+      "changeText": "已取消",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Canceled",
+      "changeText": "已取消",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Queued",
+      "changeText": "排队中",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Needs input",
+      "changeText": "需要输入",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Needs approval",
+      "changeText": "需要批准",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Switch to Agent",
+      "changeText": "切换到智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Custom Mode",
+      "changeText": "自定义模式",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Create mode",
+      "changeText": "创建模式",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Edit mode",
+      "changeText": "编辑模式",
+      "searchType": "exact"
     }
   ]
 }

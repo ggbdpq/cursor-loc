@@ -339,6 +339,51 @@
       "originalText": "Search models",
       "changeText": "搜索模型",
       "searchType": "partial"
+    },
+    {
+      "originalText": "Last Used Windows",
+      "changeText": "上次使用的窗口(Last Used Windows)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Always Open Agents Window",
+      "changeText": "始终打开智能体窗口(Always Open Agents Window)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Always Open Editor Window",
+      "changeText": "始终打开编辑器窗口(Always Open Editor Window)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Queue",
+      "changeText": "排队(Queue)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Send Immediately",
+      "changeText": "立即发送(Send Immediately)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cursor Default",
+      "changeText": "Cursor 默认(Cursor Default)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Inside Cursor",
+      "changeText": "在 Cursor 内(Inside Cursor)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Auto-Review",
+      "changeText": "自动审查(Auto-Review)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Auto-Review (with Sandbox)",
+      "changeText": "自动审查(含沙箱)(Auto-Review (with Sandbox))",
+      "searchType": "exact"
     }
   ]
 }

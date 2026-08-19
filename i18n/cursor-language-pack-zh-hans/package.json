@@ -2,7 +2,7 @@
   "name": "cursor-language-pack-zh-hans",
   "displayName": "Cursor 专有界面汉化 (简体中文)",
   "description": "为 Cursor Settings、Agent、Composer 等专有界面提供简体中文。建议与 Microsoft 中文语言包配合使用。当前仅支持 Windows。",
-  "version": "0.0.2",
+  "version": "0.0.8",
   "publisher": "ggbdpq",
   "author": {
     "name": "ggbdpq"
@@ -96,7 +96,7 @@
   },
   "scripts": {
     "build:i18n": "node ../../tools/build-i18n.mjs",
-    "build:core": "npm run build -w @cursor-loc/patch-core",
+    "build:core": "npm run build --prefix ../../packages/patch-core",
     "compile": "npm run build:i18n && npm run build:core && tsc -p .",
     "watch": "tsc -watch -p .",
     "test": "vitest run",

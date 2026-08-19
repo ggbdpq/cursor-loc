@@ -1,0 +1,179 @@
+{
+  "version": "1.0.0",
+  "locale": "zh-cn",
+  "meta": {
+    "module": "settings/customize"
+  },
+  "replacements": [
+    {
+      "originalText": "Customize Cursor",
+      "changeText": "自定义 Cursor",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Filter by scope",
+      "changeText": "按范围筛选",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Marketplace Leaderboard",
+      "changeText": "扩展市场排行榜",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Browse and install",
+      "changeText": "浏览并安装",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add and manage",
+      "changeText": "添加并管理",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Open plugin canvases",
+      "changeText": "打开插件画布",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "See your team leaderboard",
+      "changeText": "查看团队排行榜",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Install Team MCP servers",
+      "changeText": "安装团队 MCP 服务器",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Agent Decides",
+      "changeText": "由智能体决定(Agent Decides)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Customize",
+      "changeText": "自定义",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Plugins",
+      "changeText": "插件",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "MCPs",
+      "changeText": "MCP",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Skills",
+      "changeText": "技能",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Subagents",
+      "changeText": "子智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Commands",
+      "changeText": "命令",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Hooks",
+      "changeText": "钩子",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Rules",
+      "changeText": "规则",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Marketplace",
+      "changeText": "扩展市场",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cursor Marketplace",
+      "changeText": "Cursor 扩展市场",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Leaderboard",
+      "changeText": "排行榜",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Team leaderboard",
+      "changeText": "团队排行榜",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Filter by user, workspace, or team scope to see what is installed.",
+      "changeText": "按用户、工作区或团队范围筛选，查看已安装内容。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Open Customize in the sidebar to manage installed Agent Plugins, Cursor Plugins, MCP servers, rules, and skills from one page.",
+      "changeText": "在侧栏打开「自定义」，在一个页面管理已安装的 Agent 插件、Cursor 插件、MCP 服务器、规则与技能。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Always applied",
+      "changeText": "始终应用",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Applied intelligently",
+      "changeText": "智能应用",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Manual",
+      "changeText": "手动",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add Rule",
+      "changeText": "添加规则",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add Skill",
+      "changeText": "添加技能",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add MCP",
+      "changeText": "添加 MCP",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add Hook",
+      "changeText": "添加钩子",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add Command",
+      "changeText": "添加命令",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "No rules yet",
+      "changeText": "暂无规则",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "No skills yet",
+      "changeText": "暂无技能",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "No MCP servers yet",
+      "changeText": "暂无 MCP 服务器",
+      "searchType": "exact"
+    }
+  ]
+}

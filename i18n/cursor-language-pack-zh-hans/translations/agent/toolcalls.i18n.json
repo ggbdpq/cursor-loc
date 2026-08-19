@@ -204,6 +204,131 @@
       "originalText": "No linter errors",
       "changeText": "无 linter 错误",
       "searchType": "exact"
+    },
+    {
+      "originalText": "Read",
+      "changeText": "读取",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Read lints",
+      "changeText": "读取 Lint",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "List directory",
+      "changeText": "列出目录",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Listed directory",
+      "changeText": "已列出目录",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Searched codebase",
+      "changeText": "已搜索代码库",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Searching codebase",
+      "changeText": "正在搜索代码库",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Task",
+      "changeText": "任务",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Subagent",
+      "changeText": "子智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Spawned subagent",
+      "changeText": "已启动子智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Spawning subagent",
+      "changeText": "正在启动子智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Skill",
+      "changeText": "技能",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Used skill",
+      "changeText": "已使用技能",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Using skill",
+      "changeText": "正在使用技能",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Took screenshot",
+      "changeText": "已截图",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Taking screenshot",
+      "changeText": "正在截图",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Navigated",
+      "changeText": "已导航",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Navigating",
+      "changeText": "正在导航",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Clicked",
+      "changeText": "已点击",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Clicking",
+      "changeText": "正在点击",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Typed",
+      "changeText": "已输入",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Typing",
+      "changeText": "正在输入",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Summarized",
+      "changeText": "已总结",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Summarizing",
+      "changeText": "正在总结",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Reviewed",
+      "changeText": "已审查",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Reviewing",
+      "changeText": "正在审查",
+      "searchType": "exact"
     }
   ]
 }

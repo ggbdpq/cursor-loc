@@ -22,7 +22,7 @@
     "migrate:i18n": "tsx tools/migrate-locales-ts-to-json.ts",
     "validate:i18n": "node tools/validate-i18n.mjs",
     "doctor": "npm run build -w @cursor-loc/patch-cli && node packages/patch-cli/dist/cli.js doctor",
-    "apply": "npm run build -w @cursor-loc/patch-cli && node packages/patch-cli/dist/cli.js apply",
+    "apply": "npm run build && node packages/patch-cli/dist/cli.js apply",
     "status": "npm run build -w @cursor-loc/patch-cli && node packages/patch-cli/dist/cli.js status",
     "revert": "npm run build -w @cursor-loc/patch-cli && node packages/patch-cli/dist/cli.js revert",
     "extract": "tsx tools/extract-candidates.ts",

@@ -39,6 +39,26 @@
       "originalText": "Loading Cloud Agents settings...",
       "changeText": "正在加载云端智能体设置…",
       "searchType": "exact"
+    },
+    {
+      "originalText": "Manage Settings",
+      "changeText": "管理设置",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Connect GitHub/GitLab, manage team and user settings, and configure environments",
+      "changeText": "连接 GitHub/GitLab，管理团队与用户设置并配置运行环境",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Connect Slack",
+      "changeText": "连接 Slack",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Work with Cloud Agents from Slack",
+      "changeText": "在 Slack 中使用云端智能体",
+      "searchType": "exact"
     }
   ]
 }

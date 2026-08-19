@@ -7,6 +7,24 @@
 (function () {
   'use strict';
 
+  /** 强制 Shadow DOM 为 open，否则 Agent Window 等 closed shadow 内的文本无法被扫描。 */
+  try {
+    var originalAttachShadow = Element.prototype.attachShadow;
+    Element.prototype.attachShadow = function (init) {
+      var options = init || {};
+      if (options.mode === 'closed') {
+        options = Object.assign({}, options, { mode: 'open' });
+      }
+      return originalAttachShadow.call(this, options);
+    };
+  } catch (_shadowPatchError) {
+    // 忽略
+  }
+
+  var cachedMappings = null;
+  var sharedTranslator = null;
+  var mutationObserverStarted = false;
+
   /** 需要扫描并翻译的 DOM 根节点选择器。 */
   var ROOT_SELECTORS = [
     '.monaco-dialog-box',
@@ -15,18 +33,41 @@
     '[role="dialog"]',
     '.dialog-message',
     '.cursor-settings-layout-main',
+    '.cursor-settings-layout-nav',
+    '.cursor-settings-sidebar',
+    '[class*="cursor-settings"]',
     '.settings-editor',
     '[data-component="agent-panel"]',
     '[data-component="composer"]',
     '.composer-bar',
     '.composer-input-blur-wrapper',
     '.agent-layout',
+    '[class*="agents-window"]',
+    '[class*="agent-window"]',
+    '[data-component="agents-window"]',
+    '[data-component="agent-window"]',
     '.review-panel',
     '.inline-diff-review',
     '.cursor-settings-layout',
     '.full-settings-editor',
     '.workbench',
   ];
+
+  /**
+   * 规范化 UI 文本，便于 exact 匹配（弯引号、不间断空格等）。
+   *
+   * @param {string} text 原始文本。
+   * @returns {string} 规范化后的文本。
+   */
+  function normalizeForMatch(text) {
+    return text
+      .replace(/\u00a0/g, ' ')
+      .replace(/\u2019/g, "'")
+      .replace(/\u2018/g, "'")
+      .replace(/\u201c/g, '"')
+      .replace(/\u201d/g, '"')
+      .trim();
+  }
 
   /**
    * 运行时 DOM 文本翻译器。
@@ -51,7 +92,7 @@
      */
     applyMapping(text, mapping) {
       if (mapping.searchType === 'exact') {
-        if (text.trim() === mapping.originalText) {
+        if (normalizeForMatch(text) === normalizeForMatch(mapping.originalText)) {
           return mapping.changeText;
         }
         return text;
@@ -116,39 +157,54 @@
     }
 
     /**
-     * 遍历 root 下所有可见文本节点并翻译。
+     * TreeWalker 节点过滤器：跳过 script/style/表单控件内文本。
      *
-     * 跳过 script、style、textarea、input 内的文本。
+     * @param {Node} node 候选文本节点。
+     * @returns {number} NodeFilter 常量。
+     */
+    createTextNodeFilter() {
+      return {
+        acceptNode: function (node) {
+          var parent = node.parentElement;
+          if (!parent) {
+            return NodeFilter.FILTER_REJECT;
+          }
+          var tag = parent.tagName;
+          if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'TEXTAREA' || tag === 'INPUT') {
+            return NodeFilter.FILTER_REJECT;
+          }
+          return node.textContent.trim()
+            ? NodeFilter.FILTER_ACCEPT
+            : NodeFilter.FILTER_REJECT;
+        },
+      };
+    }
+
+    /**
+     * 遍历 root 下所有可见文本节点并翻译（含 open Shadow DOM）。
      *
-     * @param {Element} rootElement 扫描根元素。
+     * @param {Node} rootNode 扫描根节点（Element 或 ShadowRoot）。
      * @returns {number} 被修改的文本节点数量。
      */
-    translateElement(rootElement) {
-      if (!rootElement || !rootElement.isConnected) {
+    translateElement(rootNode) {
+      if (!rootNode) {
         return 0;
       }
 
-      var walker = document.createTreeWalker(
-        rootElement,
-        NodeFilter.SHOW_TEXT,
-        {
-          acceptNode: function (node) {
-            var parent = node.parentElement;
-            if (!parent) {
-              return NodeFilter.FILTER_REJECT;
-            }
-            var tag = parent.tagName;
-            if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'TEXTAREA' || tag === 'INPUT') {
-              return NodeFilter.FILTER_REJECT;
-            }
-            return node.textContent.trim()
-              ? NodeFilter.FILTER_ACCEPT
-              : NodeFilter.FILTER_REJECT;
-          },
-        },
-      );
+      var isConnected = rootNode.nodeType === Node.DOCUMENT_FRAGMENT_NODE
+        ? true
+        : rootNode.isConnected;
+      if (!isConnected) {
+        return 0;
+      }
 
       var changedCount = 0;
+      var walker = document.createTreeWalker(
+        rootNode,
+        NodeFilter.SHOW_TEXT,
+        this.createTextNodeFilter(),
+      );
+
       var node;
       while ((node = walker.nextNode())) {
         if (this.translateTextNode(node)) {
@@ -156,22 +212,49 @@
         }
       }
 
+      var elementRoot = rootNode.nodeType === Node.ELEMENT_NODE
+        ? rootNode
+        : rootNode.host;
+      if (elementRoot && elementRoot.querySelectorAll) {
+        var hosts = elementRoot.querySelectorAll('*');
+        for (var i = 0; i < hosts.length; i++) {
+          var host = hosts[i];
+          if (host.shadowRoot) {
+            changedCount += this.translateElement(host.shadowRoot);
+          }
+        }
+      }
+
       return changedCount;
     }
 
     /**
-     * 翻译 input / button 等元素的 placeholder、title、aria-label 属性。
+     * 翻译 input / button 等元素的 placeholder、title、aria-label 属性（含 Shadow DOM）。
      *
-     * @param {Element} rootElement 扫描根元素。
+     * @param {Node} rootNode 扫描根节点。
      * @returns {number} 被修改的属性数量。
      */
-    translateAttributes(rootElement) {
-      if (!rootElement || !rootElement.isConnected) {
+    translateAttributes(rootNode) {
+      if (!rootNode) {
+        return 0;
+      }
+
+      var isConnected = rootNode.nodeType === Node.DOCUMENT_FRAGMENT_NODE
+        ? true
+        : rootNode.isConnected;
+      if (!isConnected) {
         return 0;
       }
 
       var changedCount = 0;
-      var elements = rootElement.querySelectorAll(
+      var elementRoot = rootNode.nodeType === Node.ELEMENT_NODE
+        ? rootNode
+        : rootNode.host;
+      if (!elementRoot || !elementRoot.querySelectorAll) {
+        return 0;
+      }
+
+      var elements = elementRoot.querySelectorAll(
         'input[placeholder], textarea[placeholder], input[title], button[title], button[aria-label], [aria-label]',
       );
 
@@ -214,6 +297,10 @@
             changedCount++;
           }
         }
+
+        if (el.shadowRoot) {
+          changedCount += this.translateAttributes(el.shadowRoot);
+        }
       }
 
       return changedCount;
@@ -223,7 +310,7 @@
   /**
    * 收集当前页面中需要翻译的 DOM 根节点。
    *
-   * 若未命中任何 selector，则回退到 document.body。
+   * 始终包含 document.body，避免 Agent Window 等 UI 落在 selector 之外。
    *
    * @returns {Element[]} 去重后的根元素列表。
    */
@@ -243,7 +330,7 @@
       }
     }
 
-    if (roots.length === 0 && document.body) {
+    if (document.body && !seen.has(document.body)) {
       roots.push(document.body);
     }
 
@@ -251,20 +338,69 @@
   }
 
   /**
+   * 执行一轮 DOM 翻译。
+   */
+  function runTranslationPass() {
+    if (!cachedMappings) {
+      return;
+    }
+
+    if (!sharedTranslator) {
+      sharedTranslator = new TextTranslator(cachedMappings);
+    }
+
+    var roots = collectRootElements();
+    for (var i = 0; i < roots.length; i++) {
+      sharedTranslator.translateElement(roots[i]);
+      sharedTranslator.translateAttributes(roots[i]);
+    }
+
+    window.__cursorZhPatch = {
+      active: true,
+      count: cachedMappings.length,
+    };
+  }
+
+  /**
+   * 监听 DOM 变更，React 重渲染后立即补译。
+   */
+  function startMutationObserver() {
+    if (mutationObserverStarted || typeof MutationObserver === 'undefined' || !document.body) {
+      return;
+    }
+
+    mutationObserverStarted = true;
+    var scheduled = false;
+    var observer = new MutationObserver(function () {
+      if (scheduled) {
+        return;
+      }
+      scheduled = true;
+      requestAnimationFrame(function () {
+        scheduled = false;
+        runTranslationPass();
+      });
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+    });
+  }
+
+  /**
    * 定时扫描并翻译界面文本。
    *
-   * 每 100ms 执行一次，以覆盖 Settings 等动态渲染内容。
+   * 每 100ms 执行一次，以覆盖 Settings、Agent Window 等动态渲染内容。
    */
   function task() {
     try {
-      var translationMappings = '${replacementsArray}';
-      var translator = new TextTranslator(translationMappings);
-      var roots = collectRootElements();
-
-      for (var i = 0; i < roots.length; i++) {
-        translator.translateElement(roots[i]);
-        translator.translateAttributes(roots[i]);
+      if (!cachedMappings) {
+        cachedMappings = '${replacementsArray}';
       }
+      runTranslationPass();
+      startMutationObserver();
     } catch (_error) {
       // DOM not ready
     }

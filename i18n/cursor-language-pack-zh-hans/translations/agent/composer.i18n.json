@@ -164,6 +164,106 @@
       "originalText": "Bad response",
       "changeText": "回复不佳",
       "searchType": "exact"
+    },
+    {
+      "originalText": "Plan, search, build anything",
+      "changeText": "规划、搜索、构建任何内容",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "What do you want to build?",
+      "changeText": "你想构建什么？",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Build with AI",
+      "changeText": "用 AI 构建",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Attach images",
+      "changeText": "附加图片",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Attach files",
+      "changeText": "附加文件",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Queue message",
+      "changeText": "消息排队",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Queued",
+      "changeText": "已排队",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Interrupt",
+      "changeText": "中断",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Follow up",
+      "changeText": "追问",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Copy prompt",
+      "changeText": "复制提示词",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Edit message",
+      "changeText": "编辑消息",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Retry",
+      "changeText": "重试",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Show more",
+      "changeText": "显示更多",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Show less",
+      "changeText": "显示更少",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Expand all",
+      "changeText": "全部展开",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Collapse all",
+      "changeText": "全部折叠",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Working",
+      "changeText": "处理中",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Working...",
+      "changeText": "处理中…",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Planning",
+      "changeText": "规划中",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Planning...",
+      "changeText": "规划中…",
+      "searchType": "exact"
     }
   ]
 }

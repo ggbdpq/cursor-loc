@@ -1,0 +1,744 @@
+{
+  "version": "1.0.0",
+  "locale": "zh-cn",
+  "meta": {
+    "module": "agent/agents-window"
+  },
+  "replacements": [
+    {
+      "originalText": "Agents Window",
+      "changeText": "智能体窗口",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Agent Window",
+      "changeText": "智能体窗口",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Open Agents Window",
+      "changeText": "打开智能体窗口",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Open Editor Window",
+      "changeText": "打开编辑器窗口",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Open IDE",
+      "changeText": "打开 IDE",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "New Agent Window",
+      "changeText": "新建智能体窗口",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Switch to Editor",
+      "changeText": "切换到编辑器",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Switch to Editor Window",
+      "changeText": "切换到编辑器窗口",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Switch to IDE",
+      "changeText": "切换到 IDE",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Agent Settings",
+      "changeText": "智能体设置",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "No agents yet",
+      "changeText": "暂无智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "No Agents Yet",
+      "changeText": "暂无智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Start an agent",
+      "changeText": "启动智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Search agents",
+      "changeText": "搜索智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "All Agents",
+      "changeText": "全部智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Recent Agents",
+      "changeText": "最近智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Active Agents",
+      "changeText": "活跃智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Open Agents Window",
+      "changeText": "打开智能体窗口",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Open Editor Window",
+      "changeText": "打开编辑器窗口",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Open the Agents Window",
+      "changeText": "打开智能体窗口",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Switch Back to the IDE",
+      "changeText": "切换回 IDE",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Multi-workspace",
+      "changeText": "多工作区",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "New diffs view",
+      "changeText": "新版差异视图",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Parallel agents",
+      "changeText": "并行智能体",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Agents Window",
+      "changeText": "智能体窗口",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Run agents in parallel",
+      "changeText": "并行运行智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "across repos",
+      "changeText": "跨仓库",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Across repos",
+      "changeText": "跨仓库",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Multi-workspace",
+      "changeText": "多工作区",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "multi-workspace",
+      "changeText": "多工作区",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add workspace",
+      "changeText": "添加工作区",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Select repository",
+      "changeText": "选择仓库",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Pick a repository",
+      "changeText": "选择仓库",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Select a repository",
+      "changeText": "选择仓库",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Local",
+      "changeText": "本地",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cloud",
+      "changeText": "云端",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Worktree",
+      "changeText": "工作树",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Worktrees",
+      "changeText": "工作树",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Remote SSH",
+      "changeText": "远程 SSH",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "in the cloud",
+      "changeText": "云端",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "In the cloud",
+      "changeText": "云端",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "on remote SSH",
+      "changeText": "远程 SSH",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "in a worktree",
+      "changeText": "工作树",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Blocked",
+      "changeText": "已阻塞",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Paused",
+      "changeText": "已暂停",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Pause",
+      "changeText": "暂停",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Archive",
+      "changeText": "归档",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Move to cloud",
+      "changeText": "移至云端",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Move to local",
+      "changeText": "移至本地",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Hand off to cloud",
+      "changeText": "移交至云端",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Hand off to local",
+      "changeText": "移交至本地",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Open in editor",
+      "changeText": "在编辑器中打开",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "View in editor",
+      "changeText": "在编辑器中查看",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Agent Tabs",
+      "changeText": "智能体标签页",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Side by side",
+      "changeText": "并排",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Side-by-side",
+      "changeText": "并排",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Grid",
+      "changeText": "网格",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Grid view",
+      "changeText": "网格视图",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Modified files",
+      "changeText": "已修改文件",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Files modified",
+      "changeText": "已修改文件",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Token usage",
+      "changeText": "Token 用量",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cost estimate",
+      "changeText": "成本估算",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Build with agents",
+      "changeText": "使用智能体构建",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Plan, search, build anything",
+      "changeText": "规划、搜索、构建任何内容",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "What do you want to build?",
+      "changeText": "你想构建什么？",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Describe your task",
+      "changeText": "描述你的任务",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Describe what you want to accomplish",
+      "changeText": "描述你想完成的内容",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Try the Agents Window",
+      "changeText": "体验智能体窗口",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Upgrade Cursor",
+      "changeText": "升级 Cursor",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "You can switch back to the editor anytime, or have both open simultaneously.",
+      "changeText": "你可随时切回编辑器，或同时打开两个窗口。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "To return to the classic Cursor IDE, type Cmd+Shift+P → Open IDE. This opens the current workspace in the editor.",
+      "changeText": "要返回经典 Cursor IDE，请按 Cmd+Shift+P → 打开 IDE，当前工作区将在编辑器中打开。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "To return to the classic Cursor IDE, type Ctrl+Shift+P → Open IDE. This opens the current workspace in the editor.",
+      "changeText": "要返回经典 Cursor IDE，请按 Ctrl+Shift+P → 打开 IDE，当前工作区将在编辑器中打开。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "If you're in the editor, type Cmd+Shift+P → Open Agents Window to open the Agents Window.",
+      "changeText": "若在编辑器中，按 Cmd+Shift+P → 打开智能体窗口 即可打开智能体窗口。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "If you're in the editor, type Ctrl+Shift+P → Open Agents Window to open the Agents Window.",
+      "changeText": "若在编辑器中，按 Ctrl+Shift+P → 打开智能体窗口 即可打开智能体窗口。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Easier handoff between local and cloud",
+      "changeText": "本地与云端更易切换",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Quickly move an agent from cloud to local to iterate quickly, and move it back to the cloud so it keeps working on its own.",
+      "changeText": "可将智能体从云端快速移至本地以便迭代，再移回云端继续独立运行。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cloud agents produce demos and screenshots of their work for you to verify.",
+      "changeText": "云端智能体会生成演示和截图，供你验证工作成果。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "View demo",
+      "changeText": "查看演示",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "View screenshot",
+      "changeText": "查看截图",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Screenshots",
+      "changeText": "截图",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Demos",
+      "changeText": "演示",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Design Mode",
+      "changeText": "设计模式",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Agent-first interface",
+      "changeText": "智能体优先界面",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Classic editor",
+      "changeText": "经典编辑器",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Classic IDE",
+      "changeText": "经典 IDE",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Pin as primary view",
+      "changeText": "固定为主视图",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Primary view",
+      "changeText": "主视图",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cancel agent",
+      "changeText": "取消智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Stop agent",
+      "changeText": "停止智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Resume agent",
+      "changeText": "继续智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Needs attention",
+      "changeText": "需要关注",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Needs your attention",
+      "changeText": "需要你关注",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Waiting for you",
+      "changeText": "等待你的操作",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Approve",
+      "changeText": "批准",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Deny",
+      "changeText": "拒绝",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Allow",
+      "changeText": "允许",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Run in cloud",
+      "changeText": "在云端运行",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Run locally",
+      "changeText": "在本地运行",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Run in worktree",
+      "changeText": "在工作树中运行",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Environment",
+      "changeText": "运行环境",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Repository",
+      "changeText": "仓库",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Repositories",
+      "changeText": "仓库",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Branch",
+      "changeText": "分支",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Compare outcomes",
+      "changeText": "对比结果",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Best of N",
+      "changeText": "最优 N 选",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "best-of-n",
+      "changeText": "最优 N 选",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "worktree",
+      "changeText": "工作树",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Create worktree",
+      "changeText": "创建工作树",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Isolated changes",
+      "changeText": "隔离更改",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "From Slack",
+      "changeText": "来自 Slack",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "From GitHub",
+      "changeText": "来自 GitHub",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "From Linear",
+      "changeText": "来自 Linear",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "From mobile",
+      "changeText": "来自移动端",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "From web",
+      "changeText": "来自网页",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "From desktop",
+      "changeText": "来自桌面端",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Kicked off from",
+      "changeText": "启动来源",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Mission control",
+      "changeText": "任务控制台",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Agent card",
+      "changeText": "智能体卡片",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Expand",
+      "changeText": "展开",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Collapse",
+      "changeText": "折叠",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Show details",
+      "changeText": "显示详情",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Hide details",
+      "changeText": "隐藏详情",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Inject instructions",
+      "changeText": "注入指令",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Override",
+      "changeText": "覆盖",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Inspect reasoning",
+      "changeText": "查看推理过程",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Conversation thread",
+      "changeText": "对话线程",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Open conversation",
+      "changeText": "打开对话",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Close conversation",
+      "changeText": "关闭对话",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Untitled agent",
+      "changeText": "未命名智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Untitled Agent",
+      "changeText": "未命名智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Rename agent",
+      "changeText": "重命名智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Duplicate agent",
+      "changeText": "复制智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Delete agent",
+      "changeText": "删除智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Automations",
+      "changeText": "自动化",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Getting Started",
+      "changeText": "入门指南",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Connect GitHub",
+      "changeText": "连接 GitHub",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Connect GitHub to create, update, and merge pull requests directly in Cursor.",
+      "changeText": "连接 GitHub，即可在 Cursor 中直接创建、更新和合并拉取请求。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Send follow-up",
+      "changeText": "发送后续消息",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Usage limit reached",
+      "changeText": "已达用量上限",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "You've reached your limit",
+      "changeText": "你已达到用量上限",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Responses may be slower",
+      "changeText": "回复可能会变慢",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Upgrade for more usage",
+      "changeText": "升级以获取更多用量",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Set new limit",
+      "changeText": "设置新上限",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Open Tabs",
+      "changeText": "打开的标签页",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Search",
+      "changeText": "搜索",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Customize",
+      "changeText": "自定义",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "New Chat",
+      "changeText": "新对话",
+      "searchType": "partial"
+    }
+  ]
+}

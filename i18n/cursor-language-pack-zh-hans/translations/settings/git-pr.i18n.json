@@ -1,0 +1,49 @@
+{
+  "version": "1.0.0",
+  "locale": "zh-cn",
+  "meta": {
+    "module": "settings/git-pr"
+  },
+  "replacements": [
+    {
+      "originalText": "Git & PRs",
+      "changeText": "Git 与 PR",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Pull Requests",
+      "changeText": "拉取请求",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Review Provider",
+      "changeText": "审查提供方",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Choose GitHub or Graphite for pull request links on web and desktop",
+      "changeText": "为网页和桌面上的 PR 链接选择 GitHub 或 Graphite",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "PR Link Destination",
+      "changeText": "PR 链接打开方式",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Open pull request links inside Cursor or in the default browser",
+      "changeText": "在 Cursor 内或默认浏览器中打开 PR 链接",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Branches",
+      "changeText": "分支",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Graphite",
+      "changeText": "Graphite",
+      "searchType": "exact"
+    }
+  ]
+}

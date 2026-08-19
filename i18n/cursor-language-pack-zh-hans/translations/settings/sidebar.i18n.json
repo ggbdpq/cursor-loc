@@ -99,6 +99,21 @@
       "originalText": "MCP",
       "changeText": "MCP",
       "searchType": "exact"
+    },
+    {
+      "originalText": "Customize",
+      "changeText": "自定义",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Browser & Network",
+      "changeText": "浏览器与网络",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Git & PRs",
+      "changeText": "Git 与 PR",
+      "searchType": "exact"
     }
   ]
 }

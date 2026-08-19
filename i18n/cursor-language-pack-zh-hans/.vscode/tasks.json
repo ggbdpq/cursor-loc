@@ -3,8 +3,11 @@
   "tasks": [
     {
       "label": "compile extension",
-      "type": "npm",
-      "script": "compile",
+      "type": "shell",
+      "command": "npm run compile",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
       "group": "build",
       "presentation": {
         "reveal": "silent",

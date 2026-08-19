@@ -239,6 +239,26 @@
       "originalText": "work for custom model features.",
       "changeText": "不适用于自定义模型功能。",
       "searchType": "partial"
+    },
+    {
+      "originalText": "Choose which models appear in the model picker",
+      "changeText": "选择出现在模型选择器中的模型",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Task Models",
+      "changeText": "任务模型",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Explore Subagent Model",
+      "changeText": "Explore 子智能体模型",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Choose a model or use the cost- and availability-aware default",
+      "changeText": "选择模型，或使用兼顾成本与可用性的默认方案",
+      "searchType": "exact"
     }
   ]
 }

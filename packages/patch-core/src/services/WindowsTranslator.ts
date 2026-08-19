@@ -3,6 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { Replacement } from '../types.js';
 import { CursorTranslator } from './CursorTranslator.js';
+import type { PatchInstallMeta } from './CursorTranslator.js';
 import { getAppRoot } from './pathResolver.js';
 
 interface PackageJson {
@@ -10,6 +11,8 @@ interface PackageJson {
   main_original?: string;
   [key: string]: unknown;
 }
+
+export type { PatchInstallMeta };
 
 /**
  * 读取打包进 dist 的静态资源文件。
@@ -36,6 +39,7 @@ export class WindowsTranslator extends CursorTranslator {
   private saveInterceptorPath: string;
   private readPackageJsonPath: string;
   private backupPackageJsonPath: string;
+  private metaPath: string;
   private injectScript: string;
 
   /**
@@ -50,6 +54,7 @@ export class WindowsTranslator extends CursorTranslator {
     this.saveInterceptorPath = path.join(this.appRoot, 'out/cursorTranslatorMain.js');
     this.readPackageJsonPath = path.join(this.appRoot, 'package.json');
     this.backupPackageJsonPath = path.join(this.appRoot, 'package.json.backup');
+    this.metaPath = path.join(this.appRoot, 'out/cursor-zh-patch-meta.json');
     this.injectScript = loadAsset('cursor.inject.js');
   }
 
@@ -82,6 +87,39 @@ export class WindowsTranslator extends CursorTranslator {
       interceptorExists: fs.existsSync(this.saveInterceptorPath),
       packageJsonPatched,
     };
+  }
+
+  /**
+   * 读取已安装补丁的元数据（0.0.7+ apply 写入）。
+   *
+   * @returns 元数据对象；旧版补丁无此文件时返回 null。
+   */
+  getInstalledMeta(): PatchInstallMeta | null {
+    if (!fs.existsSync(this.metaPath)) {
+      return null;
+    }
+
+    try {
+      return JSON.parse(fs.readFileSync(this.metaPath, 'utf-8')) as PatchInstallMeta;
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+   * 检查翻译副本头部是否包含 DOM 注入脚本特征。
+   */
+  translatedFileHasInjectScript(): boolean {
+    if (!fs.existsSync(this.saveTranslatedFilePath)) {
+      return false;
+    }
+
+    try {
+      const sample = fs.readFileSync(this.saveTranslatedFilePath, 'utf-8').slice(0, 65536);
+      return sample.includes('TextTranslator');
+    } catch {
+      return false;
+    }
   }
 
   /**
@@ -124,6 +162,12 @@ export class WindowsTranslator extends CursorTranslator {
 
     packageJson.main = './out/cursorTranslatorMain.js';
     fs.writeFileSync(this.readPackageJsonPath, JSON.stringify(packageJson, null, 2), 'utf-8');
+
+    const meta: PatchInstallMeta = {
+      replacementCount: replacements.length,
+      appliedAt: new Date().toISOString(),
+    };
+    fs.writeFileSync(this.metaPath, JSON.stringify(meta, null, 2), 'utf-8');
   }
 
   /**
@@ -138,6 +182,10 @@ export class WindowsTranslator extends CursorTranslator {
 
     if (fs.existsSync(this.saveInterceptorPath)) {
       fs.unlinkSync(this.saveInterceptorPath);
+    }
+
+    if (fs.existsSync(this.metaPath)) {
+      fs.unlinkSync(this.metaPath);
     }
 
     if (fs.existsSync(this.backupPackageJsonPath)) {

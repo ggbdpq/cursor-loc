@@ -3,9 +3,12 @@
  *
  * 将 `vscode-file:` 协议下对 `workbench.desktop.main.js` 的请求
  * 重定向到 `workbench.desktop.main_translated.js`。
+ *
+ * 注意：必须在 `import './main.js'` 之前同步安装补丁，
+ * 否则 main.js 可能在 app.whenReady 中抢先注册协议，导致重定向失效。
  */
 
-import { session, app } from 'electron';
+import { session } from 'electron';
 import { existsSync } from 'node:fs';
 import { basename, dirname, join } from 'node:path';
 
@@ -127,15 +130,6 @@ function applyProtocolPatch() {
   }
 }
 
-/** 在 app ready 后安装协议补丁，并加载原始 main 入口。 */
-function initialize() {
-  if (app.isReady()) {
-    applyProtocolPatch();
-  } else {
-    app.whenReady().then(applyProtocolPatch);
-  }
-}
-
-initialize();
+applyProtocolPatch();
 
 import './main.js';

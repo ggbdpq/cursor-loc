@@ -169,6 +169,61 @@
       "originalText": "Switch to Agents Window",
       "changeText": "切换到智能体窗口",
       "searchType": "exact"
+    },
+    {
+      "originalText": "Adjust Plan",
+      "changeText": "调整套餐",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Usage limits reset on",
+      "changeText": "用量限额重置于",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "hours and",
+      "changeText": "小时",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "minutes left",
+      "changeText": "分钟剩余",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "100% used",
+      "changeText": "100% 已用",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cursor Models · Includes Cursor Grok and Composer",
+      "changeText": "Cursor 模型 · 包含 Cursor Grok 与 Composer",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cursor Models",
+      "changeText": "Cursor 模型",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Other Models",
+      "changeText": "其他模型",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Additional usage beyond limits consumes Other Models quota or on-demand spend.",
+      "changeText": "超出限额后的额外用量将消耗其他模型配额或按需消费额度。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": " of Other Models usage.",
+      "changeText": " 的其他模型用量。",
+      "searchType": "partial"
+    },
+    {
+      "originalText": " of Other Models usage",
+      "changeText": " 的其他模型用量",
+      "searchType": "partial"
     }
   ]
 }

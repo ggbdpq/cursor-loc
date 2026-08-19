@@ -1,5 +1,11 @@
 import type { Replacement } from '../types.js';
 
+/** apply 时写入安装目录的补丁元数据。 */
+export interface PatchInstallMeta {
+  replacementCount: number;
+  appliedAt: string;
+}
+
 /**
  * Cursor 汉化补丁安装器抽象基类。
  *
@@ -45,4 +51,16 @@ export abstract class CursorTranslator {
     interceptorExists: boolean;
     packageJsonPatched: boolean;
   };
+
+  /**
+   * 读取已安装补丁元数据；默认实现返回 null（旧版或未安装）。
+   */
+  getInstalledMeta(): PatchInstallMeta | null {
+    return null;
+  }
+
+  /** 翻译副本是否包含 DOM 注入脚本。 */
+  translatedFileHasInjectScript(): boolean {
+    return false;
+  }
 }

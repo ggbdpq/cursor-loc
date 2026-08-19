@@ -249,6 +249,116 @@
       "originalText": "Show Cursor in system tray",
       "changeText": "在系统托盘中显示 Cursor",
       "searchType": "exact"
+    },
+    {
+      "originalText": "Plugins, MCPs, Skills, and Rules have moved to Customize. We've introduced a new home for all the ways to customize Cursor.",
+      "changeText": "插件、MCP、技能与规则已迁移至「自定义」。我们为所有 Cursor 自定义方式提供了新的统一管理入口。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Plugins, MCPs, Skills, and Rules have moved to Customize. We\u2019ve introduced a new home for all the ways to customize Cursor.",
+      "changeText": "插件、MCP、技能与规则已迁移至「自定义」。我们为所有 Cursor 自定义方式提供了新的统一管理入口。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Plugins, MCPs, Skills, and Rules have moved to Customize",
+      "changeText": "插件、MCP、技能与规则已迁移至「自定义」",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Open Customize ->",
+      "changeText": "打开「自定义」→",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Open Customize →",
+      "changeText": "打开「自定义」→",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Open Customize",
+      "changeText": "打开「自定义」",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "We've introduced a new home for all the ways to customize Cursor.",
+      "changeText": "我们为所有 Cursor 自定义方式提供了新的统一管理入口。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "We\u2019ve introduced a new home for all the ways to customize Cursor.",
+      "changeText": "我们为所有 Cursor 自定义方式提供了新的统一管理入口。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Startup",
+      "changeText": "启动",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Window Restoration",
+      "changeText": "窗口恢复",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Controls which windows Cursor restores on startup",
+      "changeText": "控制 Cursor 启动时恢复哪些窗口",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Controls which windows Cursor restores on startup.",
+      "changeText": "控制 Cursor 启动时恢复哪些窗口",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Open Agents Window on Startup",
+      "changeText": "启动时打开智能体窗口",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Open Agents Window at Startup",
+      "changeText": "启动时打开智能体窗口",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Auto-Hide Editor When Empty",
+      "changeText": "无编辑器时自动隐藏",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Open Chat as Editor Tabs",
+      "changeText": "以编辑器标签页打开聊天",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Chat Density",
+      "changeText": "对话密度",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Choose how much detail agent tool calls show in the conversation",
+      "changeText": "选择智能体工具调用在对话中显示的详细程度",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Review Control Position",
+      "changeText": "审查控件位置",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Notifications",
+      "changeText": "通知",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Play a sound when agents finish or need attention",
+      "changeText": "智能体完成或需要关注时播放提示音",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Show system notifications when agents finish or need attention",
+      "changeText": "智能体完成或需要关注时显示系统通知",
+      "searchType": "exact"
     }
   ]
 }

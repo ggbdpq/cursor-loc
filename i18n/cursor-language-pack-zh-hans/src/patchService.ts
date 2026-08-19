@@ -12,6 +12,7 @@ export interface PatchOperationResult {
   error?: string;
   versionMismatch?: { tested: string; current: string };
   patchInstalled?: boolean;
+  patchStale?: boolean;
 }
 
 interface Replacement {

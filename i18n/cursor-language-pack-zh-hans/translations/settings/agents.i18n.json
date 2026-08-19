@@ -116,6 +116,16 @@
       "searchType": "exact"
     },
     {
+      "originalText": "Play a sound when agents finish or need attention",
+      "changeText": "智能体完成或需要关注时播放提示音",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Play a sound when Agent finishes or needs attention",
+      "changeText": "智能体完成或需要关注时播放提示音",
+      "searchType": "exact"
+    },
+    {
       "originalText": "Custom Modes",
       "changeText": "自定义模式",
       "searchType": "exact"
@@ -796,6 +806,116 @@
       "changeText": "在终端显示 $1+K 提示",
       "searchType": "regex",
       "flags": "g"
+    },
+    {
+      "originalText": "Agents",
+      "changeText": "智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Conversation",
+      "changeText": "对话",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Default Model",
+      "changeText": "默认模型",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "What model new agents use by default",
+      "changeText": "新智能体默认使用的模型",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "New Messages",
+      "changeText": "新消息",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Choose the default behavior of messages sent while Agent is working",
+      "changeText": "选择智能体运行时发送消息的默认行为",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Manually Sent Messages from Queue",
+      "changeText": "从队列手动发送的消息",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Choose the default behavior of messages sent from the queue",
+      "changeText": "选择从队列发送消息的默认行为",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Code Block Word Wrap",
+      "changeText": "代码块自动换行",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Wrap long lines in Agent conversation code blocks",
+      "changeText": "智能体对话代码块中的长行自动换行",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Third-Party Imports",
+      "changeText": "第三方导入",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Include Third-Party Plugins, Skills, and Other Configs",
+      "changeText": "包含第三方插件、技能及其他配置",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Voice Submit Keywords",
+      "changeText": "语音提交关键词",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Custom words that submit a voice prompt. Spaces and punctuation are ignored.",
+      "changeText": "触发语音提示提交的自定义词。忽略空格与标点。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Ctrl+Enter submits chat, Enter inserts a newline, and primary actions move to Ctrl+Alt+Enter",
+      "changeText": "Ctrl+Enter 提交聊天，Enter 换行，主要操作移至 Ctrl+Alt+Enter",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Context and Tools",
+      "changeText": "上下文与工具",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Execution and Approvals",
+      "changeText": "执行与审批",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Allowlist Options",
+      "changeText": "允许列表选项",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Terminal and Editing",
+      "changeText": "终端与编辑",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Choose how Agents run tools like command execution, MCP, and file writes. A classifier will evaluate whether each action can be safely executed. Allowlists are still respected.",
+      "changeText": "选择智能体运行命令执行、MCP 和文件写入等工具的方式。分类器将评估每个操作是否可安全执行。允许列表仍然生效。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Agent Review on Commit",
+      "changeText": "提交时智能体审查",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Auto Agent Review on Commit",
+      "changeText": "提交时自动智能体审查",
+      "searchType": "exact"
     }
   ]
 }

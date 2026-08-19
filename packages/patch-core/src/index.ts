@@ -26,6 +26,8 @@ export interface PatchOperationResult {
   error?: string;
   versionMismatch?: { tested: string; current: string };
   patchInstalled?: boolean;
+  /** 安装目录补丁词条数与当前 bundle 不一致，或缺少元数据（旧版补丁）。 */
+  patchStale?: boolean;
 }
 
 export interface ApplyPatchOptions {
@@ -88,7 +90,11 @@ export async function applyPatch(options: ApplyPatchOptions): Promise<PatchOpera
 
     translator.install(options.replacements);
     lines.push('');
+    lines.push(`写入路径: ${root}`);
+    lines.push('翻译副本: out/vs/workbench/workbench.desktop.main_translated.js');
+    lines.push('');
     lines.push('汉化补丁已应用。请完全重启 Cursor 查看效果。');
+    lines.push('验证: 重启后在任意窗口按 F12，Console 输入 window.__cursorZhPatch，应看到 { active: true, count: ... }');
     lines.push('提示: Cursor 更新后可能需要重新应用汉化。');
     return { ok: true, lines };
   } catch (err) {
@@ -132,6 +138,11 @@ export async function getPatchStatus(
       patchStatus.interceptorExists &&
       patchStatus.packageJsonPatched;
 
+    const installedMeta = translator.getInstalledMeta();
+
+    let versionMismatch: PatchOperationResult['versionMismatch'];
+    let patchStale = false;
+
     const lines: string[] = [
       `安装路径: ${installPath}`,
       `Cursor 版本: ${version ?? '未知'}`,
@@ -142,7 +153,32 @@ export async function getPatchStatus(
       `  - package.json: ${patchStatus.packageJsonPatched ? '已修改' : '未修改'}`,
     ];
 
-    let versionMismatch: PatchOperationResult['versionMismatch'];
+    if (installed) {
+      const hasInject = translator.translatedFileHasInjectScript();
+      lines.push(`  - DOM 注入脚本: ${hasInject ? '已嵌入' : '缺失（补丁无效）'}`);
+      if (!hasInject) {
+        patchStale = true;
+        lines.push('');
+        lines.push('警告: 翻译副本未包含注入脚本，请重新 apply。');
+      }
+
+      if (installedMeta) {
+        lines.push(`  - 已安装词条数: ${installedMeta.replacementCount}`);
+        lines.push(`  - 上次 apply: ${installedMeta.appliedAt}`);
+        if (installedMeta.replacementCount !== replacementCount) {
+          lines.push('');
+          lines.push(
+            `警告: 安装目录补丁词条数 (${installedMeta.replacementCount}) 与当前 bundle (${replacementCount}) 不一致，请重新 apply。`,
+          );
+          patchStale = true;
+        }
+      } else {
+        lines.push('');
+        lines.push('警告: 补丁为旧版本（无元数据），Agent Window 等新词条可能未生效，请重新 apply。');
+        patchStale = true;
+      }
+    }
+
     if (testedVersion && version && version !== testedVersion) {
       lines.push('');
       lines.push(
@@ -156,7 +192,7 @@ export async function getPatchStatus(
       lines.push('警告: 补丁文件不完整，建议先恢复英文再重新应用。');
     }
 
-    return { ok: true, lines, versionMismatch, patchInstalled: installed };
+    return { ok: true, lines, versionMismatch, patchInstalled: installed, patchStale };
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     return {

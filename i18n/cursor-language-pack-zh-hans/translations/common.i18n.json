@@ -229,6 +229,21 @@
       "originalText": "Hide Logs",
       "changeText": "隐藏日志",
       "searchType": "exact"
+    },
+    {
+      "originalText": "Dismiss",
+      "changeText": "关闭",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Configure",
+      "changeText": "配置",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Connect",
+      "changeText": "连接",
+      "searchType": "exact"
     }
   ]
 }

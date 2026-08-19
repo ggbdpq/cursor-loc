@@ -99,6 +99,46 @@
       "originalText": "Add documentation to use as context. You can also use @Add in Chat or while editing to add a doc.",
       "changeText": "添加文档以用作上下文。也可在聊天或编辑时使用 @Add 添加文档。",
       "searchType": "exact"
+    },
+    {
+      "originalText": "Indexing & Docs",
+      "changeText": "索引与文档",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Ignore Files",
+      "changeText": "忽略文件",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Hierarchical Cursor Ignore",
+      "changeText": "分层 Cursor 忽略",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Apply .cursorignore files to all subdirectories. Changing this setting requires restarting Cursor.",
+      "changeText": "将 .cursorignore 文件应用于所有子目录。更改此设置需要重启 Cursor。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Apply .cursorignore files to all subdirectories. Changing this setting will require a restart of Cursor.",
+      "changeText": "将 .cursorignore 文件应用于所有子目录。更改此设置需要重启 Cursor。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Ignore Symlinks in Cursor Ignore Search",
+      "changeText": "Cursor 忽略搜索中忽略符号链接",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Use with caution. Skip symlinks during .cursorignore file discovery. Enable only when all .cursorignore files are reachable without symlinks. Changing this setting requires restarting Cursor.",
+      "changeText": "请谨慎使用。在 .cursorignore 文件发现过程中跳过符号链接。仅当无需符号链接即可访问所有 .cursorignore 文件时启用。更改此设置需要重启 Cursor。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "⚠️ Use with caution. Skip symlinks during .cursorignore file discovery. Only enable if your repository has many symlinks and all .cursorignore files are reachable without them. Changing this setting will require a restart of Cursor.",
+      "changeText": "⚠️ 请谨慎使用。在 .cursorignore 文件发现过程中跳过符号链接。仅当仓库有大量符号链接且无需符号链接即可访问所有 .cursorignore 文件时启用。更改此设置需要重启 Cursor。",
+      "searchType": "exact"
     }
   ]
 }
