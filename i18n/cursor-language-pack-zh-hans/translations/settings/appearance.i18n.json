@@ -1,0 +1,264 @@
+{
+  "version": "1.0.0",
+  "locale": "zh-cn",
+  "meta": {
+    "module": "settings/appearance"
+  },
+  "replacements": [
+    {
+      "originalText": "Appearance",
+      "changeText": "外观",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Customize your Cursor experience",
+      "changeText": "自定义 Cursor 体验",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Theme",
+      "changeText": "主题",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Follow System Color Scheme",
+      "changeText": "跟随系统配色",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Match the active theme to your OS dark/light setting",
+      "changeText": "使当前主题与系统深色/浅色模式一致",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Choose which theme to use",
+      "changeText": "选择要使用的主题",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Choose between light, dark, or high contrast themes",
+      "changeText": "在浅色、深色或高对比度主题之间选择",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Light Theme",
+      "changeText": "浅色主题",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Dark Theme",
+      "changeText": "深色主题",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Choose the theme used when your system is in light mode",
+      "changeText": "选择系统在浅色模式时使用的主题",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Choose the theme used when your system is in dark mode",
+      "changeText": "选择系统在深色模式时使用的主题",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Manage Themes",
+      "changeText": "管理主题",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Create your own themes, tweak the vibe, and import your favorites",
+      "changeText": "创建自定义主题、调整风格并导入收藏",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Colors",
+      "changeText": "颜色",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Hue",
+      "changeText": "色相",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Choose a tint color",
+      "changeText": "选择色调",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Intensity",
+      "changeText": "强度",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Control how strongly the tint is applied",
+      "changeText": "控制色调的应用强度",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Reduce Transparency",
+      "changeText": "降低透明度",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Replace translucent surfaces with opaque backgrounds",
+      "changeText": "将半透明表面替换为不透明背景",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Agent Conversations",
+      "changeText": "智能体对话",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Tool Call Density",
+      "changeText": "工具调用密度",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Adjust how much detail is shown for tool calls",
+      "changeText": "调整工具调用显示的详细程度",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Typography",
+      "changeText": "排版",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "UI Font Size",
+      "changeText": "界面字号",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Font size for the Cursor user interface",
+      "changeText": "Cursor 用户界面字号",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Code Font Size",
+      "changeText": "代码字号",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Font size for code editors and diffs",
+      "changeText": "代码编辑器与差异视图的字号",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "UI Font Family",
+      "changeText": "界面字体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Override the Cursor user interface typeface",
+      "changeText": "覆盖 Cursor 用户界面字体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Code Font Family",
+      "changeText": "代码字体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Override the font for code editors and diffs",
+      "changeText": "覆盖代码编辑器与差异视图的字体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "System font",
+      "changeText": "系统字体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "System monospace",
+      "changeText": "系统等宽字体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Font Smoothing",
+      "changeText": "字体平滑",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Use native macOS font anti-aliasing",
+      "changeText": "使用 macOS 原生字体抗锯齿",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "High Contrast",
+      "changeText": "高对比度",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Follow System High Contrast",
+      "changeText": "跟随系统高对比度",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Switch to a high contrast theme when your OS is in a high contrast mode",
+      "changeText": "当系统处于高对比度模式时切换到高对比度主题",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "High Contrast Light Theme",
+      "changeText": "高对比度浅色主题",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "High Contrast Dark Theme",
+      "changeText": "高对比度深色主题",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Motion",
+      "changeText": "动效",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Reduce Motion",
+      "changeText": "减少动效",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Minimize interface animations",
+      "changeText": "最小化界面动画",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Minimize interface animations. System follows your OS preference.",
+      "changeText": "最小化界面动画。系统将遵循你的操作系统偏好。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Fun",
+      "changeText": "趣味",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Give the Agent a Confetti Cannon",
+      "changeText": "给智能体配上礼花炮",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Allow the agent to celebrate with a shower of confetti",
+      "changeText": "允许智能体用礼花庆祝",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Hide Email Address",
+      "changeText": "隐藏邮箱地址",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Partially mask your email address in the Cursor user interface",
+      "changeText": "在 Cursor 界面中部分遮蔽邮箱地址",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "When enabled, your email address will be partially masked in the settings UI to protect your privacy",
+      "changeText": "启用后，设置界面中的邮箱地址将部分遮蔽以保护隐私",
+      "searchType": "exact"
+    }
+  ]
+}

@@ -91,7 +91,8 @@ export async function applyPatch(options: ApplyPatchOptions): Promise<PatchOpera
     translator.install(options.replacements);
     lines.push('');
     lines.push(`写入路径: ${root}`);
-    lines.push('翻译副本: out/vs/workbench/workbench.desktop.main_translated.js');
+    lines.push('翻译副本: out/vs/workbench/*_translated.js（desktop / glass 按当前版本入口生成）');
+    lines.push('启动器: workbench.js 已改为 import *_translated.js');
     lines.push('');
     lines.push('汉化补丁已应用。请完全重启 Cursor 查看效果。');
     lines.push('验证: 重启后在任意窗口按 F12，Console 输入 window.__cursorZhPatch，应看到 { active: true, count: ... }');
@@ -136,7 +137,8 @@ export async function getPatchStatus(
     const installed =
       patchStatus.translatedFileExists &&
       patchStatus.interceptorExists &&
-      patchStatus.packageJsonPatched;
+      patchStatus.packageJsonPatched &&
+      patchStatus.loaderPatched !== false;
 
     const installedMeta = translator.getInstalledMeta();
 
@@ -151,7 +153,17 @@ export async function getPatchStatus(
       `  - 翻译文件: ${patchStatus.translatedFileExists ? '存在' : '缺失'}`,
       `  - 拦截器: ${patchStatus.interceptorExists ? '存在' : '缺失'}`,
       `  - package.json: ${patchStatus.packageJsonPatched ? '已修改' : '未修改'}`,
+      `  - 启动器: ${patchStatus.loaderPatched ? '已改为加载翻译副本' : '未修改（补丁不会生效）'}`,
     ];
+
+    for (const target of patchStatus.targetStatuses ?? []) {
+      if (!target.sourceExists) {
+        continue;
+      }
+      lines.push(
+        `    · ${target.label}: ${target.translatedFileExists ? '翻译副本存在' : '翻译副本缺失'}`,
+      );
+    }
 
     if (installed) {
       const hasInject = translator.translatedFileHasInjectScript();

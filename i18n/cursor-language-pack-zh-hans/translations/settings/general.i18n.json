@@ -359,6 +359,36 @@
       "originalText": "Show system notifications when agents finish or need attention",
       "changeText": "智能体完成或需要关注时显示系统通知",
       "searchType": "exact"
+    },
+    {
+      "originalText": "Tips",
+      "changeText": "提示",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Show rotating tips on the empty screen",
+      "changeText": "在空白界面显示轮播提示",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Continue Interrupted Agents",
+      "changeText": "继续中断的智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Automatically resume working on agents and their subagents after a reload or restart",
+      "changeText": "重新加载或重启后自动恢复智能体及其子智能体的运行",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Warning Notifications",
+      "changeText": "警告通知",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Show warning-level in-app toasts",
+      "changeText": "显示应用内警告级 Toast 提示",
+      "searchType": "exact"
     }
   ]
 }

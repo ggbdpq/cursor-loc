@@ -104,6 +104,16 @@
       "originalText": "Browser Settings",
       "changeText": "浏览器设置",
       "searchType": "exact"
+    },
+    {
+      "originalText": "Open Local Links in Cursor Browser",
+      "changeText": "在 Cursor 浏览器中打开本地链接",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Automatically open localhost links in Cursor Browser tabs",
+      "changeText": "在 Cursor 浏览器标签页中自动打开 localhost 链接",
+      "searchType": "exact"
     }
   ]
 }

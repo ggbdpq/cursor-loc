@@ -50,6 +50,13 @@ export abstract class CursorTranslator {
     translatedFileExists: boolean;
     interceptorExists: boolean;
     packageJsonPatched: boolean;
+    /** workbench.js 是否已改为加载 `_translated.js`。 */
+    loaderPatched?: boolean;
+    targetStatuses?: Array<{
+      label: string;
+      sourceExists: boolean;
+      translatedFileExists: boolean;
+    }>;
   };
 
   /**

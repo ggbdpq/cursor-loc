@@ -224,6 +224,81 @@
       "originalText": " of Other Models usage",
       "changeText": " 的其他模型用量",
       "searchType": "partial"
+    },
+    {
+      "originalText": "Includes Cursor Grok and Composer",
+      "changeText": "包含 Cursor Grok 与 Composer",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Includes Cursor Grok 4.5 and Composer 2.5",
+      "changeText": "包含 Cursor Grok 4.5 与 Composer 2.5",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "% used",
+      "changeText": "% 已用",
+      "searchType": "partial"
+    },
+    {
+      "originalText": " days left",
+      "changeText": " 天剩余",
+      "searchType": "partial"
+    },
+    {
+      "originalText": " day left",
+      "changeText": " 天剩余",
+      "searchType": "partial"
+    },
+    {
+      "originalText": " hours left",
+      "changeText": " 小时剩余",
+      "searchType": "partial"
+    },
+    {
+      "originalText": " hour left",
+      "changeText": " 小时剩余",
+      "searchType": "partial"
+    },
+    {
+      "originalText": " minutes left",
+      "changeText": " 分钟剩余",
+      "searchType": "partial"
+    },
+    {
+      "originalText": " minute left",
+      "changeText": " 分钟剩余",
+      "searchType": "partial"
+    },
+    {
+      "originalText": " hours and ",
+      "changeText": " 小时 ",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Set a fixed amount or make on-demand usage unlimited",
+      "changeText": "设置固定额度或将按需用量设为无限制",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Pro Plan",
+      "changeText": "Pro 套餐",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Pro Trial",
+      "changeText": "Pro 试用",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Free Plan",
+      "changeText": "免费套餐",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Start Plan",
+      "changeText": "入门套餐",
+      "searchType": "exact"
     }
   ]
 }

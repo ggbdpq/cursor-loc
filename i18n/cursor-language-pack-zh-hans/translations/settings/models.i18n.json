@@ -26,6 +26,67 @@
       "searchType": "exact"
     },
     {
+      "originalText": "Add Custom Model",
+      "changeText": "添加自定义模型",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add Models",
+      "changeText": "添加模型",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add model to switcher",
+      "changeText": "添加模型到选择器",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Custom model name",
+      "changeText": "自定义模型名称",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Enter model name",
+      "changeText": "请输入模型名称",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Model name cannot be empty.",
+      "changeText": "模型名称不能为空。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Model name cannot contain control characters.",
+      "changeText": "模型名称不能包含控制字符。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Model name looks like a URL or secret. Please enter only the model name.",
+      "changeText": "模型名称看起来像 URL 或密钥，请仅输入模型名称。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Model name must be at most (\\d+) characters\\.",
+      "changeText": "模型名称最多 $1 个字符。",
+      "searchType": "regex",
+      "flags": "g"
+    },
+    {
+      "originalText": "Requires pro (custom model). ",
+      "changeText": "需要专业版（自定义模型）。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Upgrade here.",
+      "changeText": "在此升级。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "OpenAI-compatible API base URL for the local agent.",
+      "changeText": "本地智能体使用的 OpenAI 兼容 API 基础 URL。",
+      "searchType": "exact"
+    },
+    {
       "originalText": "View All Models",
       "changeText": "查看所有模型",
       "searchType": "exact"

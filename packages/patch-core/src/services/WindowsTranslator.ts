@@ -12,6 +12,18 @@ interface PackageJson {
   [key: string]: unknown;
 }
 
+interface WorkbenchTarget {
+  label: string;
+  sourcePath: string;
+  translatedPath: string;
+}
+
+interface WorkbenchTargetStatus {
+  label: string;
+  sourceExists: boolean;
+  translatedFileExists: boolean;
+}
+
 export type { PatchInstallMeta };
 
 /**
@@ -29,18 +41,22 @@ function loadAsset(name: string): string {
 /**
  * Windows 平台 Cursor 汉化补丁安装实现。
  *
- * 不修改原始 `workbench.desktop.main.js`，而是生成 `_translated` 副本并在头部注入 DOM 翻译脚本；
- * 通过 `cursorTranslatorMain.js` 拦截协议请求重定向到翻译副本。
+ * 生成 `_translated` 副本并注入 DOM 翻译脚本；同时改 workbench.js 的 ESM import
+ * 直接加载该副本（Cursor 3.16+ 的 `import()` 不走 `registerFileProtocol`）。
  */
+const LOADER_IMPORT_ORIGINAL = 'await import(new URL(`${t}.js`,m).href)';
+const LOADER_IMPORT_PATCHED = 'await import(new URL(`${t}_translated.js`,m).href)';
+
 export class WindowsTranslator extends CursorTranslator {
   private appRoot: string;
-  private readTargetPath: string;
-  private saveTranslatedFilePath: string;
+  private workbenchTargets: WorkbenchTarget[];
   private saveInterceptorPath: string;
   private readPackageJsonPath: string;
   private backupPackageJsonPath: string;
   private metaPath: string;
   private injectScript: string;
+  private loaderPath: string;
+  private loaderBackupPath: string;
 
   /**
    * @param cursorInstallPath Cursor 安装根目录。
@@ -49,13 +65,28 @@ export class WindowsTranslator extends CursorTranslator {
   constructor(cursorInstallPath: string, interceptorFileContent: string) {
     super(cursorInstallPath, interceptorFileContent);
     this.appRoot = getAppRoot(cursorInstallPath);
-    this.readTargetPath = path.join(this.appRoot, 'out/vs/workbench/workbench.desktop.main.js');
-    this.saveTranslatedFilePath = path.join(this.appRoot, 'out/vs/workbench/workbench.desktop.main_translated.js');
+    this.workbenchTargets = [
+      {
+        label: 'desktop',
+        sourcePath: path.join(this.appRoot, 'out/vs/workbench/workbench.desktop.main.js'),
+        translatedPath: path.join(this.appRoot, 'out/vs/workbench/workbench.desktop.main_translated.js'),
+      },
+      {
+        label: 'glass',
+        sourcePath: path.join(this.appRoot, 'out/vs/workbench/workbench.glass.main.js'),
+        translatedPath: path.join(this.appRoot, 'out/vs/workbench/workbench.glass.main_translated.js'),
+      },
+    ];
     this.saveInterceptorPath = path.join(this.appRoot, 'out/cursorTranslatorMain.js');
     this.readPackageJsonPath = path.join(this.appRoot, 'package.json');
     this.backupPackageJsonPath = path.join(this.appRoot, 'package.json.backup');
     this.metaPath = path.join(this.appRoot, 'out/cursor-zh-patch-meta.json');
     this.injectScript = loadAsset('cursor.inject.js');
+    this.loaderPath = path.join(
+      this.appRoot,
+      'out/vs/code/electron-sandbox/workbench/workbench.js',
+    );
+    this.loaderBackupPath = `${this.loaderPath}.cursor-zh-backup`;
   }
 
   /**
@@ -82,10 +113,21 @@ export class WindowsTranslator extends CursorTranslator {
       }
     }
 
+    const targetStatuses = this.workbenchTargets.map((target): WorkbenchTargetStatus => ({
+      label: target.label,
+      sourceExists: fs.existsSync(target.sourcePath),
+      translatedFileExists: fs.existsSync(target.translatedPath),
+    }));
+    const translatedFileExists = targetStatuses
+      .filter((target) => target.sourceExists)
+      .every((target) => target.translatedFileExists);
+
     return {
-      translatedFileExists: fs.existsSync(this.saveTranslatedFilePath),
+      translatedFileExists,
       interceptorExists: fs.existsSync(this.saveInterceptorPath),
       packageJsonPatched,
+      loaderPatched: this.isLoaderPatched(),
+      targetStatuses,
     };
   }
 
@@ -110,43 +152,59 @@ export class WindowsTranslator extends CursorTranslator {
    * 检查翻译副本头部是否包含 DOM 注入脚本特征。
    */
   translatedFileHasInjectScript(): boolean {
-    if (!fs.existsSync(this.saveTranslatedFilePath)) {
+    const existingTargets = this.workbenchTargets.filter((target) => fs.existsSync(target.sourcePath));
+    if (existingTargets.length === 0) {
       return false;
     }
 
-    try {
-      const sample = fs.readFileSync(this.saveTranslatedFilePath, 'utf-8').slice(0, 65536);
-      return sample.includes('TextTranslator');
-    } catch {
-      return false;
+    for (const target of existingTargets) {
+      if (!fs.existsSync(target.translatedPath)) {
+        return false;
+      }
+
+      try {
+        const sample = fs.readFileSync(target.translatedPath, 'utf-8').slice(0, 65536);
+        if (!sample.includes('TextTranslator')) {
+          return false;
+        }
+      } catch {
+        return false;
+      }
     }
+
+    return true;
   }
 
   /**
    * 应用汉化补丁。
    *
-   * 1. 复制 workbench 并在头部注入带词典的 `cursor.inject.js`
-   * 2. 写入 `cursorTranslatorMain.js` 拦截器
-   * 3. 备份并修改 `package.json` 的 main 入口
+   * 1. 复制 desktop / glass workbench 并在头部注入带词典的 `cursor.inject.js`
+   * 2. 改 workbench.js 的 ESM import，直接加载 `_translated.js`（Cursor 3.16+ 的 import() 不走 registerFileProtocol）
+   * 3. 写入 `cursorTranslatorMain.js` 拦截器
+   * 4. 备份并修改 `package.json` 的 main 入口
    *
    * @param replacements 运行时替换词典。
    * @throws 目标 workbench 不存在或目录不可写。
    */
   install(replacements: readonly Replacement[]): void {
-    if (!fs.existsSync(this.readTargetPath)) {
-      throw new Error(`目标文件不存在: ${this.readTargetPath}`);
+    const existingTargets = this.workbenchTargets.filter((target) => fs.existsSync(target.sourcePath));
+    if (existingTargets.length === 0) {
+      throw new Error(`目标文件不存在: ${this.workbenchTargets[0]?.sourcePath}`);
     }
 
-    const source = fs.readFileSync(this.readTargetPath, 'utf-8');
     const injectWithData = this.injectScript.replace(
       "'${replacementsArray}'",
       JSON.stringify(replacements),
     );
-    const output = `${injectWithData};\n${source}`;
 
-    const parsedPath = path.parse(this.readTargetPath);
+    const parsedPath = path.parse(existingTargets[0].sourcePath);
     fs.accessSync(parsedPath.dir, fs.constants.W_OK);
-    fs.writeFileSync(this.saveTranslatedFilePath, output, 'utf8');
+    for (const target of existingTargets) {
+      const source = fs.readFileSync(target.sourcePath, 'utf-8');
+      const output = `${injectWithData};\n${source}`;
+      fs.writeFileSync(target.translatedPath, output, 'utf8');
+    }
+    this.patchWorkbenchLoader();
     fs.writeFileSync(this.saveInterceptorPath, this.interceptorFileContent, 'utf8');
 
     if (!fs.existsSync(this.backupPackageJsonPath)) {
@@ -176,8 +234,12 @@ export class WindowsTranslator extends CursorTranslator {
    * 优先从 `.backup` 还原；若无备份则尝试恢复 `main_original` 字段。
    */
   uninstall(): void {
-    if (fs.existsSync(this.saveTranslatedFilePath)) {
-      fs.unlinkSync(this.saveTranslatedFilePath);
+    this.restoreWorkbenchLoader();
+
+    for (const target of this.workbenchTargets) {
+      if (fs.existsSync(target.translatedPath)) {
+        fs.unlinkSync(target.translatedPath);
+      }
     }
 
     if (fs.existsSync(this.saveInterceptorPath)) {
@@ -204,6 +266,73 @@ export class WindowsTranslator extends CursorTranslator {
       packageJson.main = packageJson.main_original;
       delete packageJson.main_original;
       fs.writeFileSync(this.readPackageJsonPath, JSON.stringify(packageJson, null, 2), 'utf-8');
+    }
+  }
+
+  /**
+   * workbench.js 是否已改为加载 `_translated.js`。
+   */
+  private isLoaderPatched(): boolean {
+    if (!fs.existsSync(this.loaderPath)) {
+      return false;
+    }
+    try {
+      return fs.readFileSync(this.loaderPath, 'utf-8').includes(LOADER_IMPORT_PATCHED);
+    } catch {
+      return false;
+    }
+  }
+
+  /**
+   * 备份并改写 workbench.js，使 ESM import 加载翻译副本。
+   *
+   * @throws 启动器不存在，或当前 Cursor 版本找不到可替换的 import 语句。
+   */
+  private patchWorkbenchLoader(): void {
+    if (!fs.existsSync(this.loaderPath)) {
+      throw new Error(`启动器不存在: ${this.loaderPath}`);
+    }
+
+    if (!fs.existsSync(this.loaderBackupPath)) {
+      const current = fs.readFileSync(this.loaderPath, 'utf-8');
+      if (current.includes(LOADER_IMPORT_PATCHED)) {
+        const restored = current.replace(LOADER_IMPORT_PATCHED, LOADER_IMPORT_ORIGINAL);
+        fs.writeFileSync(this.loaderBackupPath, restored, 'utf8');
+      } else {
+        fs.copyFileSync(this.loaderPath, this.loaderBackupPath);
+      }
+    }
+
+    const original = fs.readFileSync(this.loaderBackupPath, 'utf-8');
+    if (!original.includes(LOADER_IMPORT_ORIGINAL)) {
+      throw new Error(
+        '当前 Cursor 版本的 workbench.js 无法识别启动入口，请升级汉化补丁后再 apply。',
+      );
+    }
+
+    const patched = original.replace(LOADER_IMPORT_ORIGINAL, LOADER_IMPORT_PATCHED);
+    fs.writeFileSync(this.loaderPath, patched, 'utf8');
+  }
+
+  /** 从备份还原 workbench.js。 */
+  private restoreWorkbenchLoader(): void {
+    if (fs.existsSync(this.loaderBackupPath)) {
+      fs.copyFileSync(this.loaderBackupPath, this.loaderPath);
+      fs.unlinkSync(this.loaderBackupPath);
+      return;
+    }
+
+    if (!fs.existsSync(this.loaderPath)) {
+      return;
+    }
+
+    const current = fs.readFileSync(this.loaderPath, 'utf-8');
+    if (current.includes(LOADER_IMPORT_PATCHED)) {
+      fs.writeFileSync(
+        this.loaderPath,
+        current.replace(LOADER_IMPORT_PATCHED, LOADER_IMPORT_ORIGINAL),
+        'utf8',
+      );
     }
   }
 }

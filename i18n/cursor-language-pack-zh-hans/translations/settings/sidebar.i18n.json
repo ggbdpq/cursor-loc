@@ -114,6 +114,26 @@
       "originalText": "Git & PRs",
       "changeText": "Git 与 PR",
       "searchType": "exact"
+    },
+    {
+      "originalText": "Profile",
+      "changeText": "个人资料",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Appearance",
+      "changeText": "外观",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Code Intelligence",
+      "changeText": "代码智能",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Worktrees",
+      "changeText": "工作树",
+      "searchType": "exact"
     }
   ]
 }

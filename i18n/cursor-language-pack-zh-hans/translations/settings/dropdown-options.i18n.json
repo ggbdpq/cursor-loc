@@ -336,6 +336,11 @@
       "searchType": "partial"
     },
     {
+      "originalText": "Search Settings",
+      "changeText": "搜索设置",
+      "searchType": "partial"
+    },
+    {
       "originalText": "Search models",
       "changeText": "搜索模型",
       "searchType": "partial"
@@ -383,6 +388,36 @@
     {
       "originalText": "Auto-Review (with Sandbox)",
       "changeText": "自动审查(含沙箱)(Auto-Review (with Sandbox))",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Last Used",
+      "changeText": "上次使用(Last Used)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cloud",
+      "changeText": "云端(Cloud)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Local",
+      "changeText": "本地(Local)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "New Worktree",
+      "changeText": "新工作树(New Worktree)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Team Pool",
+      "changeText": "团队池(Team Pool)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "System",
+      "changeText": "系统(System)",
       "searchType": "exact"
     }
   ]

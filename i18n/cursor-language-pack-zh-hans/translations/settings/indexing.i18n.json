@@ -139,6 +139,56 @@
       "originalText": "⚠️ Use with caution. Skip symlinks during .cursorignore file discovery. Only enable if your repository has many symlinks and all .cursorignore files are reachable without them. Changing this setting will require a restart of Cursor.",
       "changeText": "⚠️ 请谨慎使用。在 .cursorignore 文件发现过程中跳过符号链接。仅当仓库有大量符号链接且无需符号链接即可访问所有 .cursorignore 文件时启用。更改此设置需要重启 Cursor。",
       "searchType": "exact"
+    },
+    {
+      "originalText": "Code Intelligence",
+      "changeText": "代码智能",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "LSP",
+      "changeText": "语言服务器 (LSP)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Enable LSPs",
+      "changeText": "启用 LSP",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Enable language server by default to provide code intelligence in workspaces",
+      "changeText": "默认启用语言服务器，为工作区提供代码智能",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Enable LSPs for Worktrees",
+      "changeText": "为工作树启用 LSP",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Enable language server by default to provide code intelligence in agent worktree workspaces",
+      "changeText": "默认启用语言服务器，为智能体工作树工作区提供代码智能",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Maximum Local LSP Workspaces",
+      "changeText": "本地 LSP 工作区上限",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Maximum local workspaces that can run language servers at the same time",
+      "changeText": "可同时运行语言服务器的本地工作区数量上限",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Maximum Remote LSP Workspaces",
+      "changeText": "远程 LSP 工作区上限",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Maximum remote workspaces that can run language servers at the same time",
+      "changeText": "可同时运行语言服务器的远程工作区数量上限",
+      "searchType": "exact"
     }
   ]
 }

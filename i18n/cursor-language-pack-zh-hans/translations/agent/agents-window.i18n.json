@@ -676,6 +676,101 @@
       "searchType": "exact"
     },
     {
+      "originalText": "File",
+      "changeText": "文件",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "View",
+      "changeText": "视图",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Help",
+      "changeText": "帮助",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Edit",
+      "changeText": "编辑",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "New Terminal",
+      "changeText": "新建终端",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "New Browser",
+      "changeText": "新建浏览器",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Exit",
+      "changeText": "退出",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Redo",
+      "changeText": "重做",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cut",
+      "changeText": "剪切",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Paste",
+      "changeText": "粘贴",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Select All",
+      "changeText": "全选",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Command Palette",
+      "changeText": "命令面板",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "View License",
+      "changeText": "查看许可证",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Zoom In",
+      "changeText": "放大",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Zoom Out",
+      "changeText": "缩小",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Reset Zoom",
+      "changeText": "重置缩放",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Files",
+      "changeText": "文件",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Settings",
+      "changeText": "设置",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Workspaces",
+      "changeText": "工作区",
+      "searchType": "exact"
+    },
+    {
       "originalText": "Getting Started",
       "changeText": "入门指南",
       "searchType": "exact"
@@ -721,6 +816,61 @@
       "searchType": "exact"
     },
     {
+      "originalText": "Add a follow-up",
+      "changeText": "添加后续消息",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Medium Fast",
+      "changeText": "中等 · 快速",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Get faster responses",
+      "changeText": "获取更快回复",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Upgrade to Pro+",
+      "changeText": "升级到 Pro+",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Import your Claude Code conversations",
+      "changeText": "导入你的 Claude Code 对话",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Sync your chats and continue them in Cursor",
+      "changeText": "同步你的聊天，并在 Cursor 中继续使用",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Plan, Build, / for skills, @ for context",
+      "changeText": "规划、构建；输入 / 使用技能，输入 @ 添加上下文",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "You've reached your limit",
+      "changeText": "你已达到用量上限",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Responses may be slower",
+      "changeText": "回复可能会变慢",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Upgrade for more usage",
+      "changeText": "升级以获取更多用量",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Thought briefly",
+      "changeText": "简短思考",
+      "searchType": "exact"
+    },
+    {
       "originalText": "Open Tabs",
       "changeText": "打开的标签页",
       "searchType": "exact"
@@ -738,7 +888,7 @@
     {
       "originalText": "New Chat",
       "changeText": "新对话",
-      "searchType": "partial"
+      "searchType": "exact"
     }
   ]
 }

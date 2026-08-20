@@ -1,0 +1,119 @@
+{
+  "version": "1.0.0",
+  "locale": "zh-cn",
+  "meta": {
+    "module": "settings/profile"
+  },
+  "replacements": [
+    {
+      "originalText": "Profile",
+      "changeText": "个人资料",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Email",
+      "changeText": "邮箱",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Account email shown on the profile page",
+      "changeText": "显示在资料页上的账户邮箱",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Profile Image",
+      "changeText": "头像",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Upload or remove the profile photo",
+      "changeText": "上传或移除头像",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Upload image",
+      "changeText": "上传图片",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Change image",
+      "changeText": "更换图片",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "First Name",
+      "changeText": "名",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Last Name",
+      "changeText": "姓",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Name shown on the public profile page",
+      "changeText": "显示在公开资料页上的姓名",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Handle",
+      "changeText": "用户名",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Claim a handle for your public profile page",
+      "changeText": "为你的公开资料页认领用户名",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Claim handle",
+      "changeText": "认领用户名",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Links",
+      "changeText": "链接",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Social and website links on the public profile page",
+      "changeText": "公开资料页上的社交与网站链接",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Add link",
+      "changeText": "添加链接",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Public Profile",
+      "changeText": "公开资料",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Make the cursor.com profile page visible to anyone with the link",
+      "changeText": "使 cursor.com 资料页对持有链接的任何人可见",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "When enabled, your cursor.com profile page is visible to anyone with the link.",
+      "changeText": "启用后，你的 cursor.com 资料页对持有链接的任何人可见。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Public profiles are disabled by your team admin.",
+      "changeText": "团队管理员已禁用公开资料。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Profile image must be a PNG, JPEG, or WebP file.",
+      "changeText": "头像须为 PNG、JPEG 或 WebP 文件。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Profile image must be smaller than 2 MB.",
+      "changeText": "头像须小于 2 MB。",
+      "searchType": "exact"
+    }
+  ]
+}

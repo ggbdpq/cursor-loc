@@ -916,6 +916,46 @@
       "originalText": "Auto Agent Review on Commit",
       "changeText": "提交时自动智能体审查",
       "searchType": "exact"
+    },
+    {
+      "originalText": "Default Environment",
+      "changeText": "默认环境",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Where new agents start by default",
+      "changeText": "新智能体的默认启动环境",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Import Claude Code Conversations",
+      "changeText": "导入 Claude Code 对话",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Sync chats and continue them in Cursor",
+      "changeText": "同步聊天并在 Cursor 中继续",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Remote Control",
+      "changeText": "远程控制",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Allow agents on this machine to be controlled remotely from mobile and web",
+      "changeText": "允许从移动端和网页远程控制本机上的智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Keep This Computer Awake",
+      "changeText": "保持本机唤醒",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Prevent sleep when this computer is plugged in and Remote Control is enabled",
+      "changeText": "接通电源且远程控制已启用时防止休眠",
+      "searchType": "exact"
     }
   ]
 }

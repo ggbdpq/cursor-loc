@@ -1,21 +1,22 @@
 /**
  * Cursor 汉化补丁 — Electron 协议拦截器。
  *
- * 将 `vscode-file:` 协议下对 `workbench.desktop.main.js` 的请求
- * 重定向到 `workbench.desktop.main_translated.js`。
+ * 将 `vscode-file:` 协议下对 workbench 入口的请求
+ * 重定向到对应的 `_translated.js` 副本。
  *
- * 注意：必须在 `import './main.js'` 之前同步安装补丁，
- * 否则 main.js 可能在 app.whenReady 中抢先注册协议，导致重定向失效。
+ * 必须用动态 `import('./main.js')`：本文件是 ESM（package.json `"type": "module"`），
+ * 静态 import 会被提升到模块体之前执行，导致 Cursor 先注册 vscode-file，拦截失效。
  */
 
 import { session } from 'electron';
 import { existsSync } from 'node:fs';
 import { basename, dirname, join } from 'node:path';
 
-/** 原始 workbench 文件名。 */
-const TARGET_FILENAME = 'workbench.desktop.main.js';
-/** 注入翻译脚本后的 workbench 副本文件名。 */
-const TRANSLATED_FILENAME = 'workbench.desktop.main_translated.js';
+/** 原始 workbench 文件名到翻译副本文件名的映射。 */
+const WORKBENCH_ENTRY_MAP = new Map([
+  ['workbench.desktop.main.js', 'workbench.desktop.main_translated.js'],
+  ['workbench.glass.main.js', 'workbench.glass.main_translated.js'],
+]);
 /** VS Code / Cursor 自定义文件协议 scheme。 */
 const TARGET_SCHEME = 'vscode-file';
 
@@ -61,12 +62,13 @@ function shouldRedirect(filePath) {
 
   try {
     const fileName = basename(filePath);
-    if (fileName !== TARGET_FILENAME) {
+    const translatedFileName = WORKBENCH_ENTRY_MAP.get(fileName);
+    if (!translatedFileName) {
       return false;
     }
 
     const dir = dirname(filePath);
-    const translatedPath = join(dir, TRANSLATED_FILENAME);
+    const translatedPath = join(dir, translatedFileName);
 
     return existsSync(translatedPath);
   } catch {
@@ -84,8 +86,12 @@ function createRedirectUrl(originalUrl) {
   try {
     const urlObj = new URL(originalUrl);
     const originalPath = urlObj.pathname;
+    const translatedFileName = WORKBENCH_ENTRY_MAP.get(basename(originalPath));
+    if (!translatedFileName) {
+      return originalUrl;
+    }
     const dir = dirname(originalPath);
-    const newPath = join(dir, TRANSLATED_FILENAME).replace(/\\/g, '/');
+    const newPath = join(dir, translatedFileName).replace(/\\/g, '/');
 
     urlObj.pathname = newPath;
     return urlObj.toString();
@@ -115,7 +121,11 @@ function createWrappedHandler(handler) {
   };
 }
 
-/** 劫持 `session.defaultSession.protocol.registerFileProtocol` 以注入重定向逻辑。 */
+/**
+ * 劫持 `session.defaultSession.protocol.registerFileProtocol`。
+ *
+ * 必须在 Cursor 调用 registerFileProtocol('vscode-file', ...) 之前执行。
+ */
 function applyProtocolPatch() {
   try {
     const originalRegisterFileProtocol = session.defaultSession.protocol.registerFileProtocol;
@@ -132,4 +142,4 @@ function applyProtocolPatch() {
 
 applyProtocolPatch();
 
-import './main.js';
+await import('./main.js');

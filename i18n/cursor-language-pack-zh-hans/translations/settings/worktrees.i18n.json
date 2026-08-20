@@ -1,0 +1,64 @@
+{
+  "version": "1.0.0",
+  "locale": "zh-cn",
+  "meta": {
+    "module": "settings/worktrees"
+  },
+  "replacements": [
+    {
+      "originalText": "Worktrees",
+      "changeText": "工作树",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cleanup",
+      "changeText": "清理",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cursor periodically removes old worktrees to free disk space. Tune how aggressively cleanup runs.",
+      "changeText": "Cursor 会定期移除旧工作树以释放磁盘空间。可调整清理强度。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Max Worktrees",
+      "changeText": "最大工作树数",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Maximum retained Cursor-managed worktrees",
+      "changeText": "保留的 Cursor 托管工作树上限",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Maximum number of Cursor-managed worktrees to retain across all workspaces. Older worktrees are removed first.",
+      "changeText": "所有工作区中保留的 Cursor 托管工作树数量上限。优先移除较旧的工作树。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Max Total Size (GB)",
+      "changeText": "总大小上限 (GB)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Maximum aggregate worktree size",
+      "changeText": "工作树总大小上限",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Maximum total size in GB across all Cursor-managed worktrees. Set to 0 to disable the size limit.",
+      "changeText": "所有 Cursor 托管工作树的总大小上限（GB）。设为 0 可禁用大小限制。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cursor-Managed Worktrees",
+      "changeText": "Cursor 托管工作树",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "No Cursor-managed worktrees on this machine.",
+      "changeText": "本机暂无 Cursor 托管的工作树。",
+      "searchType": "exact"
+    }
+  ]
+}
