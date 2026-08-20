@@ -2,21 +2,21 @@
 
 本文件遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循 [语义化版本](https://semver.org/lang/zh-CN/)。
 
-## [0.0.8] - 2026-08-20
+## [0.0.3] - 2026-08-20
 
 ### Fixed
 
 - 修复协议拦截器安装时序：`cursorTranslatorMain.js` 在 `import main.js` 之前同步劫持，避免 workbench 翻译副本未加载
-- 修复 `patchStale` 变量声明顺序导致的 TypeScript 编译错误
-- 增强 `cursor.inject.js`：强制 open Shadow DOM、MutationObserver、始终扫描 `document.body`、运行时 `window.__cursorZhPatch` 自检
-- `npm run apply` 改为完整 `npm run build`，确保 patch-core 与词典同步写入安装目录
-- status 增加补丁元数据对比与 DOM 注入脚本检测，提示过期补丁
+- 修复 Cursor 3.16+ workbench 通过 ESM `import()` 加载、协议拦截失效的问题（改 `workbench.js` 加载 `*_translated.js`）
+- 抑制「Your Cursor installation appears to be corrupt」启动提示（汉化补丁触发的完整性校验误报）
+- 增强 `cursor.inject.js`：强制 open Shadow DOM、扩展 Settings/菜单选择器、运行时 `window.__cursorZhPatch` 自检
 
 ### Added
 
-- 新建 `agent/agents-window.i18n.json`，覆盖 Agent Window 侧栏、并行/云端/工作树、用量提示等词条
-- 扩展 Settings / Composer / Customize / Git PR 等模块近 2–3 个月新增英文词条
-- apply 成功后输出写入路径与 Console 自检说明
+- 补全 Settings 多页汉化：General / Profile / Appearance / Code Intelligence / Worktrees / Plan & Usage / Browser & Network 等
+- 新建 `profile.i18n.json`、`appearance.i18n.json`、`worktrees.i18n.json` 词典模块
+- 新建 `agent/agents-window.i18n.json`，覆盖 Agent Window 菜单与侧栏词条
+- 词典条目增至 1300+，apply 成功后输出 Console 自检说明
 
 ## [0.0.2] - 2026-06-20
 
@@ -37,6 +37,6 @@
 - 词典 SSOT（`translations/**/*.i18n.json`）与构建校验工具链
 - GitHub Actions CI（build / validate:i18n / test）
 
-[0.0.8]: https://github.com/ggbdpq/cursor-loc/releases/tag/v0.0.8
+[0.0.3]: https://github.com/ggbdpq/cursor-loc/releases/tag/v0.0.3
 [0.0.2]: https://github.com/ggbdpq/cursor-loc/releases/tag/v0.0.2
 [0.0.1]: https://github.com/ggbdpq/cursor-loc/releases/tag/v0.0.1
