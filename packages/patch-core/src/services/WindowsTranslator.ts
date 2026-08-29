@@ -241,17 +241,17 @@ export class WindowsTranslator extends CursorTranslator {
       this.patchWorkbenchLoader();
       this.updateLoaderChecksum();
 
-      if (!fs.existsSync(this.backupPackageJsonPath)) {
+      const currentPkgRaw = fs.readFileSync(this.readPackageJsonPath);
+      const currentPkg = JSON.parse(currentPkgRaw.toString('utf-8')) as PackageJson;
+      const pkgPatched = currentPkg.main === './out/cursorTranslatorMain.js';
+      if (!pkgPatched && this.isBackupStale(this.backupPackageJsonPath, currentPkgRaw, false)) {
         fs.copyFileSync(this.readPackageJsonPath, this.backupPackageJsonPath);
       }
-      const packageJson = JSON.parse(
-        fs.readFileSync(this.readPackageJsonPath, 'utf-8'),
-      ) as PackageJson;
-      if (!packageJson.main_original && packageJson.main) {
-        packageJson.main_original = packageJson.main;
+      if (!currentPkg.main_original && currentPkg.main) {
+        currentPkg.main_original = currentPkg.main;
       }
-      packageJson.main = './out/cursorTranslatorMain.js';
-      fs.writeFileSync(this.readPackageJsonPath, JSON.stringify(packageJson, null, 2), 'utf-8');
+      currentPkg.main = './out/cursorTranslatorMain.js';
+      fs.writeFileSync(this.readPackageJsonPath, JSON.stringify(currentPkg, null, 2), 'utf-8');
 
       // 3) 元数据
       const meta: PatchInstallMeta = {
@@ -331,7 +331,10 @@ export class WindowsTranslator extends CursorTranslator {
   }
 
   /**
-   * 备份并改写 workbench.js，使 ESM import 加载翻译副本。
+   * 改写 workbench.js，使 ESM import 加载翻译副本。
+   *
+   * 始终以「当前磁盘内容」为补丁基底（而非备份），避免 Cursor 升级后把旧版本
+   * 启动器写进新安装目录；已指向翻译副本时直接跳过（重复 apply）。
    *
    * @throws 启动器不存在，或当前 Cursor 版本找不到可替换的 import 语句。
    */
@@ -340,31 +343,46 @@ export class WindowsTranslator extends CursorTranslator {
       throw new Error(`启动器不存在: ${this.loaderPath}`);
     }
 
-    if (!fs.existsSync(this.loaderBackupPath)) {
-      const current = fs.readFileSync(this.loaderPath, 'utf-8');
-      if (LOADER_IMPORT_TRANSLATED_RE.test(current)) {
-        const restored = current.replace(
-          LOADER_IMPORT_TRANSLATED_RE,
-          (_s, t, m) => loaderImportOriginal(t, m),
-        );
-        fs.writeFileSync(this.loaderBackupPath, restored, 'utf8');
-      } else {
-        fs.copyFileSync(this.loaderPath, this.loaderBackupPath);
-      }
+    const currentRaw = fs.readFileSync(this.loaderPath);
+    const current = currentRaw.toString('utf-8');
+    if (LOADER_IMPORT_TRANSLATED_RE.test(current)) {
+      return;
     }
 
-    const original = fs.readFileSync(this.loaderBackupPath, 'utf-8');
-    if (!LOADER_IMPORT_RE.test(original)) {
+    if (this.isBackupStale(this.loaderBackupPath, currentRaw, false)) {
+      fs.writeFileSync(this.loaderBackupPath, currentRaw);
+    }
+
+    if (!LOADER_IMPORT_RE.test(current)) {
       throw new Error(
         '当前 Cursor 版本的 workbench.js 无法识别启动入口，请升级汉化补丁后再 apply。',
       );
     }
 
-    const patched = original.replace(
-      LOADER_IMPORT_RE,
-      (_s, t, m) => loaderImportTranslated(t, m),
+    fs.writeFileSync(
+      this.loaderPath,
+      current.replace(LOADER_IMPORT_RE, (_s, t, m) => loaderImportTranslated(t, m)),
+      'utf8',
     );
-    fs.writeFileSync(this.loaderPath, patched, 'utf8');
+  }
+
+  /**
+   * 备份是否为 Cursor 升级前的残留。
+   *
+   * Cursor 升级会覆盖原始文件但不会清理我们的备份；若当前文件未被我们修改
+   * 且与备份不一致，说明备份来自旧版本，须以当前内容刷新，否则 revert 会把
+   * 旧版本内容写进新安装目录。
+   *
+   * @param backupPath 备份文件路径。
+   * @param currentRaw 当前文件原始字节。
+   * @param patchedByUs 当前文件是否已被本补丁修改（是则备份即对应原始内容）。
+   * @returns 备份缺失或内容不一致时为 true。
+   */
+  private isBackupStale(backupPath: string, currentRaw: Buffer, patchedByUs: boolean): boolean {
+    if (!fs.existsSync(backupPath)) {
+      return true;
+    }
+    return !patchedByUs && !fs.readFileSync(backupPath).equals(currentRaw);
   }
 
   /**
@@ -378,11 +396,8 @@ export class WindowsTranslator extends CursorTranslator {
       return;
     }
 
-    if (!fs.existsSync(this.productBackupPath)) {
-      fs.copyFileSync(this.productJsonPath, this.productBackupPath);
-    }
-
-    const product = JSON.parse(fs.readFileSync(this.productJsonPath, 'utf-8')) as {
+    const productRaw = fs.readFileSync(this.productJsonPath);
+    const product = JSON.parse(productRaw.toString('utf-8')) as {
       checksums?: Record<string, string>;
     };
     const key = path
@@ -392,10 +407,16 @@ export class WindowsTranslator extends CursorTranslator {
       return; // ponytail: 新版本若改键名则无法拦提示，词典已兜底翻译该提示
     }
 
-    product.checksums[key] = createHash('sha256')
+    const loaderHash = createHash('sha256')
       .update(fs.readFileSync(this.loaderPath))
       .digest('base64')
       .replace(/=+$/, '');
+    const patchedByUs = product.checksums[key] === loaderHash;
+    if (this.isBackupStale(this.productBackupPath, productRaw, patchedByUs)) {
+      fs.writeFileSync(this.productBackupPath, productRaw);
+    }
+
+    product.checksums[key] = loaderHash;
     fs.writeFileSync(this.productJsonPath, JSON.stringify(product, null, 2), 'utf-8');
   }
 

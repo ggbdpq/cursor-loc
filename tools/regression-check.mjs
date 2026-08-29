@@ -130,6 +130,15 @@ if (baseline.product) {
 const metaJson = existsSync(meta) ? JSON.parse(readFileSync(meta, 'utf-8')) : {};
 check(metaJson.replacementCount === replacements.length, 'meta 记录词条数一致');
 check(typeof metaJson.cursorVersion === 'string' && metaJson.cursorVersion.length > 0, 'meta 记录 Cursor 版本');
+if (baseline.product) {
+  // 版本一致性：备份过期（Cursor 升级后残留）会把旧版本号写回 package.json
+  const prodVersion = JSON.parse(readFileSync(productJson, 'utf-8')).version;
+  check(
+    JSON.parse(readFileSync(pkgJson, 'utf-8')).version === prodVersion,
+    `apply 后 package.json 版本与 product.json 一致（${prodVersion}）`,
+  );
+  check(metaJson.cursorVersion === prodVersion, 'meta 版本与 product.json 一致');
+}
 
 // ── 第 2 步：revert ──
 console.log('步骤 2/2: revert');
@@ -147,6 +156,11 @@ check(bytesEqual(workbench, baseline.workbench), 'workbench.js 字节级还原')
 check(bytesEqual(pkgJson, baseline.pkg), 'package.json 字节级还原');
 if (baseline.product) {
   check(bytesEqual(productJson, baseline.product), 'product.json 字节级还原');
+  const prodVersion = JSON.parse(readFileSync(productJson, 'utf-8')).version;
+  check(
+    JSON.parse(readFileSync(pkgJson, 'utf-8')).version === prodVersion,
+    'revert 后 package.json 版本与 product.json 一致',
+  );
 }
 
 // ── 结果 ──
