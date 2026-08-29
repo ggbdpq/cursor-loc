@@ -78,7 +78,7 @@ npx ovsx publish --pat <token>   # 需要 open-vsx.org 的 ggbdpq 命名空间�
 # 或先create再publish；发错可用 npx ovsx prune/delete 处理
 ```
 
-发布前必过：`npm run test:all` + `npm run regression`。市场文案的口径：**诚实披露本扩展修改 Cursor 安装目录，卸载即自动还原**（见 README.md 免责声明）。
+**Open VSX 版本不可覆盖**：同一版本号发布过一次即冻结，重新发布必须先递增 `package.json` 的 `version` 再打包。发布前必过：`npm run test:all` + `npm run regression`。市场文案的口径：**诚实披露本扩展修改 Cursor 安装目录，卸载即自动还原**（见 README.md 免责声明）。
 
 ## 版本约定
 

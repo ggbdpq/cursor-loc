@@ -2,6 +2,21 @@
 
 本文件遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循 [语义化版本](https://semver.org/lang/zh-CN/)。
 
+## [0.0.5] - 2026-08-29
+
+### Fixed
+
+- apply 写入顺序重排（先写翻译副本/拦截器等无害产物，最后才翻转启动入口）+ 任一步失败自动回滚到入刀前状态，杜绝「半补丁」状态导致 Cursor 无法启动
+- 修复备份过期：Cursor 升级会覆盖原始文件但不清理我们的备份，旧备份会把旧版本号（乃至旧启动器内容）写回新安装目录；apply 前检测「当前文件未被补丁修改且与备份不一致」即刷新备份，loader 补丁始终以当前磁盘内容为基底
+- 补充 Settings 漏译：自动批准模式切换、审查提供方（Graphite 新旧两种文案）、警告通知的描述
+
+### Added
+
+- 启动时静默自愈：Cursor 升级、补丁丢失或词典过期时自动重新应用并冷重启（元数据记录 apply 时的 Cursor 版本；同一 Cursor 版本 apply 失败后不再自动重试或反复弹窗）
+- `npm run regression` apply/revert 回归脚本（27 项断言，发版前必跑）
+- 覆盖率流水线 `npm run coverage`：从当前 Cursor 产物提取 UI 候选，产出漏翻认领清单与覆盖率数字（首测 486/1880，25.9%）
+- 社区规范三件套：术语表 TERMS.md、贡献指南 CONTRIBUTING.md、漏翻/故障 issue 模板；发布步骤（Open VSX）固化进 README.developer.md
+
 ## [0.0.4] - 2026-08-29
 
 ### Fixed
@@ -9,18 +24,13 @@
 - 修复 Cursor 3.17+ 应用失败（「workbench.js 无法识别启动入口」）：压缩产物重命名了变量（`t`/`m` → `esModule`/`baseUrl`），启动器锚点由精确字符串匹配改为按结构匹配的正则，兼容后续变量名变化
 - 修复首次安装后每次启动反复弹「应用并重启」引导（同一根因：apply 静默失败，补丁始终未装上）；同一 Cursor 版本内 apply 失败后不再重复弹窗
 - 真正抑制「Your Cursor installation appears to be corrupt」启动提示（0.0.3 曾误记已修复）：apply 时同步更新 product.json 中启动器的校验和（IntegrityService 的完整性判定），恢复英文时从备份还原
-- apply 写入顺序重排（先写翻译副本/拦截器等无害产物，最后才翻转启动入口）+ 任一步失败自动回滚到入刀前状态，杜绝「半补丁」状态导致 Cursor 无法启动
 
 ### Added
 
-- 启动时静默自愈：Cursor 升级、补丁丢失或词典过期时自动重新应用并冷重启（元数据现记录 apply 时的 Cursor 版本）；`npm run regression` apply/revert 回归脚本（发版前必跑）
-- 覆盖率流水线 `npm run coverage`：从当前 Cursor 产物提取 UI 候选，产出漏翻认领清单与覆盖率数字（首测 486/1880，25.9%）
-- 社区规范三件套：术语表 TERMS.md、贡献指南 CONTRIBUTING.md、漏翻/故障 issue 模板；发布步骤（Open VSX）固化进 README.developer.md
 - 词典新增：退出超时对话框（Quitting the application is taking a bit longer... / 仍然退出等）、损坏提示词条兜底、Connected to Browser Tab、Loading Chat、下拉选项 High/Medium/Low
-- 补充 Settings 漏译：自动批准模式切换、审查提供方（Graphite 新旧两种文案）、警告通知的描述
 - 清理词典 10 处历史冲突/重复（validate:i18n 自迁移 JSON 后一直失败），统一为 MERGE_ORDER 运行时实际生效的译文，CI 转绿
 
-> 版本约定：同一天内的多次修改统一使用当日同一个版本号。
+> 版本约定：同一天内的多次修改统一使用当日同一个版本号；但版本一经发布到 Open VSX 即不可覆盖，需递增（平台约束）。
 
 ## [0.0.3] - 2026-08-20
 

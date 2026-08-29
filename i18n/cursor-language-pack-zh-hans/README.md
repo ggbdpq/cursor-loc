@@ -22,7 +22,7 @@
 在 Cursor 扩展视图中搜索 **Cursor 专有界面汉化**，或从 VSIX 安装：
 
 1. 扩展视图 → `…` → **从 VSIX 安装…**
-2. 选择 `cursor-language-pack-zh-hans-0.0.1.vsix`
+2. 选择 `cursor-language-pack-zh-hans-0.0.5.vsix`
 
 ### 第三步：应用专有界面汉化
 
@@ -138,7 +138,7 @@ npm install
 npm run build
 cd i18n/cursor-language-pack-zh-hans
 npm run package
-# 产物：cursor-language-pack-zh-hans-0.0.1.vsix
+# 产物：cursor-language-pack-zh-hans-0.0.5.vsix
 ```
 
 F5 调试：在 `i18n/cursor-language-pack-zh-hans` 打开，使用 `.vscode/launch.json`。
