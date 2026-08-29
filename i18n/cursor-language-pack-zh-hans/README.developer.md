@@ -65,3 +65,9 @@ F5 调试：在 `i18n/cursor-language-pack-zh-hans` 打开，使用 `.vscode/lau
 日志：输出面板 `[restart]`、`%TEMP%\cursor-zh-restart-*.log`。
 
 实现：`src/restartCursor.ts` · 测试：`src/__tests__/restartCursor.*.test.ts`
+
+## 版本约定
+
+**同一天内的多次修改，统一使用当日同一个版本号**（按日期递增，而非按次数递增）：
+`package.json` 的 `version` 当天保持不变，所有改动合并写入 CHANGELOG 当日同一条目；
+打包产物（VSIX）同日覆盖发布。跨天才递增次版本号。

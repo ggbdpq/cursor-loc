@@ -956,6 +956,11 @@
       "originalText": "Prevent sleep when this computer is plugged in and Remote Control is enabled",
       "changeText": "接通电源且远程控制已启用时防止休眠",
       "searchType": "exact"
+    },
+    {
+      "originalText": "Allow agent to switch to modes like Plan or Debug without asking. When off, Cursor asks first, but skips if unanswered within 15 seconds.",
+      "changeText": "允许智能体自动切换到 Plan、Debug 等模式，无需询问。关闭后，Cursor 会先询问，15 秒内未回应则跳过。",
+      "searchType": "exact"
     }
   ]
 }

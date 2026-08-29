@@ -389,6 +389,16 @@
       "originalText": "Show warning-level in-app toasts",
       "changeText": "显示应用内警告级 Toast 提示",
       "searchType": "exact"
+    },
+    {
+      "originalText": "Show notifications for less urgent issues. Errors and informational notifications are always shown.",
+      "changeText": "显示较不紧急问题的通知。错误与信息类通知始终显示。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Show notifications for less urgent issues",
+      "changeText": "显示较不紧急问题的通知",
+      "searchType": "partial"
     }
   ]
 }

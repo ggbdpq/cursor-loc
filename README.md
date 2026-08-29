@@ -31,7 +31,7 @@ Cursor 基于 VS Code，但大量界面（设置页、Agent、Composer 等）由
 在 Cursor 扩展市场搜索 **Cursor 专有界面汉化**，或从 VSIX 侧载：
 
 ```text
-扩展视图 → … → 从 VSIX 安装… → cursor-language-pack-zh-hans-0.0.1.vsix
+扩展视图 → … → 从 VSIX 安装… → cursor-language-pack-zh-hans-0.0.4.vsix
 ```
 
 ### 3. 应用汉化

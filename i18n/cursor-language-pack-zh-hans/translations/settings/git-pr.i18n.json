@@ -44,6 +44,16 @@
       "originalText": "Graphite",
       "changeText": "Graphite",
       "searchType": "exact"
+    },
+    {
+      "originalText": "Choose Origin (cursor.com/codebase), GitHub, or Graphite for pull request links on web and desktop",
+      "changeText": "选择用于网页与桌面端 PR 链接的来源（cursor.com/codebase、GitHub 或 Graphite）",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Choose Origin (cursor.com/codebase) or GitHub for GitHub pull request links on web and desktop",
+      "changeText": "选择用于网页与桌面端 GitHub PR 链接的来源（cursor.com/codebase 或 GitHub）",
+      "searchType": "exact"
     }
   ]
 }

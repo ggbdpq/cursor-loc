@@ -2,22 +2,21 @@
 
 本文件遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循 [语义化版本](https://semver.org/lang/zh-CN/)。
 
-## [0.0.5] - 2026-08-29
-
-### Fixed
-
-- 真正抑制「Your Cursor installation appears to be corrupt」启动提示（0.0.3 曾误记已修复）：apply 时同步更新 product.json 中启动器的校验和（IntegrityService 的完整性判定），恢复英文时从备份还原
-
-### Added
-
-- 词典新增：退出超时对话框（Quitting the application is taking a bit longer... / 仍然退出等）、损坏提示词条兜底、Connected to Browser Tab、Loading Chat、下拉选项 High/Medium/Low
-
 ## [0.0.4] - 2026-08-29
 
 ### Fixed
 
 - 修复 Cursor 3.17+ 应用失败（「workbench.js 无法识别启动入口」）：压缩产物重命名了变量（`t`/`m` → `esModule`/`baseUrl`），启动器锚点由精确字符串匹配改为按结构匹配的正则，兼容后续变量名变化
-- 同一根因曾导致首次安装后每次启动反复弹「应用并重启」引导（apply 静默失败，补丁始终未装上）
+- 修复首次安装后每次启动反复弹「应用并重启」引导（同一根因：apply 静默失败，补丁始终未装上）
+- 真正抑制「Your Cursor installation appears to be corrupt」启动提示（0.0.3 曾误记已修复）：apply 时同步更新 product.json 中启动器的校验和（IntegrityService 的完整性判定），恢复英文时从备份还原
+
+### Added
+
+- 词典新增：退出超时对话框（Quitting the application is taking a bit longer... / 仍然退出等）、损坏提示词条兜底、Connected to Browser Tab、Loading Chat、下拉选项 High/Medium/Low
+- 补充 Settings 漏译：自动批准模式切换、审查提供方（Graphite 新旧两种文案）、警告通知的描述
+- 清理词典 10 处历史冲突/重复（validate:i18n 自迁移 JSON 后一直失败），统一为 MERGE_ORDER 运行时实际生效的译文，CI 转绿
+
+> 版本约定：同一天内的多次修改统一使用当日同一个版本号。
 
 ## [0.0.3] - 2026-08-20
 
