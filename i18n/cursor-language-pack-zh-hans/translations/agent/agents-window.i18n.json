@@ -146,11 +146,6 @@
       "searchType": "exact"
     },
     {
-      "originalText": "Multi-workspace",
-      "changeText": "多工作区",
-      "searchType": "exact"
-    },
-    {
       "originalText": "multi-workspace",
       "changeText": "多工作区",
       "searchType": "exact"
@@ -177,12 +172,12 @@
     },
     {
       "originalText": "Local",
-      "changeText": "本地",
+      "changeText": "本地(Local)",
       "searchType": "exact"
     },
     {
       "originalText": "Cloud",
-      "changeText": "云端",
+      "changeText": "云端(Cloud)",
       "searchType": "exact"
     },
     {
@@ -888,6 +883,11 @@
     {
       "originalText": "New Chat",
       "changeText": "新对话",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Loading Chat",
+      "changeText": "对话加载中",
       "searchType": "exact"
     }
   ]

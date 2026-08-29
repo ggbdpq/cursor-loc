@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -71,6 +72,8 @@ export class WindowsTranslator extends CursorTranslator {
   private saveInterceptorPath: string;
   private readPackageJsonPath: string;
   private backupPackageJsonPath: string;
+  private productJsonPath: string;
+  private productBackupPath: string;
   private metaPath: string;
   private injectScript: string;
   private loaderPath: string;
@@ -98,6 +101,8 @@ export class WindowsTranslator extends CursorTranslator {
     this.saveInterceptorPath = path.join(this.appRoot, 'out/cursorTranslatorMain.js');
     this.readPackageJsonPath = path.join(this.appRoot, 'package.json');
     this.backupPackageJsonPath = path.join(this.appRoot, 'package.json.backup');
+    this.productJsonPath = path.join(this.appRoot, 'product.json');
+    this.productBackupPath = path.join(this.appRoot, 'product.json.backup');
     this.metaPath = path.join(this.appRoot, 'out/cursor-zh-patch-meta.json');
     this.injectScript = loadAsset('cursor.inject.js');
     this.loaderPath = path.join(
@@ -223,6 +228,7 @@ export class WindowsTranslator extends CursorTranslator {
       fs.writeFileSync(target.translatedPath, output, 'utf8');
     }
     this.patchWorkbenchLoader();
+    this.updateLoaderChecksum();
     fs.writeFileSync(this.saveInterceptorPath, this.interceptorFileContent, 'utf8');
 
     if (!fs.existsSync(this.backupPackageJsonPath)) {
@@ -267,6 +273,8 @@ export class WindowsTranslator extends CursorTranslator {
     if (fs.existsSync(this.metaPath)) {
       fs.unlinkSync(this.metaPath);
     }
+
+    this.restoreProductChecksums();
 
     if (fs.existsSync(this.backupPackageJsonPath)) {
       fs.copyFileSync(this.backupPackageJsonPath, this.readPackageJsonPath);
@@ -336,6 +344,46 @@ export class WindowsTranslator extends CursorTranslator {
       (_s, t, m) => loaderImportTranslated(t, m),
     );
     fs.writeFileSync(this.loaderPath, patched, 'utf8');
+  }
+
+  /**
+   * 同步 product.json 中启动器的校验和（未填充 base64 的 sha256，键相对 out/）。
+   *
+   * IntegrityService 按 checksums 判定安装是否被改动；不同步会在启动时弹
+   * 「installation appears to be corrupt」提示。
+   */
+  private updateLoaderChecksum(): void {
+    if (!fs.existsSync(this.productJsonPath)) {
+      return;
+    }
+
+    if (!fs.existsSync(this.productBackupPath)) {
+      fs.copyFileSync(this.productJsonPath, this.productBackupPath);
+    }
+
+    const product = JSON.parse(fs.readFileSync(this.productJsonPath, 'utf-8')) as {
+      checksums?: Record<string, string>;
+    };
+    const key = path
+      .relative(path.join(this.appRoot, 'out'), this.loaderPath)
+      .replace(/\\/g, '/');
+    if (!product.checksums || !(key in product.checksums)) {
+      return; // ponytail: 新版本若改键名则无法拦提示，词典已兜底翻译该提示
+    }
+
+    product.checksums[key] = createHash('sha256')
+      .update(fs.readFileSync(this.loaderPath))
+      .digest('base64')
+      .replace(/=+$/, '');
+    fs.writeFileSync(this.productJsonPath, JSON.stringify(product, null, 2), 'utf-8');
+  }
+
+  /** 从备份还原 product.json（撤销校验和修改）。 */
+  private restoreProductChecksums(): void {
+    if (fs.existsSync(this.productBackupPath)) {
+      fs.copyFileSync(this.productBackupPath, this.productJsonPath);
+      fs.unlinkSync(this.productBackupPath);
+    }
   }
 
   /** 从备份还原 workbench.js。 */

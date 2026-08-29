@@ -419,6 +419,21 @@
       "originalText": "System",
       "changeText": "系统(System)",
       "searchType": "exact"
+    },
+    {
+      "originalText": "High",
+      "changeText": "高(High)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Medium",
+      "changeText": "中(Medium)",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Low",
+      "changeText": "低(Low)",
+      "searchType": "exact"
     }
   ]
 }

@@ -122,17 +122,17 @@
     },
     {
       "originalText": "Always applied",
-      "changeText": "始终应用",
+      "changeText": "始终应用(Always applied)",
       "searchType": "exact"
     },
     {
       "originalText": "Applied intelligently",
-      "changeText": "智能应用",
+      "changeText": "智能应用(Applied intelligently)",
       "searchType": "exact"
     },
     {
       "originalText": "Manual",
-      "changeText": "手动",
+      "changeText": "手动(Manual)",
       "searchType": "exact"
     },
     {

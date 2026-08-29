@@ -59,6 +59,56 @@
       "originalText": "Don\u2019t Ask Again",
       "changeText": "不再询问",
       "searchType": "exact"
+    },
+    {
+      "originalText": "Quitting the application is taking a bit longer...",
+      "changeText": "应用程序退出时间稍长...",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "The following operations are still running:",
+      "changeText": "以下操作仍在运行：",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Saving UI state",
+      "changeText": "正在保存 UI 状态",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Composer Session End Hooks",
+      "changeText": "Composer 会话结束钩子",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Quit Anyway",
+      "changeText": "仍然退出",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Your Cursor installation appears to be corrupt.",
+      "changeText": "检测到 Cursor 安装可能已损坏。",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Please reinstall.",
+      "changeText": "请重新安装。",
+      "searchType": "partial"
+    },
+    {
+      "originalText": "Reinstall",
+      "changeText": "重新安装",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "More Information",
+      "changeText": "更多信息",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Don't Show Again",
+      "changeText": "不再显示",
+      "searchType": "exact"
     }
   ]
 }

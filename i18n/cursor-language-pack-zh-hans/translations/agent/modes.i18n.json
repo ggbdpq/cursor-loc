@@ -156,11 +156,6 @@
       "searchType": "exact"
     },
     {
-      "originalText": "Switch to Agent",
-      "changeText": "切换到智能体",
-      "searchType": "exact"
-    },
-    {
       "originalText": "Custom Mode",
       "changeText": "自定义模式",
       "searchType": "exact"

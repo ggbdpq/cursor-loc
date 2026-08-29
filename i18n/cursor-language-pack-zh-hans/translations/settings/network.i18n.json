@@ -114,6 +114,11 @@
       "originalText": "Automatically open localhost links in Cursor Browser tabs",
       "changeText": "在 Cursor 浏览器标签页中自动打开 localhost 链接",
       "searchType": "exact"
+    },
+    {
+      "originalText": "Connected to Browser Tab",
+      "changeText": "已连接到浏览器标签页",
+      "searchType": "exact"
     }
   ]
 }
