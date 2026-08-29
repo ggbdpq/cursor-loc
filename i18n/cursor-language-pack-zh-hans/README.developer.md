@@ -46,6 +46,7 @@ F5 调试：在 `i18n/cursor-language-pack-zh-hans` 打开，使用 `.vscode/lau
 | 构建 | 根目录 `npm run build:i18n` → `generated/replacements.bundle.json` |
 | 校验 | 根目录 `npm run validate:i18n`、`npm run validate:dropdown` |
 | 提取候选 | `npm run extract` → `tools/output/candidates.json` |
+| 覆盖率/漏翻清单 | `npm run coverage` → `tools/output/coverage.json` + `tools/output/pending/index.md`（Cursor 更新后跑一次；清单供 issue 认领，产出物不入库） |
 | 发版回归 | `npm run regression`（apply → 断言四件套/checksums → revert → 断言字节级还原；发版前必跑，结束时为未打补丁状态） |
 
 修改词典后须：`npm run build` → 扩展 `npm run package` → 用户重新安装 VSIX 并「应用界面汉化」。
@@ -66,6 +67,18 @@ F5 调试：在 `i18n/cursor-language-pack-zh-hans` 打开，使用 `.vscode/lau
 日志：输出面板 `[restart]`、`%TEMP%\cursor-zh-restart-*.log`。
 
 实现：`src/restartCursor.ts` · 测试：`src/__tests__/restartCursor.*.test.ts`
+
+## 发布（Open VSX）
+
+Cursor 的扩展市场基于 [Open VSX](https://open-vsx.org)，发布流程：
+
+```bash
+npm run package        # 产出 cursor-language-pack-zh-hans-x.y.z.vsix
+npx ovsx publish --pat <token>   # 需要 open-vsx.org 的 ggbdpq 命名空间令牌
+# 或先create再publish；发错可用 npx ovsx prune/delete 处理
+```
+
+发布前必过：`npm run test:all` + `npm run regression`。市场文案的口径：**诚实披露本扩展修改 Cursor 安装目录，卸载即自动还原**（见 README.md 免责声明）。
 
 ## 版本约定
 

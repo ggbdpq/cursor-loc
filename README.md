@@ -88,8 +88,12 @@ npm run package:ext    # 产出 VSIX
 ## 参与贡献
 
 1. 在 `i18n/cursor-language-pack-zh-hans/translations/**/*.i18n.json` 修改或补充词条  
+   - 译法先看 [术语表 TERMS.md](./i18n/cursor-language-pack-zh-hans/TERMS.md)  
+   - 词条格式与流程见 [贡献指南 CONTRIBUTING.md](./i18n/cursor-language-pack-zh-hans/CONTRIBUTING.md)  
 2. 根目录执行 `npm run build` → `npm run package:ext`  
 3. 重新安装 VSIX 并执行「应用界面汉化」
+
+漏翻请用 [漏翻报告模板](https://github.com/ggbdpq/cursor-loc/issues/new?template=missing-translation.yml)（附截图与逐字符原文最有效）。
 
 欢迎通过 [Issues / PR](https://github.com/ggbdpq/cursor-loc/issues) 反馈漏译或提交词典改进。
 

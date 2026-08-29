@@ -1,0 +1,41 @@
+name: 故障报告（应用失败 / 界面异常）
+description: 补丁应用失败、Cursor 无法启动、汉化消失等问题
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 发生了什么？
+      description: 现象与复现步骤；若是「应用失败」请附输出面板（Cursor 专有界面汉化）的完整日志
+    validations:
+      required: true
+  - type: input
+    id: cursor-version
+    attributes:
+      label: Cursor 版本
+      description: 帮助 → 关于，或 resources/app/product.json 里的 version
+    validations:
+      required: true
+  - type: input
+    id: ext-version
+    attributes:
+      label: 扩展版本
+      placeholder: "0.0.4"
+    validations:
+      required: true
+  - type: dropdown
+    id: status
+    attributes:
+      label: 「Cursor 中文：查看汉化状态」输出的是？
+      options:
+        - 已安装
+        - 未安装
+        - 报错（请把内容贴到上面）
+        - 还没跑过
+    validations:
+      required: true
+  - type: textarea
+    id: extra
+    attributes:
+      label: 其他信息
+      description: 杀毒软件提示、Cursor 安装在非默认路径、企业管控环境等

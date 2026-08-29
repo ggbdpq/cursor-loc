@@ -14,6 +14,8 @@
 ### Added
 
 - 启动时静默自愈：Cursor 升级、补丁丢失或词典过期时自动重新应用并冷重启（元数据现记录 apply 时的 Cursor 版本）；`npm run regression` apply/revert 回归脚本（发版前必跑）
+- 覆盖率流水线 `npm run coverage`：从当前 Cursor 产物提取 UI 候选，产出漏翻认领清单与覆盖率数字（首测 486/1880，25.9%）
+- 社区规范三件套：术语表 TERMS.md、贡献指南 CONTRIBUTING.md、漏翻/故障 issue 模板；发布步骤（Open VSX）固化进 README.developer.md
 - 词典新增：退出超时对话框（Quitting the application is taking a bit longer... / 仍然退出等）、损坏提示词条兜底、Connected to Browser Tab、Loading Chat、下拉选项 High/Medium/Low
 - 补充 Settings 漏译：自动批准模式切换、审查提供方（Graphite 新旧两种文案）、警告通知的描述
 - 清理词典 10 处历史冲突/重复（validate:i18n 自迁移 JSON 后一直失败），统一为 MERGE_ORDER 运行时实际生效的译文，CI 转绿

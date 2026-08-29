@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 术语与译法讨论
+    about: 对 TERMS.md 译法有异议或想新增术语约定
+    url: https://github.com/ggbdpq/cursor-loc/discussions

@@ -1,0 +1,38 @@
+name: 漏翻报告（补词条）
+description: 界面上有英文没被汉化，报告原文帮我们补词典
+labels: ["漏翻"]
+body:
+  - type: textarea
+    id: where
+    attributes:
+      label: 界面位置
+      description: 在哪个页面/面板看到的？如「Settings → 智能体 → 自动批准模式切换」
+    validations:
+      required: true
+  - type: textarea
+    id: original
+    attributes:
+      label: 英文原文
+      description: 逐字符复制界面上渲染的英文（含标点和末尾句号）。F12 选中该文本节点可直接复制。
+      placeholder: "Allow agent to switch to modes like Plan or Debug without asking..."
+    validations:
+      required: true
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: 截图
+      description: 强烈建议附上，原文抄错是「翻了没生效」的最常见原因
+    validations:
+      required: false
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: 建议译文（可选）
+      description: 译法请先参考 [TERMS.md](https://github.com/ggbdpq/cursor-loc/blob/main/i18n/cursor-language-pack-zh-hans/TERMS.md)
+  - type: input
+    id: cursor-version
+    attributes:
+      label: Cursor 版本
+      placeholder: "3.18.9"
+    validations:
+      required: true
