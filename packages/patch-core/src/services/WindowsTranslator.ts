@@ -27,6 +27,24 @@ interface WorkbenchTargetStatus {
 export type { PatchInstallMeta };
 
 /**
+ * workbench.js 启动入口：结构固定，但压缩变量名随版本变化
+ * （3.16 为 t/m，3.17.21 为 esModule/baseUrl），须按结构匹配并捕获变量名。
+ */
+const LOADER_IMPORT_RE = /await import\(new URL\(`\$\{(\w+)\}\.js`,(\w+)\)\.href\)/;
+const LOADER_IMPORT_TRANSLATED_RE =
+  /await import\(new URL\(`\$\{(\w+)\}_translated\.js`,(\w+)\)\.href\)/;
+
+/** 由捕获的变量名构造原始 import 语句。 */
+function loaderImportOriginal(t: string, m: string): string {
+  return `await import(new URL(\`\${${t}}.js\`,${m}).href)`;
+}
+
+/** 由捕获的变量名构造指向翻译副本的 import 语句。 */
+function loaderImportTranslated(t: string, m: string): string {
+  return `await import(new URL(\`\${${t}}_translated.js\`,${m}).href)`;
+}
+
+/**
  * 读取打包进 dist 的静态资源文件。
  *
  * @param name `src/assets/` 下的文件名。
@@ -277,7 +295,7 @@ export class WindowsTranslator extends CursorTranslator {
       return false;
     }
     try {
-      return fs.readFileSync(this.loaderPath, 'utf-8').includes(LOADER_IMPORT_PATCHED);
+      return LOADER_IMPORT_TRANSLATED_RE.test(fs.readFileSync(this.loaderPath, 'utf-8'));
     } catch {
       return false;
     }
@@ -295,8 +313,11 @@ export class WindowsTranslator extends CursorTranslator {
 
     if (!fs.existsSync(this.loaderBackupPath)) {
       const current = fs.readFileSync(this.loaderPath, 'utf-8');
-      if (current.includes(LOADER_IMPORT_PATCHED)) {
-        const restored = current.replace(LOADER_IMPORT_PATCHED, LOADER_IMPORT_ORIGINAL);
+      if (LOADER_IMPORT_TRANSLATED_RE.test(current)) {
+        const restored = current.replace(
+          LOADER_IMPORT_TRANSLATED_RE,
+          (_s, t, m) => loaderImportOriginal(t, m),
+        );
         fs.writeFileSync(this.loaderBackupPath, restored, 'utf8');
       } else {
         fs.copyFileSync(this.loaderPath, this.loaderBackupPath);
@@ -304,13 +325,16 @@ export class WindowsTranslator extends CursorTranslator {
     }
 
     const original = fs.readFileSync(this.loaderBackupPath, 'utf-8');
-    if (!original.includes(LOADER_IMPORT_ORIGINAL)) {
+    if (!LOADER_IMPORT_RE.test(original)) {
       throw new Error(
         '当前 Cursor 版本的 workbench.js 无法识别启动入口，请升级汉化补丁后再 apply。',
       );
     }
 
-    const patched = original.replace(LOADER_IMPORT_ORIGINAL, LOADER_IMPORT_PATCHED);
+    const patched = original.replace(
+      LOADER_IMPORT_RE,
+      (_s, t, m) => loaderImportTranslated(t, m),
+    );
     fs.writeFileSync(this.loaderPath, patched, 'utf8');
   }
 
@@ -327,10 +351,10 @@ export class WindowsTranslator extends CursorTranslator {
     }
 
     const current = fs.readFileSync(this.loaderPath, 'utf-8');
-    if (current.includes(LOADER_IMPORT_PATCHED)) {
+    if (LOADER_IMPORT_TRANSLATED_RE.test(current)) {
       fs.writeFileSync(
         this.loaderPath,
-        current.replace(LOADER_IMPORT_PATCHED, LOADER_IMPORT_ORIGINAL),
+        current.replace(LOADER_IMPORT_TRANSLATED_RE, (_s, t, m) => loaderImportOriginal(t, m)),
         'utf8',
       );
     }

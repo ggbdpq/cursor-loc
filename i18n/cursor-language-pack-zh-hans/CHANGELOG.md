@@ -2,6 +2,13 @@
 
 本文件遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循 [语义化版本](https://semver.org/lang/zh-CN/)。
 
+## [0.0.4] - 2026-08-29
+
+### Fixed
+
+- 修复 Cursor 3.17+ 应用失败（「workbench.js 无法识别启动入口」）：压缩产物重命名了变量（`t`/`m` → `esModule`/`baseUrl`），启动器锚点由精确字符串匹配改为按结构匹配的正则，兼容后续变量名变化
+- 同一根因曾导致首次安装后每次启动反复弹「应用并重启」引导（apply 静默失败，补丁始终未装上）
+
 ## [0.0.3] - 2026-08-20
 
 ### Fixed
