@@ -201,55 +201,76 @@ export class WindowsTranslator extends CursorTranslator {
   /**
    * 应用汉化补丁。
    *
-   * 1. 复制 desktop / glass workbench 并在头部注入带词典的 `cursor.inject.js`
-   * 2. 改 workbench.js 的 ESM import，直接加载 `_translated.js`（Cursor 3.16+ 的 import() 不走 registerFileProtocol）
-   * 3. 写入 `cursorTranslatorMain.js` 拦截器
-   * 4. 备份并修改 `package.json` 的 main 入口
+   * 写入顺序保证「绝对可逆」：先写全部新增文件（翻译副本、拦截器），最后才翻转
+   * 启动入口（workbench.js → product.json 校验和 → package.json main），因此
+   * 任何一步失败都不可能出现「入口指向缺失文件」的死机状态。
+   *
+   * 失败时自动回滚：调用 uninstall() 还原全部备份并删除新增文件，回滚后重新抛出
+   * 原始错误。注意：若 apply 前已存在旧补丁，回滚结果为未打补丁的英文状态（而非旧
+   * 补丁状态），重新 apply 即可恢复。
    *
    * @param replacements 运行时替换词典。
-   * @throws 目标 workbench 不存在或目录不可写。
+   * @param cursorVersion apply 时的 Cursor 版本，写入元数据供启动自愈判定。
+   * @throws 目标 workbench 不存在、目录不可写或任一步骤失败（已自动回滚）。
    */
-  install(replacements: readonly Replacement[]): void {
-    const existingTargets = this.workbenchTargets.filter((target) => fs.existsSync(target.sourcePath));
-    if (existingTargets.length === 0) {
-      throw new Error(`目标文件不存在: ${this.workbenchTargets[0]?.sourcePath}`);
+  install(replacements: readonly Replacement[], cursorVersion?: string): void {
+    try {
+      const existingTargets = this.workbenchTargets.filter((target) =>
+        fs.existsSync(target.sourcePath),
+      );
+      if (existingTargets.length === 0) {
+        throw new Error(`目标文件不存在: ${this.workbenchTargets[0]?.sourcePath}`);
+      }
+
+      const injectWithData = this.injectScript.replace(
+        "'${replacementsArray}'",
+        JSON.stringify(replacements),
+      );
+
+      const parsedPath = path.parse(existingTargets[0].sourcePath);
+      fs.accessSync(parsedPath.dir, fs.constants.W_OK);
+
+      // 1) 新增文件：翻译副本 + 拦截器（失败可直接删除，无副作用）
+      for (const target of existingTargets) {
+        const source = fs.readFileSync(target.sourcePath, 'utf-8');
+        fs.writeFileSync(target.translatedPath, `${injectWithData};\n${source}`, 'utf8');
+      }
+      fs.writeFileSync(this.saveInterceptorPath, this.interceptorFileContent, 'utf8');
+
+      // 2) 翻转启动入口：workbench.js → 校验和 → package.json main
+      this.patchWorkbenchLoader();
+      this.updateLoaderChecksum();
+
+      if (!fs.existsSync(this.backupPackageJsonPath)) {
+        fs.copyFileSync(this.readPackageJsonPath, this.backupPackageJsonPath);
+      }
+      const packageJson = JSON.parse(
+        fs.readFileSync(this.readPackageJsonPath, 'utf-8'),
+      ) as PackageJson;
+      if (!packageJson.main_original && packageJson.main) {
+        packageJson.main_original = packageJson.main;
+      }
+      packageJson.main = './out/cursorTranslatorMain.js';
+      fs.writeFileSync(this.readPackageJsonPath, JSON.stringify(packageJson, null, 2), 'utf-8');
+
+      // 3) 元数据
+      const meta: PatchInstallMeta = {
+        replacementCount: replacements.length,
+        appliedAt: new Date().toISOString(),
+        ...(cursorVersion ? { cursorVersion } : {}),
+      };
+      fs.writeFileSync(this.metaPath, JSON.stringify(meta, null, 2), 'utf-8');
+    } catch (err) {
+      try {
+        this.uninstall();
+      } catch (rollbackErr) {
+        const note = rollbackErr instanceof Error ? rollbackErr.message : String(rollbackErr);
+        throw new Error(
+          `${err instanceof Error ? err.message : String(err)}（自动回滚失败: ${note}，请执行「恢复英文界面」后重试）`,
+        );
+      }
+      throw err;
     }
-
-    const injectWithData = this.injectScript.replace(
-      "'${replacementsArray}'",
-      JSON.stringify(replacements),
-    );
-
-    const parsedPath = path.parse(existingTargets[0].sourcePath);
-    fs.accessSync(parsedPath.dir, fs.constants.W_OK);
-    for (const target of existingTargets) {
-      const source = fs.readFileSync(target.sourcePath, 'utf-8');
-      const output = `${injectWithData};\n${source}`;
-      fs.writeFileSync(target.translatedPath, output, 'utf8');
-    }
-    this.patchWorkbenchLoader();
-    this.updateLoaderChecksum();
-    fs.writeFileSync(this.saveInterceptorPath, this.interceptorFileContent, 'utf8');
-
-    if (!fs.existsSync(this.backupPackageJsonPath)) {
-      fs.copyFileSync(this.readPackageJsonPath, this.backupPackageJsonPath);
-    }
-
-    const packageContent = fs.readFileSync(this.readPackageJsonPath, 'utf-8');
-    const packageJson = JSON.parse(packageContent) as PackageJson;
-
-    if (!packageJson.main_original && packageJson.main) {
-      packageJson.main_original = packageJson.main;
-    }
-
-    packageJson.main = './out/cursorTranslatorMain.js';
-    fs.writeFileSync(this.readPackageJsonPath, JSON.stringify(packageJson, null, 2), 'utf-8');
-
-    const meta: PatchInstallMeta = {
-      replacementCount: replacements.length,
-      appliedAt: new Date().toISOString(),
-    };
-    fs.writeFileSync(this.metaPath, JSON.stringify(meta, null, 2), 'utf-8');
   }
 
   /**

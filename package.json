@@ -29,7 +29,8 @@
     "extract:settings": "tsx tools/extract-settings-section.ts",
     "validate:dropdown": "tsx tools/validate-dropdown-options.ts",
     "test": "npm run test -w cursor-language-pack-zh-hans",
-    "test:all": "npm run build && npm run validate:i18n && npm run test"
+    "test:all": "npm run build && npm run validate:i18n && npm run test",
+    "regression": "npm run build && node tools/regression-check.mjs"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

@@ -5,7 +5,7 @@
  * 补丁写入逻辑委托给 {@link patchService}，路径解析见 {@link installPath}，冷重启见 {@link restartCursor}。
  */
 import * as vscode from 'vscode';
-import { resolveEffectiveInstallRoot, resolveInstallRootFromEditorAppRoot } from './installPath.js';
+import { resolveEffectiveInstallRoot } from './installPath.js';
 import { getOutputChannel, logLine, logSection } from './outputChannel.js';
 import {
   isPatchInstalled,
@@ -15,6 +15,7 @@ import {
   runRevert,
   runStatus,
 } from './patchService.js';
+import type { PatchOperationResult } from './patchService.js';
 import { coldRestartCursor } from './restartCursor.js';
 
 /** 扩展在 marketplace 中的完整 ID（publisher.name）。 */
@@ -47,6 +48,13 @@ const GLOBAL_KEY_RESTARTING = 'cursorZh.restarting';
  * Reload Window 触发 deactivate→revert 后，activate 据此自动写回补丁。
  */
 const GLOBAL_KEY_PATCH_APPLIED = 'cursorZh.patchApplied';
+
+/**
+ * globalState 键：最近一次 apply 失败时的 Cursor 版本。
+ * 同一 Cursor 版本上不再自动重试或反复弹「应用并重启」引导；
+ * apply 成功或 Cursor 升级到新版本后自动失效。
+ */
+const GLOBAL_KEY_APPLY_FAILED_VERSION = 'cursorZh.applyFailedVersion';
 
 /**
  * 冷重启退出前设为 true，使 {@link deactivate} 跳过误触发逻辑。
@@ -170,6 +178,7 @@ async function handleApply(
   if (result.ok) {
     if (context) {
       await context.globalState.update(GLOBAL_KEY_PATCH_APPLIED, true);
+      await context.globalState.update(GLOBAL_KEY_APPLY_FAILED_VERSION, undefined);
     }
     if (autoRestart) {
       await restartCursor(context);
@@ -190,6 +199,18 @@ async function handleApply(
     void vscode.window.showErrorMessage(result.error ?? '应用失败，详见输出面板。');
   } else if (result.error) {
     logSection('应用汉化补丁失败', result.lines);
+  }
+  if (context) {
+    // 记录失败时的 Cursor 版本：启动自愈与引导弹窗在同一版本内不再重复触发
+    try {
+      const status = await runStatus(getEffectiveInstallRoot());
+      await context.globalState.update(
+        GLOBAL_KEY_APPLY_FAILED_VERSION,
+        status.currentVersion ?? 'unknown',
+      );
+    } catch {
+      await context.globalState.update(GLOBAL_KEY_APPLY_FAILED_VERSION, 'unknown');
+    }
   }
   return false;
 }
@@ -250,64 +271,76 @@ async function handleStatus(silent = false): Promise<void> {
   }
 }
 
-/**
- * 检测当前 Cursor 实例是否已打补丁（多路径 fallback，避免误判未安装）。
- */
-async function isPatchInstalledForCurrentEditor(): Promise<boolean> {
-  const configured = getConfiguredAppRoot();
-  if (configured && (await isPatchInstalled(configured))) {
-    return true;
-  }
-
-  const editorRoot = resolveInstallRootFromEditorAppRoot();
-  if (editorRoot && (await isPatchInstalled(editorRoot))) {
-    return true;
-  }
-
-  const effective = getEffectiveInstallRoot();
-  if (effective && effective !== editorRoot && (await isPatchInstalled(effective))) {
-    return true;
-  }
-
+/** 查询补丁状态；失败时返回 undefined（启动路径不应抛错）。 */
+async function safeStatus(
+  installRoot: string | undefined,
+): Promise<PatchOperationResult | undefined> {
   try {
-    return await isPatchInstalled(undefined);
-  } catch {
-    return false;
+    return await runStatus(installRoot);
+  } catch (err) {
+    logLine(`[startup] 状态查询失败: ${err instanceof Error ? err.message : String(err)}`);
+    return undefined;
   }
 }
 
 /**
- * Reload Window 会先 deactivate→revert，再 activate。
- * 若用户此前已应用汉化，在此静默写回补丁，避免 Reload 后磁盘状态丢失。
+ * 启动自愈：Cursor 升级、补丁文件丢失或词典过期时静默重新应用并冷重启。
+ *
+ * 仅对曾主动应用过汉化（GLOBAL_KEY_PATCH_APPLIED）的实例生效；同一 Cursor 版本上
+ * apply 已失败过的跳过重试（{@link GLOBAL_KEY_APPLY_FAILED_VERSION}），避免
+ * 「每次启动静默失败 → 反复弹窗」的循环。
  *
  * @param context 扩展上下文
+ * @returns 启动时的补丁状态；环境不可检测时为 undefined
  */
-async function recoverPatchAfterReload(context: vscode.ExtensionContext): Promise<void> {
-  if (!context.globalState.get<boolean>(GLOBAL_KEY_PATCH_APPLIED)) {
-    return;
+async function ensurePatchState(
+  context: vscode.ExtensionContext,
+): Promise<PatchOperationResult | undefined> {
+  if (!isBundleReady() || process.platform !== 'win32') {
+    return undefined;
   }
-  if (await isPatchInstalledForCurrentEditor()) {
-    return;
+
+  const status = await safeStatus(getEffectiveInstallRoot());
+  if (!status?.ok) {
+    return status;
   }
-  logLine('[startup] 检测到重载扩展宿主后补丁缺失，正在自动重新应用…');
+
+  if (status.patchInstalled && !status.patchStale) {
+    await context.globalState.update(GLOBAL_KEY_PATCH_APPLIED, true);
+    return status;
+  }
+
+  const wanted = context.globalState.get<boolean>(GLOBAL_KEY_PATCH_APPLIED);
+  const failedVersion = context.globalState.get<string>(GLOBAL_KEY_APPLY_FAILED_VERSION);
+  if (!wanted || failedVersion === (status.currentVersion ?? 'unknown')) {
+    return status;
+  }
+
+  logLine('[startup] 检测到补丁缺失或 Cursor 已升级，正在静默重新应用…');
   await handleApply(context, { silent: true, autoRestart: true });
+  return status;
 }
 
 /**
  * 扩展激活后的启动引导：未打补丁且开启 autoApplyOnInstall 时弹窗。
  *
- * 已安装补丁时一律跳过引导；刚完成冷重启时也跳过，避免重复打扰。
+ * 已安装补丁时一律跳过引导；刚完成冷重启时也跳过，避免重复打扰；
+ * 同一 Cursor 版本上 apply 已失败过的不再反复弹窗。
  *
  * @param context 扩展上下文
+ * @param status 启动自愈返回的补丁状态；缺省时现查
  */
-async function runStartupSetup(context: vscode.ExtensionContext): Promise<void> {
+async function runStartupSetup(
+  context: vscode.ExtensionContext,
+  status?: PatchOperationResult,
+): Promise<void> {
   try {
     if (!isBundleReady() || process.platform !== 'win32') {
       return;
     }
 
-    const patched = await isPatchInstalledForCurrentEditor();
-    if (patched) {
+    const st = status ?? (await safeStatus(getEffectiveInstallRoot()));
+    if (st?.patchInstalled) {
       await context.globalState.update(GLOBAL_KEY_PATCH_APPLIED, true);
       if (context.globalState.get<boolean>(GLOBAL_KEY_RESTARTING)) {
         await context.globalState.update(GLOBAL_KEY_RESTARTING, false);
@@ -318,6 +351,11 @@ async function runStartupSetup(context: vscode.ExtensionContext): Promise<void> 
     if (context.globalState.get<boolean>(GLOBAL_KEY_RESTARTING)) {
       await context.globalState.update(GLOBAL_KEY_RESTARTING, false);
       return;
+    }
+
+    const failedVersion = context.globalState.get<string>(GLOBAL_KEY_APPLY_FAILED_VERSION);
+    if (failedVersion && failedVersion === (st?.currentVersion ?? 'unknown')) {
+      return; // 本版本 apply 已失败过，不再反复弹「应用并重启」
     }
 
     const autoPrompt = vscode.workspace
@@ -361,7 +399,7 @@ export function activate(context: vscode.ExtensionContext): void {
     vscode.commands.registerCommand('cursorZh.showStatus', () => void handleStatus()),
   );
 
-  void recoverPatchAfterReload(context).then(() => runStartupSetup(context));
+  void ensurePatchState(context).then((status) => runStartupSetup(context, status));
 }
 
 /**

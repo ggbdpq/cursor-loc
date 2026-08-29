@@ -4,6 +4,8 @@ import type { Replacement } from '../types.js';
 export interface PatchInstallMeta {
   replacementCount: number;
   appliedAt: string;
+  /** apply 时的 Cursor 版本；用于检测「Cursor 已升级、补丁待重打」。 */
+  cursorVersion?: string;
 }
 
 /**
@@ -28,8 +30,9 @@ export abstract class CursorTranslator {
    * 写入翻译版 workbench 并修改 package.json 入口。
    *
    * @param replacements 运行时 DOM 替换词典。
+   * @param cursorVersion apply 时的 Cursor 版本，写入元数据。
    */
-  abstract install(replacements: readonly Replacement[]): void;
+  abstract install(replacements: readonly Replacement[], cursorVersion?: string): void;
 
   /** 删除补丁文件并恢复 package.json。 */
   abstract uninstall(): void;

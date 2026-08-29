@@ -13,6 +13,8 @@ export interface PatchOperationResult {
   versionMismatch?: { tested: string; current: string };
   patchInstalled?: boolean;
   patchStale?: boolean;
+  /** 目标 Cursor 实例的版本号（apply/status 可用时返回）。 */
+  currentVersion?: string;
 }
 
 interface Replacement {

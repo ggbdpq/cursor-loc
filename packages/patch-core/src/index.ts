@@ -28,6 +28,8 @@ export interface PatchOperationResult {
   patchInstalled?: boolean;
   /** 安装目录补丁词条数与当前 bundle 不一致，或缺少元数据（旧版补丁）。 */
   patchStale?: boolean;
+  /** 目标 Cursor 实例的版本号（apply/status 可用时返回）。 */
+  currentVersion?: string;
 }
 
 export interface ApplyPatchOptions {
@@ -88,7 +90,7 @@ export async function applyPatch(options: ApplyPatchOptions): Promise<PatchOpera
       return { ok: false, lines: [`不支持的平台: ${process.platform}`] };
     }
 
-    translator.install(options.replacements);
+    translator.install(options.replacements, version);
     lines.push('');
     lines.push(`写入路径: ${root}`);
     lines.push('翻译副本: out/vs/workbench/*_translated.js（desktop / glass 按当前版本入口生成）');
@@ -177,6 +179,16 @@ export async function getPatchStatus(
       if (installedMeta) {
         lines.push(`  - 已安装词条数: ${installedMeta.replacementCount}`);
         lines.push(`  - 上次 apply: ${installedMeta.appliedAt}`);
+        if (
+          installedMeta.cursorVersion &&
+          version &&
+          installedMeta.cursorVersion !== version
+        ) {
+          lines.push(
+            `警告: 补丁为 Cursor ${installedMeta.cursorVersion} 所打，当前 ${version}，启动时将自动重新应用。`,
+          );
+          patchStale = true;
+        }
         if (installedMeta.replacementCount !== replacementCount) {
           lines.push('');
           lines.push(
@@ -204,7 +216,7 @@ export async function getPatchStatus(
       lines.push('警告: 补丁文件不完整，建议先恢复英文再重新应用。');
     }
 
-    return { ok: true, lines, versionMismatch, patchInstalled: installed, patchStale };
+    return { ok: true, lines, versionMismatch, patchInstalled: installed, patchStale, currentVersion: version };
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     return {

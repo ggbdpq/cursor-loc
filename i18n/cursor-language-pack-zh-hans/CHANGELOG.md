@@ -7,11 +7,13 @@
 ### Fixed
 
 - 修复 Cursor 3.17+ 应用失败（「workbench.js 无法识别启动入口」）：压缩产物重命名了变量（`t`/`m` → `esModule`/`baseUrl`），启动器锚点由精确字符串匹配改为按结构匹配的正则，兼容后续变量名变化
-- 修复首次安装后每次启动反复弹「应用并重启」引导（同一根因：apply 静默失败，补丁始终未装上）
+- 修复首次安装后每次启动反复弹「应用并重启」引导（同一根因：apply 静默失败，补丁始终未装上）；同一 Cursor 版本内 apply 失败后不再重复弹窗
 - 真正抑制「Your Cursor installation appears to be corrupt」启动提示（0.0.3 曾误记已修复）：apply 时同步更新 product.json 中启动器的校验和（IntegrityService 的完整性判定），恢复英文时从备份还原
+- apply 写入顺序重排（先写翻译副本/拦截器等无害产物，最后才翻转启动入口）+ 任一步失败自动回滚到入刀前状态，杜绝「半补丁」状态导致 Cursor 无法启动
 
 ### Added
 
+- 启动时静默自愈：Cursor 升级、补丁丢失或词典过期时自动重新应用并冷重启（元数据现记录 apply 时的 Cursor 版本）；`npm run regression` apply/revert 回归脚本（发版前必跑）
 - 词典新增：退出超时对话框（Quitting the application is taking a bit longer... / 仍然退出等）、损坏提示词条兜底、Connected to Browser Tab、Loading Chat、下拉选项 High/Medium/Low
 - 补充 Settings 漏译：自动批准模式切换、审查提供方（Graphite 新旧两种文案）、警告通知的描述
 - 清理词典 10 处历史冲突/重复（validate:i18n 自迁移 JSON 后一直失败），统一为 MERGE_ORDER 运行时实际生效的译文，CI 转绿

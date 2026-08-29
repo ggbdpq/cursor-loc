@@ -46,6 +46,7 @@ F5 调试：在 `i18n/cursor-language-pack-zh-hans` 打开，使用 `.vscode/lau
 | 构建 | 根目录 `npm run build:i18n` → `generated/replacements.bundle.json` |
 | 校验 | 根目录 `npm run validate:i18n`、`npm run validate:dropdown` |
 | 提取候选 | `npm run extract` → `tools/output/candidates.json` |
+| 发版回归 | `npm run regression`（apply → 断言四件套/checksums → revert → 断言字节级还原；发版前必跑，结束时为未打补丁状态） |
 
 修改词典后须：`npm run build` → 扩展 `npm run package` → 用户重新安装 VSIX 并「应用界面汉化」。
 
