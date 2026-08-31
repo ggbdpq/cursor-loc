@@ -2,13 +2,15 @@
 
 本文件遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循 [语义化版本](https://semver.org/lang/zh-CN/)。
 
-## [0.0.6] - 未发布（发布前置：macOS 真机验收通过；Windows 用户不受影响，mac 代码对 Windows 零改动）
+## [0.0.6] - 2026-08-31
 
 ### Added
 
+- 词典新增 140 条：Agent 欢迎页 16 张轮换横幅整句（/automate、/shell、/create-hook、MCP、/create-rule、/multitask、/add-plugin、/canvas、/in-cloud、/loop、/debug、/review、/goal、Skills、Voice、Debug/Ask Mode、Origin）及逐词动画 span 碎片词条、Cursor Agents、Tab 建议暂停（snooze）说明、Skip/Account、react-dnd 拖拽无障碍提示；CDP 实机采样渲染残留 26→5（剩余为 IDE/Cursor 专有名、Ctrl 快捷键与 title 注入盲区）
+
 - 渲染层验收工具 `npm run e2e`（CDP 读取真实渲染 DOM，产出残留英文清单与补丁生效自检）
 
-- macOS（beta）支持：DesktopTranslator（原 WindowsTranslator，引擎跨平台一致）、darwin 安装路径解析（/Applications/Cursor.app/Contents）、冷重启看门狗（detached + open）、CI macos 回归 job；待真机验收后随下个版本发布
+- macOS（beta）支持：DesktopTranslator（原 WindowsTranslator，引擎跨平台一致）、darwin 安装路径解析（/Applications/Cursor.app/Contents）、冷重启看门狗（detached + open）、CI macos 回归 job（Windows 用户不受影响，mac 代码对 Windows 零改动）
 
 ## [0.0.5] - 2026-08-29
 
