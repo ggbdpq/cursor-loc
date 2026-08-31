@@ -2,7 +2,7 @@
 
 本文件遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循 [语义化版本](https://semver.org/lang/zh-CN/)。
 
-## [未发布]
+## [0.0.6] - 未发布（发布前置：macOS 真机验收通过；Windows 用户不受影响，mac 代码对 Windows 零改动）
 
 ### Added
 
