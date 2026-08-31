@@ -2,6 +2,12 @@
 
 本文件遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循 [语义化版本](https://semver.org/lang/zh-CN/)。
 
+## [未发布]
+
+### Added
+
+- macOS（beta）支持：DesktopTranslator（原 WindowsTranslator，引擎跨平台一致）、darwin 安装路径解析（/Applications/Cursor.app/Contents）、冷重启看门狗（detached + open）、CI macos 回归 job；待真机验收后随下个版本发布
+
 ## [0.0.5] - 2026-08-29
 
 ### Fixed

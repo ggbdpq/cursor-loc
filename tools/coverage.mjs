@@ -15,6 +15,7 @@
  */
 import { execSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { homedir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -48,12 +49,14 @@ function findWorkbench(explicit) {
     return p;
   }
   try {
-    const where = execSync('where cursor', { encoding: 'utf-8' })
+    const cli = execSync(process.platform === 'win32' ? 'where cursor' : 'which cursor', {
+      encoding: 'utf-8',
+    })
       .split(/\r?\n/)[0]
       ?.trim();
-    if (where) {
-      // where 结果形如 <root>\resources\app\bin\cursor.cmd，向上取安装根
-      let dir = dirname(where);
+    if (cli) {
+      // 命令结果位于 <安装根>/resources/app/bin/ 下，向上取安装根
+      let dir = dirname(cli);
       for (let i = 0; i < 8; i++) {
         const p = join(dir, rel);
         if (existsSync(p)) return p;
@@ -63,12 +66,13 @@ function findWorkbench(explicit) {
       }
     }
   } catch {
-    // where 不可用时走默认路径
+    // 命令不可用时走默认路径
   }
-  for (const base of [
-    join(process.env.LOCALAPPDATA ?? '', 'Programs', 'cursor'),
-    'D:\\Program Files\\cursor',
-  ]) {
+  const defaults =
+    process.platform === 'darwin'
+      ? ['/Applications/Cursor.app/Contents', join(homedir(), 'Applications', 'Cursor.app', 'Contents')]
+      : [join(process.env.LOCALAPPDATA ?? '', 'Programs', 'cursor'), 'D:\\Program Files\\cursor'];
+  for (const base of defaults) {
     const p = join(base, rel);
     if (existsSync(p)) return p;
   }

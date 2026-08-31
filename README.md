@@ -2,7 +2,7 @@
 
 为 **Cursor IDE 专有界面**提供简体中文汉化：覆盖 Settings、Agent、Composer、Review 等 Microsoft 官方语言包无法触及的区域。
 
-**扩展标识**：`ggbdpq.cursor-language-pack-zh-hans` · **当前平台**：Windows
+**扩展标识**：`ggbdpq.cursor-language-pack-zh-hans` · **当前平台**：Windows / macOS（beta）
 
 ---
 

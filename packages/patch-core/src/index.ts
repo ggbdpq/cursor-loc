@@ -2,7 +2,7 @@
  * @cursor-loc/patch-core 统一 API：apply / revert / status / doctor。
  */
 import type { Replacement } from './types.js';
-import { createTranslator, loadInterceptorMain } from './services/WindowsTranslator.js';
+import { createTranslator, loadInterceptorMain } from './services/DesktopTranslator.js';
 import {
   checkWriteAccess,
   getAppRoot,
@@ -11,7 +11,7 @@ import {
 } from './services/pathResolver.js';
 
 export type { Replacement, LocaleModule, PatchStatus } from './types.js';
-export { createTranslator, loadInterceptorMain } from './services/WindowsTranslator.js';
+export { createTranslator, loadInterceptorMain } from './services/DesktopTranslator.js';
 export {
   checkWriteAccess,
   getAppRoot,
@@ -52,11 +52,19 @@ function resolveInstallRoot(installRoot?: string): string | undefined {
 /**
  * 应用汉化补丁。
  */
+/** 本引擎支持的平台。 */
+function isSupportedPlatform(): boolean {
+  return process.platform === 'win32' || process.platform === 'darwin';
+}
+
 export async function applyPatch(options: ApplyPatchOptions): Promise<PatchOperationResult> {
-  if (process.platform !== 'win32') {
+  if (!isSupportedPlatform()) {
     return {
       ok: false,
-      lines: [`不支持的平台: ${process.platform}`, '当前版本仅支持 Windows。'],
+      lines: [
+        `不支持的平台: ${process.platform}`,
+        '当前支持 Windows 与 macOS（beta）。',
+      ],
     };
   }
 
@@ -234,8 +242,8 @@ export async function getPatchStatus(
 export async function runDoctor(installRoot?: string): Promise<PatchOperationResult> {
   const lines: string[] = [`平台: ${process.platform}`, `Node.js: ${process.version}`];
 
-  if (process.platform !== 'win32') {
-    lines.push('', '当前版本仅支持 Windows。');
+  if (!isSupportedPlatform()) {
+    lines.push('', '当前支持 Windows 与 macOS（beta）。');
     return { ok: false, lines };
   }
 

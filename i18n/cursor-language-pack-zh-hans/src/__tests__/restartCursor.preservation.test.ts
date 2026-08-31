@@ -90,7 +90,7 @@ vi.mock('../outputChannel.js', () => ({
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
 /** Arbitrary for non-Windows platform values. */
-const nonWindowsPlatformArb = fc.constantFrom('linux', 'darwin', 'freebsd', 'openbsd', 'sunos', 'aix');
+const nonWindowsPlatformArb = fc.constantFrom('linux', 'freebsd', 'openbsd', 'sunos', 'aix');
 
 /** Arbitrary for generating valid Windows install root paths. */
 const installRootArb = fc.record({
@@ -137,7 +137,7 @@ describe('Preservation Property: 非重启调度路径行为不变', () => {
    *
    * **Validates: Requirements 3.1**
    */
-  it('Property 2.1: non-Windows platforms always return false and log "不支持"', async () => {
+  it('Property 2.1: unsupported platforms always return false and log "不支持"', async () => {
     await fc.assert(
       fc.asyncProperty(nonWindowsPlatformArb, installRootArb, async (platform, installRoot) => {
         vi.clearAllMocks();

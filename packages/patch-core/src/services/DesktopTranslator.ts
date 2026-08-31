@@ -66,7 +66,7 @@ function loadAsset(name: string): string {
 const LOADER_IMPORT_ORIGINAL = 'await import(new URL(`${t}.js`,m).href)';
 const LOADER_IMPORT_PATCHED = 'await import(new URL(`${t}_translated.js`,m).href)';
 
-export class WindowsTranslator extends CursorTranslator {
+export class DesktopTranslator extends CursorTranslator {
   private appRoot: string;
   private workbenchTargets: WorkbenchTarget[];
   private saveInterceptorPath: string;
@@ -117,7 +117,7 @@ export class WindowsTranslator extends CursorTranslator {
    * @returns 平台受支持时返回 true。
    */
   isSupported(platform: string): boolean {
-    return platform === 'win32';
+    return platform === 'win32' || platform === 'darwin';
   }
 
   /**
@@ -463,10 +463,10 @@ export function createTranslator(
   installPath: string,
   interceptorContent: string,
 ): CursorTranslator {
-  if (process.platform === 'win32') {
-    return new WindowsTranslator(installPath, interceptorContent);
+  if (process.platform === 'win32' || process.platform === 'darwin') {
+    return new DesktopTranslator(installPath, interceptorContent);
   }
-  throw new Error(`当前仅支持 Windows 平台，检测到: ${process.platform}`);
+  throw new Error(`当前支持 Windows 与 macOS，检测到: ${process.platform}`);
 }
 
 /**

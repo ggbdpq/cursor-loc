@@ -153,4 +153,4 @@ F5 调试：在 `i18n/cursor-language-pack-zh-hans` 打开，使用 `.vscode/lau
 
 ---
 
-**标识符**：`ggbdpq.cursor-language-pack-zh-hans` · **平台**：Windows（当前版本）
+**标识符**：`ggbdpq.cursor-language-pack-zh-hans` · **平台**：Windows / macOS（beta）

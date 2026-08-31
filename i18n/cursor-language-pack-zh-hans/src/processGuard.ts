@@ -13,18 +13,27 @@ import { execSync } from 'node:child_process';
  * @returns Windows 上 tasklist 能匹配到 Cursor.exe 时为 true
  */
 export function isCursorRunning(): boolean {
-  if (process.platform !== 'win32') {
-    return false;
+  if (process.platform === 'win32') {
+    try {
+      const output = execSync('tasklist /FI "IMAGENAME eq Cursor.exe" /NH', {
+        encoding: 'utf-8',
+        stdio: ['pipe', 'pipe', 'pipe'],
+      });
+      // /NH 无表头；无进程时输出 "INFO: No tasks are running..."
+      return /cursor\.exe/i.test(output);
+    } catch {
+      return false;
+    }
   }
 
-  try {
-    const output = execSync('tasklist /FI "IMAGENAME eq Cursor.exe" /NH', {
-      encoding: 'utf-8',
-      stdio: ['pipe', 'pipe', 'pipe'],
-    });
-    // /NH 无表头；无进程时输出 "INFO: No tasks are running..."
-    return /cursor\.exe/i.test(output);
-  } catch {
-    return false;
+  if (process.platform === 'darwin') {
+    try {
+      execSync('pgrep -x Cursor', { stdio: ['pipe', 'pipe', 'pipe'] });
+      return true;
+    } catch {
+      return false;
+    }
   }
+
+  return false;
 }

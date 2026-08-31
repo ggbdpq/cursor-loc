@@ -104,7 +104,8 @@ export function resolveCursorInstallPath(explicitPath?: string): string {
 
   throw new Error(
     '无法自动检测 Cursor 安装路径。请使用 --app-root 指定，例如:\n' +
-      '  cursor-zh apply --app-root "D:\\Program Files\\cursor"',
+      '  Windows: cursor-zh apply --app-root "D:\\Program Files\\cursor"\n' +
+      '  macOS:   cursor-zh apply --app-root "/Applications/Cursor.app/Contents"',
   );
 }
 

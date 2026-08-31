@@ -21,6 +21,11 @@ import { coldRestartCursor } from './restartCursor.js';
 /** 扩展在 marketplace 中的完整 ID（publisher.name）。 */
 const EXTENSION_ID = 'ggbdpq.cursor-language-pack-zh-hans';
 
+/** 本扩展支持的平台（引擎层已覆盖 win32 / darwin）。 */
+function isSupportedPlatform(): boolean {
+  return process.platform === 'win32' || process.platform === 'darwin';
+}
+
 /**
  * deactivate 后判定卸载并触发冷重启的延迟毫秒数。
  * revert 本身在 deactivate 内同步完成，不依赖定时器。
@@ -167,8 +172,8 @@ async function handleApply(
     return false;
   }
 
-  if (process.platform !== 'win32') {
-    void vscode.window.showErrorMessage('当前专有 UI 汉化仅支持 Windows。');
+  if (!isSupportedPlatform()) {
+    void vscode.window.showErrorMessage('当前支持 Windows 与 macOS（beta）。');
     return false;
   }
 
@@ -296,7 +301,7 @@ async function safeStatus(
 async function ensurePatchState(
   context: vscode.ExtensionContext,
 ): Promise<PatchOperationResult | undefined> {
-  if (!isBundleReady() || process.platform !== 'win32') {
+  if (!isBundleReady() || !isSupportedPlatform()) {
     return undefined;
   }
 
@@ -335,7 +340,7 @@ async function runStartupSetup(
   status?: PatchOperationResult,
 ): Promise<void> {
   try {
-    if (!isBundleReady() || process.platform !== 'win32') {
+    if (!isBundleReady() || !isSupportedPlatform()) {
       return;
     }
 
@@ -388,8 +393,8 @@ export function activate(context: vscode.ExtensionContext): void {
     );
   }
 
-  if (process.platform !== 'win32') {
-    void vscode.window.showWarningMessage('Cursor 专有界面汉化：当前仅支持 Windows。');
+  if (!isSupportedPlatform()) {
+    void vscode.window.showWarningMessage('Cursor 专有界面汉化：当前支持 Windows 与 macOS（beta）。');
   }
 
   context.subscriptions.push(

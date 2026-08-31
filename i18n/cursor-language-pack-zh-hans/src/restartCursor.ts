@@ -1,4 +1,4 @@
-import { execFile } from 'node:child_process';
+import { execFile, spawn } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -28,6 +28,22 @@ export function resolveCursorExecutable(installRoot: string): string | undefined
 export function resolveCursorExecutableForRestart(installRoot: string | undefined): string | undefined {
   const execPath = process.execPath;
   logLine(`[restart] 当前进程 execPath: ${execPath}`);
+
+  if (process.platform === 'darwin') {
+    // macOS 可执行文件形如 /Applications/Cursor.app/Contents/MacOS/Cursor
+    if (execPath && fs.existsSync(execPath) && execPath.includes('.app/Contents/MacOS/')) {
+      return execPath;
+    }
+    if (installRoot) {
+      const candidate = path.join(installRoot, 'MacOS', 'Cursor');
+      if (fs.existsSync(candidate)) {
+        logLine(`[restart] 从安装根目录定位到: ${candidate}`);
+        return candidate;
+      }
+    }
+    return undefined;
+  }
+
   if (execPath && fs.existsSync(execPath) && /cursor\.exe$/i.test(execPath)) {
     return execPath;
   }
@@ -41,6 +57,12 @@ export function resolveCursorExecutableForRestart(installRoot: string | undefine
   }
 
   return undefined;
+}
+
+/** macOS：从可执行文件路径推出 .app 应用包路径。 */
+function resolveMacAppBundle(exePath: string): string | undefined {
+  const index = exePath.indexOf('.app/');
+  return index >= 0 ? exePath.slice(0, index + '.app'.length) : undefined;
 }
 
 /**
@@ -218,12 +240,83 @@ async function scheduleHiddenRestart(exe: string): Promise<boolean> {
 }
 
 /**
+ * macOS 冷重启看门狗：等 Cursor 退出（最多 20 秒后强杀）再 `open` 拉起新实例。
+ *
+ * detached + unref 的 POSIX 子进程不受父进程退出影响，无需 schtasks 绕行。
+ */
+async function scheduleMacRestart(bundlePath: string): Promise<boolean> {
+  const stamp = `${Date.now()}`;
+  const scriptPath = path.join(os.tmpdir(), `cursor-zh-restart-${stamp}.sh`);
+  const logPath = path.join(os.tmpdir(), `cursor-zh-restart-${stamp}.log`);
+  const q = (value: string): string => value.replace(/"/g, '\\"');
+
+  const script = [
+    'sleep 2',
+    'i=0',
+    'while [ $i -lt 20 ]; do',
+    '  pgrep -x Cursor >/dev/null 2>&1 || break',
+    '  sleep 1',
+    '  i=$((i+1))',
+    'done',
+    'if pgrep -x Cursor >/dev/null 2>&1; then',
+    `  echo ` +
+      `"[$(date '+%H:%M:%S')] force kill" >> "${q(logPath)}"`,
+    '  pkill -f "Cursor.app/Contents/MacOS/Cursor" 2>/dev/null',
+    '  sleep 2',
+    'fi',
+    `echo "[$(date '+%H:%M:%S')] launching" >> "${q(logPath)}"`,
+    `open "${q(bundlePath)}"`,
+    'sleep 3',
+    `pgrep -x Cursor >/dev/null 2>&1 && echo "[$(date '+%H:%M:%S')] launch OK" >> "${q(logPath)}" || echo "[$(date '+%H:%M:%S')] launch FAILED" >> "${q(logPath)}"`,
+    `rm -f "${q(scriptPath)}"`,
+  ].join('\n');
+
+  fs.writeFileSync(scriptPath, script, 'utf8');
+  logLine(`[restart] 已生成 macOS 看门狗脚本: ${scriptPath}`);
+  logLine(`[restart] 看门狗日志: ${logPath}`);
+
+  try {
+    const child = spawn('/bin/sh', [scriptPath], { detached: true, stdio: 'ignore' });
+    child.unref();
+    logLine('[restart] macOS 看门狗已独立于 Cursor 进程树运行。');
+    return true;
+  } catch (err: unknown) {
+    logLine(`[restart] 看门狗启动失败: ${err instanceof Error ? err.message : String(err)}`);
+    return false;
+  }
+}
+
+/**
  * 冷启动 Cursor：schtasks 看门狗负责「关旧开新」，扩展侧仅尽力触发 quit。
  *
  * Cursor 自带重启 ≠ workbench 命令，而是 Electron 内部 relaunch；扩展无权调用。
  * quit 在 Cursor 中常超时/no-op 属预期，看门狗会在 20 秒后 taskkill 并拉起新实例。
  */
 export async function coldRestartCursor(installRoot: string | undefined): Promise<boolean> {
+  if (process.platform === 'darwin') {
+    const exe = resolveCursorExecutableForRestart(installRoot);
+    const bundle = exe ? resolveMacAppBundle(exe) : undefined;
+    if (!bundle) {
+      logLine('[restart] 无法定位 Cursor.app，请手动完全退出后重新打开 Cursor。');
+      void vscode.window.showWarningMessage(
+        '无法定位 Cursor.app，请手动完全退出后重新打开 Cursor。',
+      );
+      return false;
+    }
+    logLine(`[restart] 将使用应用包: ${bundle}`);
+    const scheduled = await scheduleMacRestart(bundle);
+    if (!scheduled) {
+      void vscode.window.showInformationMessage(
+        '自动重启调度失败。请手动完全退出 Cursor 后重新打开以使汉化生效。',
+      );
+      return false;
+    }
+    await new Promise((resolve) => setTimeout(resolve, 800));
+    logLine('[restart] 尝试 workbench.action.quit（Cursor 无内置 restart 命令，由看门狗兜底）。');
+    await executeCommandWithTimeout('workbench.action.quit', 3000);
+    return true;
+  }
+
   if (process.platform !== 'win32') {
     logLine('[restart] 当前平台不支持自动重启。');
     return false;
