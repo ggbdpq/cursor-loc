@@ -6,6 +6,8 @@
 
 ### Added
 
+- 渲染层验收工具 `npm run e2e`（CDP 读取真实渲染 DOM，产出残留英文清单与补丁生效自检）
+
 - macOS（beta）支持：DesktopTranslator（原 WindowsTranslator，引擎跨平台一致）、darwin 安装路径解析（/Applications/Cursor.app/Contents）、冷重启看门狗（detached + open）、CI macos 回归 job；待真机验收后随下个版本发布
 
 ## [0.0.5] - 2026-08-29

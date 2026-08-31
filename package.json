@@ -28,6 +28,7 @@
     "extract": "tsx tools/extract-candidates.ts",
     "extract:settings": "tsx tools/extract-settings-section.ts",
     "coverage": "npm run build:i18n && node tools/coverage.mjs",
+    "e2e": "node tools/e2e-coverage.mjs",
     "validate:dropdown": "tsx tools/validate-dropdown-options.ts",
     "test": "npm run test -w cursor-language-pack-zh-hans",
     "test:all": "npm run build && npm run validate:i18n && npm run test",
