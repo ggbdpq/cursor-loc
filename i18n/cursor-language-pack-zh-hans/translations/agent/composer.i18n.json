@@ -264,6 +264,691 @@
       "originalText": "Planning...",
       "changeText": "规划中…",
       "searchType": "exact"
+    },
+    {
+      "originalText": "Start with a plan",
+      "changeText": "从计划(Plan)开始",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Start from scratch",
+      "changeText": "从零开始",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Debug an issue",
+      "changeText": "调试问题",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Create a dashboard",
+      "changeText": "创建仪表盘",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Find root causes and fix tricky bugs",
+      "changeText": "查找根因，修复疑难 Bug",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Align on implementation before writing code",
+      "changeText": "写代码前先对齐实现方案",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Visualize information in a custom interface",
+      "changeText": "在自定义界面中可视化展示信息",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Use /automate to create Cursor Automations without leaving your agent chat",
+      "changeText": "使用 /automate 创建 Cursor 自动化，无需离开智能体聊天",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Use",
+      "changeText": "使用",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "to",
+      "changeText": "来",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "create",
+      "changeText": "创建",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "without",
+      "changeText": "无需",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "leaving",
+      "changeText": "离开",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "your",
+      "changeText": "你的",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "agent",
+      "changeText": "智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "chat",
+      "changeText": "聊天",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Use /shell to run commands in the terminal",
+      "changeText": "使用 /shell 在终端中运行命令",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Hooks let you control and extend the agent loop - use /create-hook to get started",
+      "changeText": "钩子让你控制和扩展智能体循环——使用 /create-hook 快速上手",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "use",
+      "changeText": "使用",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "run",
+      "changeText": "运行",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "commands",
+      "changeText": "命令",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "in",
+      "changeText": "在",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "the",
+      "changeText": "该",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "terminal",
+      "changeText": "终端",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "let",
+      "changeText": "让",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "you",
+      "changeText": "你",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "control",
+      "changeText": "控制",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "and",
+      "changeText": "并",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "extend",
+      "changeText": "扩展",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "loop",
+      "changeText": "循环",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "get",
+      "changeText": "即刻",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "started",
+      "changeText": "上手",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Configure MCPs in your Cursor Settings to give agents access to tools and data",
+      "changeText": "在 Cursor 设置中配置 MCP，让智能体访问工具与数据",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "give",
+      "changeText": "给予",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "agents",
+      "changeText": "智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "access",
+      "changeText": "访问权限",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "tools",
+      "changeText": "工具",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "data",
+      "changeText": "数据",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Use /create-rule to control agent behavior through system-level instructions",
+      "changeText": "使用 /create-rule 通过系统级指令控制智能体行为",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "behavior",
+      "changeText": "行为",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "through",
+      "changeText": "通过",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "system-level",
+      "changeText": "系统级",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "instructions",
+      "changeText": "指令",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Messages sent while Cursor is working can steer it mid-run without interrupting - turn it on under New Messages in Agents settings",
+      "changeText": "Cursor 工作期间发送的消息可以在中途引导它而不打断——在智能体设置的新消息中开启",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Messages",
+      "changeText": "消息",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "sent",
+      "changeText": "发送",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "while",
+      "changeText": "当",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "is",
+      "changeText": "正在",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "working",
+      "changeText": "工作",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "can",
+      "changeText": "可以",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "steer",
+      "changeText": "引导",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "it",
+      "changeText": "它",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "mid-run",
+      "changeText": "中途",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "interrupting",
+      "changeText": "打断",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "turn",
+      "changeText": "开启",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "on",
+      "changeText": "于",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "under",
+      "changeText": "前往",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "settings",
+      "changeText": "设置",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Debug Mode reproduces and solves your most difficult bugs - hit shift+tab twice to get started",
+      "changeText": "调试模式可复现并解决你最棘手的 Bug——按两次 shift+tab 即可上手",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Mode",
+      "changeText": "模式",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "reproduces",
+      "changeText": "复现",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "solves",
+      "changeText": "解决",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "most",
+      "changeText": "最",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "difficult",
+      "changeText": "困难",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "bugs",
+      "changeText": "Bug",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "hit",
+      "changeText": "按",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "twice",
+      "changeText": "两次",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Use /multitask so Cursor can work on your queued messages in parallel",
+      "changeText": "使用 /multitask 让 Cursor 并行处理你排队的消息",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Plugins help you customize Cursor for your workflows - use /add-plugin to get started",
+      "changeText": "插件帮助你为工作流自定义 Cursor——使用 /add-plugin 即可上手",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "so",
+      "changeText": "以便",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "work",
+      "changeText": "工作",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "queued",
+      "changeText": "排队",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "messages",
+      "changeText": "消息",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "parallel",
+      "changeText": "并行",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "help",
+      "changeText": "帮助",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "customize",
+      "changeText": "自定义",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "for",
+      "changeText": "为",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "workflows",
+      "changeText": "工作流",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Voice mode lets you dictate better prompts for your agents",
+      "changeText": "语音模式让你为智能体口述更好的提示词",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Voice",
+      "changeText": "语音",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "mode",
+      "changeText": "模式",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "lets",
+      "changeText": "让",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "dictate",
+      "changeText": "口述",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "better",
+      "changeText": "更好",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "prompts",
+      "changeText": "提示词",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Agent skills help you customize Cursor for your workflows - use /create-skill to get started",
+      "changeText": "智能体技能帮助你为工作流自定义 Cursor——使用 /create-skill 即可上手",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "skills",
+      "changeText": "技能",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Use /loop to run a prompt on a schedule",
+      "changeText": "使用 /loop 按计划运行提示词",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Use /debug to solve bugs that are hard to reproduce or understand",
+      "changeText": "使用 /debug 解决难以复现或理解的 Bug",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "prompt",
+      "changeText": "提示词",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "schedule",
+      "changeText": "计划",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "solve",
+      "changeText": "解决",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "that",
+      "changeText": "那",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "are",
+      "changeText": "是",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "hard",
+      "changeText": "难",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "reproduce",
+      "changeText": "复现",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "or",
+      "changeText": "或",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "understand",
+      "changeText": "理解",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "a",
+      "changeText": "一个",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Use /in-cloud to start a subagent in its own cloud VM, keeping your local workspace free",
+      "changeText": "使用 /in-cloud 在独立云 VM 中启动子智能体，不影响你的本地工作区",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Cursor can respond with interactive visualizations alongside text - use /canvas to get started",
+      "changeText": "Cursor 可以在文本之外以交互式可视化回应——使用 /canvas 即可上手",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "start",
+      "changeText": "启动",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "its",
+      "changeText": "它的",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "own",
+      "changeText": "自己的",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "VM,",
+      "changeText": "VM，",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "subagent",
+      "changeText": "子智能体",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "keeping",
+      "changeText": "保持",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "local",
+      "changeText": "本地",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "workspace",
+      "changeText": "工作区",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "free",
+      "changeText": "空闲",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "with",
+      "changeText": "与",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "text",
+      "changeText": "文本",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "interactive",
+      "changeText": "交互式",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "visualizations",
+      "changeText": "可视化",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "alongside",
+      "changeText": "并列",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "respond",
+      "changeText": "回应",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Ask Mode uses read-only agents to research your codebase - hit shift+tab to get started",
+      "changeText": "询问模式使用只读智能体研究你的代码库——按 shift+tab 即可上手",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Set Up Origin",
+      "changeText": "设置 Origin",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Create an Origin namespace to start a new project",
+      "changeText": "创建 Origin 命名空间，开始一个新项目",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "uses",
+      "changeText": "使用",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "read-only",
+      "changeText": "只读",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "research",
+      "changeText": "研究",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "codebase",
+      "changeText": "代码库",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Use /review for an agentic code review of your changes",
+      "changeText": "使用 /review 对你的变更进行智能体代码审查",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "an",
+      "changeText": "一个",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "of",
+      "changeText": "的",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "code",
+      "changeText": "代码",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "review",
+      "changeText": "审查",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "agentic",
+      "changeText": "智能体式",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "changes",
+      "changeText": "变更",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Use /goal to set an objective that Cursor keeps pursuing until it is complete",
+      "changeText": "使用 /goal 设定一个目标，Cursor 会持续推进直到完成",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "set",
+      "changeText": "设置",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "objective",
+      "changeText": "目标",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "keeps",
+      "changeText": "持续",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "pursuing",
+      "changeText": "推进",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "until",
+      "changeText": "直到",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "complete",
+      "changeText": "完成",
+      "searchType": "exact"
     }
   ]
 }

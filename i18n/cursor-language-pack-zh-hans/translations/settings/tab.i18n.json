@@ -84,6 +84,11 @@
       "originalText": "Accept the next word of a suggestion via Ctrl+RightArrow",
       "changeText": "通过 Ctrl+RightArrow 接受建议的下一个词",
       "searchType": "exact"
+    },
+    {
+      "originalText": "Temporarily disable Cursor Tab suggestions for a specified duration. You can unsnooze at any time.",
+      "changeText": "在指定时长内暂时停用 Cursor Tab 建议。可随时恢复。",
+      "searchType": "exact"
     }
   ]
 }

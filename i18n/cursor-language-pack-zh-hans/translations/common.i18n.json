@@ -244,6 +244,21 @@
       "originalText": "Connect",
       "changeText": "连接",
       "searchType": "exact"
+    },
+    {
+      "originalText": "Skip",
+      "changeText": "跳过",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Account",
+      "changeText": "账户",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "To pick up a draggable item, press the space bar.\n    While dragging, use the arrow keys to move the item.\n    Press space again to drop the item in its new position, or press escape to cancel.",
+      "changeText": "要拾取可拖拽项，请按空格键。\n    拖动时，用方向键移动该项。\n    再次按空格键将其放到新位置，或按 Esc 取消。",
+      "searchType": "exact"
     }
   ]
 }

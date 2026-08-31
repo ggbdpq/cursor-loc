@@ -889,6 +889,11 @@
       "originalText": "Loading Chat",
       "changeText": "对话加载中",
       "searchType": "exact"
+    },
+    {
+      "originalText": "Cursor Agents",
+      "changeText": "Cursor 智能体",
+      "searchType": "exact"
     }
   ]
 }
