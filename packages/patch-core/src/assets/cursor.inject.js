@@ -59,6 +59,21 @@
   ];
 
   /**
+   * 工作区内容禁区：命中这些选择器的文本节点一律不翻译。
+   *
+   * 编辑器代码（.view-lines 覆盖主编辑器、diff、聊天代码块、Notebook）、
+   * 文件树、搜索结果、终端输出、面包屑——这些是用户代码与文件名，
+   * 词典里的单词级 exact 词条（cloud/text/New 等）会与代码 token 撞车。
+   */
+  var NO_TRANSLATE_SELECTOR = [
+    '.view-lines',
+    '.explorer-folders-view',
+    '.search-view .results',
+    '.xterm-rows',
+    '.monaco-breadcrumbs',
+  ].join(', ');
+
+  /**
    * 规范化 UI 文本，便于 exact 匹配（弯引号、不间断空格等）。
    *
    * @param {string} text 原始文本。
@@ -176,6 +191,9 @@
           }
           var tag = parent.tagName;
           if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'TEXTAREA' || tag === 'INPUT') {
+            return NodeFilter.FILTER_REJECT;
+          }
+          if (parent.closest(NO_TRANSLATE_SELECTOR)) {
             return NodeFilter.FILTER_REJECT;
           }
           return node.textContent.trim()
