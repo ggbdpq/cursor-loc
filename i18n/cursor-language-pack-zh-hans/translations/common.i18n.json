@@ -111,16 +111,6 @@
       "searchType": "exact"
     },
     {
-      "originalText": "On",
-      "changeText": "开",
-      "searchType": "exact"
-    },
-    {
-      "originalText": "Off",
-      "changeText": "关",
-      "searchType": "exact"
-    },
-    {
       "originalText": "Reset",
       "changeText": "重置",
       "searchType": "exact"

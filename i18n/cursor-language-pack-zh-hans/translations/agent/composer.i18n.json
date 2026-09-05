@@ -541,11 +541,6 @@
       "searchType": "exact"
     },
     {
-      "originalText": "on",
-      "changeText": "于",
-      "searchType": "exact"
-    },
-    {
       "originalText": "under",
       "changeText": "前往",
       "searchType": "exact"
