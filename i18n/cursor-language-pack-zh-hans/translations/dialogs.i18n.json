@@ -109,6 +109,31 @@
       "originalText": "Don't Show Again",
       "changeText": "不再显示",
       "searchType": "exact"
+    },
+    {
+      "originalText": "Agent is still working",
+      "changeText": "智能体仍在运行",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Stopping now will cancel the current task.",
+      "changeText": "现在停止将取消当前任务。",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Discarding backups is taking a bit longer...",
+      "changeText": "正在丢弃备份，耗时稍长...",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Closing the window is taking a bit longer...",
+      "changeText": "正在关闭窗口，耗时稍长...",
+      "searchType": "exact"
+    },
+    {
+      "originalText": "Close Anyway",
+      "changeText": "仍然关闭",
+      "searchType": "exact"
     }
   ]
 }

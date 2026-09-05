@@ -2,6 +2,17 @@
 
 本文件遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循 [语义化版本](https://semver.org/lang/zh-CN/)。
 
+## [0.0.8] - 2026-09-04
+
+### Fixed
+
+- 聊天面板代码内容被汉化：Agent 对话里的 markdown 代码块（Streamdown）、UI 代码块与 diff 卡片（如 `settings.json` 修改卡片中 `"on"`→`"开"`、`"onType"`→`"于Type"`）此前不在 0.0.7 禁区覆盖内。禁区新增 `[data-streamdown="code-block"] code`、`.ui-code-block-content`、`[data-ui-code-block-diff]`，代码内容一律不翻，代码块 header 上的应用/复制按钮保持汉化
+- 删除词典中的单词级 toggle 词条（`on`→`于`、`On`→`开`、`Off`→`关`）：它们是配置值撞车的直接源头，界面切换控件实际使用开关组件而非文本，删除后无副作用
+
+### Added
+
+- 退出/停止确认弹窗漏翻补齐（用户实测截图）：Agent is still working、Stopping now will cancel the current task.、Discarding backups is taking a bit longer...、Closing the window is taking a bit longer...、Close Anyway
+
 ## [0.0.7] - 2026-09-04
 
 ### Fixed

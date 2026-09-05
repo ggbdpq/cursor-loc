@@ -61,9 +61,10 @@
   /**
    * 工作区内容禁区：命中这些选择器的文本节点一律不翻译。
    *
-   * 编辑器代码（.view-lines 覆盖主编辑器、diff、聊天代码块、Notebook）、
-   * 文件树、搜索结果、终端输出、面包屑——这些是用户代码与文件名，
-   * 词典里的单词级 exact 词条（cloud/text/New 等）会与代码 token 撞车。
+   * 编辑器代码（.view-lines 覆盖主编辑器、diff、Notebook）、文件树、搜索结果、
+   * 终端输出、面包屑，以及聊天面板里的代码内容——这些是用户代码与文件名，
+   * 词典里的单词级 exact 词条（cloud/text/on 等）会与代码 token 撞车。
+   * 聊天代码块只排除 code 内容与 diff 卡片，header 上的 Apply/Copy 按钮保持可翻。
    */
   var NO_TRANSLATE_SELECTOR = [
     '.view-lines',
@@ -71,6 +72,9 @@
     '.search-view .results',
     '.xterm-rows',
     '.monaco-breadcrumbs',
+    '[data-streamdown="code-block"] code',
+    '.ui-code-block-content',
+    '[data-ui-code-block-diff]',
   ].join(', ');
 
   /**

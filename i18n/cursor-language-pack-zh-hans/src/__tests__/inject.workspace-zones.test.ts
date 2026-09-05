@@ -32,6 +32,15 @@ describe('cursor.inject.js 工作区禁区', () => {
     expect(source).toContain("'.xterm-rows'");
   });
 
+  it('聊天代码块与 diff 卡片在禁区（0.0.8）', () => {
+    // Streamdown markdown 代码块：只排除 code 内容，保留 header 按钮（Apply/Copy）可翻
+    expect(source).toContain('[data-streamdown="code-block"] code');
+    // UI 代码块（StyleX）：只排除内容区，保留 header
+    expect(source).toContain("'.ui-code-block-content'");
+    // 聊天里的 diff 卡片（settings.json 卡片等）
+    expect(source).toContain("'[data-ui-code-block-diff]'");
+  });
+
   it('文本节点过滤器在放行前先做禁区检查', () => {
     // closest 检查必须位于 FILTER_ACCEPT 之前的同函数内，防止后续改动把禁区判断挪丢
     const filterIdx = source.indexOf('acceptNode');
