@@ -121,8 +121,8 @@ export async function revertPatch(installRoot?: string): Promise<PatchOperationR
   try {
     const installPath = resolveCursorInstallPath(resolveInstallRoot(installRoot));
     const translator = createTranslator(installPath, loadInterceptorMain());
-    translator.uninstall();
-    return { ok: true, lines: ['已恢复原始界面。请完全重启 Cursor。'] };
+    const lines = translator.uninstall();
+    return { ok: true, lines };
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     return { ok: false, lines: [`恢复失败: ${message}`], error: message };

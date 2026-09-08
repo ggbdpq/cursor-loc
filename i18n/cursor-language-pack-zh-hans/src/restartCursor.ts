@@ -5,6 +5,7 @@ import path from 'node:path';
 import { promisify } from 'node:util';
 import * as vscode from 'vscode';
 import { logLine } from './outputChannel.js';
+import { uninstallTrace } from './uninstallTrace.js';
 
 const execFileAsync = promisify(execFile);
 
@@ -25,9 +26,9 @@ export function resolveCursorExecutable(installRoot: string): string | undefined
  * 解析用于冷启动的 Cursor 可执行文件。
  * 优先当前进程 execPath（扩展宿主内最可靠），其次 installRoot。
  */
-export function resolveCursorExecutableForRestart(installRoot: string | undefined): string | undefined {
+export function resolveCursorExecutableForRestart(installRoot: string | undefined, log: (message: string) => void = logLine): string | undefined {
   const execPath = process.execPath;
-  logLine(`[restart] 当前进程 execPath: ${execPath}`);
+  log(`[restart] 当前进程 execPath: ${execPath}`);
 
   if (process.platform === 'darwin') {
     // macOS 可执行文件形如 /Applications/Cursor.app/Contents/MacOS/Cursor
@@ -37,7 +38,7 @@ export function resolveCursorExecutableForRestart(installRoot: string | undefine
     if (installRoot) {
       const candidate = path.join(installRoot, 'MacOS', 'Cursor');
       if (fs.existsSync(candidate)) {
-        logLine(`[restart] 从安装根目录定位到: ${candidate}`);
+        log(`[restart] 从安装根目录定位到: ${candidate}`);
         return candidate;
       }
     }
@@ -51,7 +52,7 @@ export function resolveCursorExecutableForRestart(installRoot: string | undefine
   if (installRoot) {
     const fromRoot = resolveCursorExecutable(installRoot);
     if (fromRoot) {
-      logLine(`[restart] 从安装根目录定位到: ${fromRoot}`);
+      log(`[restart] 从安装根目录定位到: ${fromRoot}`);
       return fromRoot;
     }
   }
@@ -284,6 +285,109 @@ async function scheduleMacRestart(bundlePath: string): Promise<boolean> {
     logLine(`[restart] 看门狗启动失败: ${err instanceof Error ? err.message : String(err)}`);
     return false;
   }
+}
+
+/** 等待 Explorer 的进程创建结果；BAT 日志另行证明看门狗实际启动。 */
+export async function scheduleDetachedRestartOnQuit(exe: string): Promise<boolean> {
+  const stamp = `${process.pid}-${Date.now()}`;
+  const scriptPath = path.join(os.tmpdir(), `cursor-zh-quitwatch-${stamp}.bat`);
+  const vbsPath = path.join(os.tmpdir(), `cursor-zh-quitwatch-${stamp}.vbs`);
+  const logPath = path.join(os.tmpdir(), `cursor-zh-quitwatch-${stamp}.log`);
+  const cursorDir = path.dirname(exe);
+
+  const sys32 = 'C:\\Windows\\System32';
+  const batchContent = [
+    '@echo off',
+    'setlocal EnableDelayedExpansion',
+    `set "CURSOR_EXE=${escapeBatchPath(exe)}"`,
+    `set "CURSOR_DIR=${escapeBatchPath(cursorDir)}"`,
+    '',
+    'call :log "quit watchdog start"',
+    `${sys32}\\timeout.exe /t 2 /nobreak >nul 2>&1`,
+    '',
+    'set /a attempts=0',
+    ':waitloop',
+    `${sys32}\\tasklist.exe /FI "IMAGENAME eq Cursor.exe" /NH 2>nul | ${sys32}\\find.exe /i "Cursor.exe" >nul`,
+    'if errorlevel 1 goto gone',
+    'set /a attempts+=1',
+    'if !attempts! geq 20 goto forcekill',
+    `${sys32}\\timeout.exe /t 1 /nobreak >nul 2>&1`,
+    'goto waitloop',
+    '',
+    ':forcekill',
+    'call :log "timeout 20s: force kill leftover Cursor.exe"',
+    `${sys32}\\taskkill.exe /F /IM Cursor.exe /T >nul 2>&1`,
+    `${sys32}\\timeout.exe /t 2 /nobreak >nul 2>&1`,
+    '',
+    ':gone',
+    'call :log "cursor exited, launching"',
+    'cd /d "%CURSOR_DIR%"',
+    'start "" "%CURSOR_EXE%"',
+    'call :log "relaunch issued"',
+    `del "${escapeBatchPath(vbsPath)}" >nul 2>&1`,
+    'del "%~f0" >nul 2>&1',
+    'exit /b 0',
+    '',
+    ':log',
+    `echo [%date% %time%] %~1 >> "${escapeBatchPath(logPath)}"`,
+    'exit /b 0',
+  ].join('\r\n');
+
+  const vbsContent = [
+    'Set shell = CreateObject("WScript.Shell")',
+    `shell.Run "cmd /c ""${escapeVbsPath(scriptPath)}""", 0, False`,
+  ].join('\r\n');
+
+  fs.writeFileSync(scriptPath, batchContent, 'utf8');
+  fs.writeFileSync(vbsPath, vbsContent, 'utf8');
+  uninstallTrace('watchdog.scripts', { scriptPath, vbsPath, logPath });
+
+  try {
+    const child = spawn('explorer.exe', [vbsPath], {
+      detached: true, stdio: 'ignore', windowsHide: true,
+    });
+    return await new Promise<boolean>((resolve) => {
+      child.once('error', (error) => {
+        uninstallTrace('watchdog.spawn.error', error);
+        resolve(false);
+      });
+      child.once('spawn', () => {
+        uninstallTrace('watchdog.spawn', { pid: child.pid });
+        child.unref();
+        resolve(true);
+      });
+      child.once('exit', (code, signal) => uninstallTrace('watchdog.exit', { code, signal }));
+    });
+  } catch (err: unknown) {
+    uninstallTrace('watchdog.spawn.error', err);
+    return false;
+  }
+}
+
+/** 卸载路径只调度重启，退出请求由还原成功后的调用方发起。 */
+export async function scheduleRestartOnQuit(installRoot: string | undefined): Promise<boolean> {
+  if (process.platform === 'darwin') {
+    const exe = resolveCursorExecutableForRestart(installRoot, uninstallTrace);
+    const bundle = exe ? resolveMacAppBundle(exe) : undefined;
+    if (!bundle) {
+      uninstallTrace('[restart] 无法定位 Cursor.app，卸载后将需手动重启。');
+      return false;
+    }
+    return scheduleMacRestart(bundle);
+  }
+
+  if (process.platform !== 'win32') {
+    uninstallTrace('[restart] 当前平台不支持卸载自动重启。');
+    return false;
+  }
+
+  const exe = resolveCursorExecutableForRestart(installRoot, uninstallTrace);
+  if (!exe) {
+    uninstallTrace('[restart] 无法定位 Cursor 可执行文件，卸载后将需手动重启。');
+
+    return false;
+  }
+  return scheduleDetachedRestartOnQuit(exe);
 }
 
 /**

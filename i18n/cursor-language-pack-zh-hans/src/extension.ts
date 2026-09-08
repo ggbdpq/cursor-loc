@@ -1,65 +1,61 @@
 /**
- * Cursor 专有界面汉化扩展入口。
+ * Cursor 专有界面汉化扩展入口（0.0.9：增量翻译引擎 + 手动应用）。
  *
- * 负责注册命令、启动引导、应用/恢复补丁，并在卸载扩展时自动 revert 专有 UI。
- * 补丁写入逻辑委托给 {@link patchService}，路径解析见 {@link installPath}，冷重启见 {@link restartCursor}。
+ * 0.0.8 及更早版本的「attachShadow 劫持 + body 全量 MutationObserver +
+ * 每 100ms 定时全页扫描」会拖慢编辑器打字与滚动；0.0.9 将注入脚本重写为
+ * 增量引擎（只翻译变更节点 + O(1) exact 词典 + 零轮询）。
+ *
+ * 补丁只在用户手动执行「应用界面汉化」时写入 Cursor 安装目录；
+ * 启动自愈与安装引导已移除，扩展激活时不修改任何安装目录文件。
+ * 其他职责：恢复英文（revert）、状态查看（status）、环境诊断（doctor）、
+ * 卸载扩展时自动清理残留补丁。
  */
 import * as vscode from 'vscode';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 import { resolveEffectiveInstallRoot } from './installPath.js';
 import { getOutputChannel, logLine, logSection } from './outputChannel.js';
 import {
-  isPatchInstalled,
   isBundleReady,
+  isPatchInstalled,
   runApply,
   runDoctor,
   runRevert,
   runStatus,
 } from './patchService.js';
-import type { PatchOperationResult } from './patchService.js';
-import { coldRestartCursor } from './restartCursor.js';
+import { coldRestartCursor, scheduleRestartOnQuit } from './restartCursor.js';
+import { uninstallTrace } from './uninstallTrace.js';
 
 /** 扩展在 marketplace 中的完整 ID（publisher.name）。 */
 const EXTENSION_ID = 'ggbdpq.cursor-language-pack-zh-hans';
 
-/** 本扩展支持的平台（引擎层已覆盖 win32 / darwin）。 */
+/** 本扩展支持的平台。 */
 function isSupportedPlatform(): boolean {
   return process.platform === 'win32' || process.platform === 'darwin';
 }
 
-/**
- * deactivate 后判定卸载并触发冷重启的延迟毫秒数。
- * revert 本身在 deactivate 内同步完成，不依赖定时器。
- */
-const POST_UNINSTALL_RESTART_DELAY_MS = 1000;
-
 /** 扩展配置节名，对应 package.json contributes.configuration。 */
 const CONFIG_SECTION = 'cursorZh';
 
-/** 与 Cursor 设置变更后原生重启弹窗一致的提示文案。 */
-const RESTART_REQUIRED_MESSAGE =
-  '专有界面汉化已应用，需要重启 Cursor 才能生效。按下「重启」按钮以重新启动 Cursor 并启用汉化。';
-
-/** 原生重启弹窗主按钮文案（对齐截图中的「重启(R)」）。 */
-const RESTART_BUTTON = '重启';
-
 /**
- * globalState 键：标记「应用/恢复后正在冷重启」。
- * 新进程启动时用于跳过二次引导弹窗。
+ * globalState 键：标记「恢复后正在冷重启」。
+ * 冷重启后的首次激活将其清除，保证此后真正卸载扩展时清理逻辑可正常执行。
  */
 const GLOBAL_KEY_RESTARTING = 'cursorZh.restarting';
 
 /**
- * globalState 键：用户曾通过本扩展成功应用补丁。
- * Reload Window 触发 deactivate→revert 后，activate 据此自动写回补丁。
+ * globalState 键：用户拒绝应用引导时的 Cursor 版本。
+ * 同一 Cursor 版本内不再重复弹引导；升级到新版本后再弹一次。
  */
-const GLOBAL_KEY_PATCH_APPLIED = 'cursorZh.patchApplied';
+const GLOBAL_KEY_APPLY_DECLINED_VERSION = 'cursorZh.applyDeclinedVersion';
 
 /**
- * globalState 键：最近一次 apply 失败时的 Cursor 版本。
- * 同一 Cursor 版本上不再自动重试或反复弹「应用并重启」引导；
- * apply 成功或 Cursor 升级到新版本后自动失效。
+ * globalState 键：本窗口已弹过引导的时间戳。
+ * 主窗与 Agent 窗各自激活扩展实例；先抢到的窗口写入标记，后激活的
+ * 窗口看到标记即跳过，避免同一时刻弹两个引导。
  */
-const GLOBAL_KEY_APPLY_FAILED_VERSION = 'cursorZh.applyFailedVersion';
+const GLOBAL_KEY_PROMPT_PENDING_AT = 'cursorZh.promptPendingAt';
 
 /**
  * 冷重启退出前设为 true，使 {@link deactivate} 跳过误触发逻辑。
@@ -69,14 +65,7 @@ let suppressDeactivateRevert = false;
 
 /** activate 时保存，供 deactivate 读取 globalState。 */
 let extensionContext: vscode.ExtensionContext | undefined;
-
-/** {@link handleApply} 的可选行为。 */
-interface ApplyOptions {
-  /** 失败时不弹错误 toast（启动引导用） */
-  silent?: boolean;
-  /** 成功后立即冷重启，不再弹第二次「重启 Cursor」通知 */
-  autoRestart?: boolean;
-}
+let uninstallRunning = false;
 
 /**
  * 读取用户配置的 Cursor 安装根目录。
@@ -98,7 +87,7 @@ function getEffectiveInstallRoot(): string | undefined {
 }
 
 /**
- * 应用/恢复后的统一冷重启入口。
+ * 恢复后的统一冷重启入口。
  *
  * 成功调度重启后保持 `suppressDeactivateRevert`，失败时回滚标志与 globalState。
  *
@@ -119,24 +108,8 @@ async function restartCursor(context?: vscode.ExtensionContext): Promise<void> {
     }
     logLine('[extension] 冷重启未能发起，请手动完全退出并重新打开 Cursor。');
     void vscode.window.showWarningMessage(
-      '自动重启未能完成，请手动完全退出并重新打开 Cursor 以使汉化生效。',
+      '自动重启未能完成，请手动完全退出并重新打开 Cursor 以使设置生效。',
     );
-  }
-}
-
-/**
- * 首次安装且未打补丁时，弹出一次「应用并重启」引导。
- *
- * @param context 扩展上下文，用于 handleApply 与 globalState
- */
-async function promptApplyAndRestart(context: vscode.ExtensionContext): Promise<void> {
-  const choice = await vscode.window.showInformationMessage(
-    '是否要应用 Cursor 专有界面中文汉化？应用后需要重启 Cursor 才能生效。',
-    { modal: true },
-    '应用并重启',
-  );
-  if (choice === '应用并重启') {
-    await handleApply(context, { silent: true, autoRestart: true });
   }
 }
 
@@ -146,95 +119,60 @@ async function handleDoctor(): Promise<void> {
   logSection('Cursor 专有界面汉化', result.lines);
 
   if (result.ok) {
-    void vscode.window.showInformationMessage('环境检查通过，可以应用汉化补丁。');
+    void vscode.window.showInformationMessage('环境检查通过。');
   } else {
     void vscode.window.showErrorMessage(result.error ?? '环境诊断未通过，详见输出面板。');
   }
 }
 
 /**
- * 命令：应用汉化补丁。
+ * 命令：应用汉化补丁（仅用户手动触发）。
  *
- * @param context 用于重启与 globalState；命令面板调用时可传 undefined
- * @param options 静默失败 / 自动重启等行为
- * @returns 是否成功写入补丁
+ * 写入安装目录补丁并提示冷重启；失败时记录版本，同一 Cursor 版本内
+ * 不再反复弹错。
+ *
+ * @param context 用于重启流程
  */
-async function handleApply(
-  context: vscode.ExtensionContext | undefined,
-  options: ApplyOptions = {},
-): Promise<boolean> {
-  const { silent = false, autoRestart = false } = options;
-
+async function handleApply(context: vscode.ExtensionContext): Promise<void> {
   if (!isBundleReady()) {
     void vscode.window.showErrorMessage(
       '词典 bundle 未就绪。请重新安装完整构建的 .vsix，或开发模式下在仓库根执行 npm run build。',
     );
-    return false;
+    return;
   }
 
   if (!isSupportedPlatform()) {
     void vscode.window.showErrorMessage('当前支持 Windows 与 macOS（beta）。');
-    return false;
+    return;
   }
 
   const result = await runApply(getEffectiveInstallRoot());
   logSection('应用汉化补丁', result.lines);
 
   if (result.ok) {
-    if (context) {
-      await context.globalState.update(GLOBAL_KEY_PATCH_APPLIED, true);
-      await context.globalState.update(GLOBAL_KEY_APPLY_FAILED_VERSION, undefined);
-    }
-    if (autoRestart) {
-      await restartCursor(context);
-    } else {
-      const choice = await vscode.window.showInformationMessage(
-        RESTART_REQUIRED_MESSAGE,
-        { modal: true },
-        RESTART_BUTTON,
-      );
-      if (choice === RESTART_BUTTON) {
-        await restartCursor(context);
-      }
-    }
-    return true;
+    // 引导弹窗里用户已选「应用并重启」，这里不再二次确认，直接冷重启
+    await restartCursor(context);
+    return;
   }
 
-  if (!silent) {
-    void vscode.window.showErrorMessage(result.error ?? '应用失败，详见输出面板。');
-  } else if (result.error) {
-    logSection('应用汉化补丁失败', result.lines);
-  }
-  if (context) {
-    // 记录失败时的 Cursor 版本：启动自愈与引导弹窗在同一版本内不再重复触发
-    try {
-      const status = await runStatus(getEffectiveInstallRoot());
-      await context.globalState.update(
-        GLOBAL_KEY_APPLY_FAILED_VERSION,
-        status.currentVersion ?? 'unknown',
-      );
-    } catch {
-      await context.globalState.update(GLOBAL_KEY_APPLY_FAILED_VERSION, 'unknown');
-    }
-  }
-  return false;
+  void vscode.window.showErrorMessage(result.error ?? '应用失败，详见输出面板。');
 }
 
 /**
- * 命令：恢复专有界面为英文。
+ * 命令：清理残留补丁，恢复专有界面为英文。
  *
  * 用户确认后 revert 并冷重启；不影响 MS 中文语言包。
  *
  * @param context 扩展上下文，用于重启流程
  */
 async function handleRevert(context: vscode.ExtensionContext): Promise<void> {
+  // 只放一个确认按钮；「Cancel」由 VS Code 自动补，自写「取消」会出现两个等价按钮
   const confirm = await vscode.window.showWarningMessage(
-    '确定要恢复 Cursor 专有界面为英文吗？',
+    '确定要恢复 Cursor 专有界面为英文吗？恢复后需重启 Cursor。',
     { modal: true },
-    '恢复',
-    '取消',
+    '恢复英文并重启',
   );
-  if (confirm !== '恢复') {
+  if (confirm !== '恢复英文并重启') {
     return;
   }
 
@@ -242,7 +180,6 @@ async function handleRevert(context: vscode.ExtensionContext): Promise<void> {
   logSection('恢复英文界面', result.lines);
 
   if (result.ok) {
-    await context.globalState.update(GLOBAL_KEY_PATCH_APPLIED, false);
     await restartCursor(context);
   } else {
     void vscode.window.showErrorMessage(result.error ?? '恢复失败，详见输出面板。');
@@ -250,7 +187,7 @@ async function handleRevert(context: vscode.ExtensionContext): Promise<void> {
 }
 
 /**
- * 命令：查看补丁安装状态。
+ * 命令：查看残留补丁状态。
  *
  * @param silent 为 true 时不弹 toast（预留内部调用）
  */
@@ -258,217 +195,224 @@ async function handleStatus(silent = false): Promise<void> {
   const result = await runStatus(getEffectiveInstallRoot());
   logSection('Cursor 专有界面汉化状态', result.lines);
 
-  if (result.versionMismatch) {
+  if (result.patchStale) {
     void vscode.window.showWarningMessage(
-      `词典针对 Cursor ${result.versionMismatch.tested} 测试，当前 ${result.versionMismatch.current}，建议重新应用或补充翻译。`,
-    );
-  } else if (result.patchStale) {
-    void vscode.window.showWarningMessage(
-      '安装目录补丁已过期，Agent Window 等新词条可能未生效。请执行「Cursor 中文：应用界面汉化」或 npm run apply。',
+      '检测到旧版残留补丁（含拖慢编辑器的 DOM 翻译扫描器）。请执行「Cursor 中文：恢复英文界面」清理。',
     );
   } else if (!result.ok) {
     if (!silent) {
       void vscode.window.showErrorMessage(result.error ?? '查询失败，详见输出面板。');
     }
   } else if (!silent) {
-    const state = result.patchInstalled ? '已安装' : '未安装';
-    void vscode.window.showInformationMessage(`专有界面汉化补丁：${state}。详情见输出面板。`);
-  }
-}
-
-/** 查询补丁状态；失败时返回 undefined（启动路径不应抛错）。 */
-async function safeStatus(
-  installRoot: string | undefined,
-): Promise<PatchOperationResult | undefined> {
-  try {
-    return await runStatus(installRoot);
-  } catch (err) {
-    logLine(`[startup] 状态查询失败: ${err instanceof Error ? err.message : String(err)}`);
-    return undefined;
+    const state = result.patchInstalled ? '检测到残留补丁' : '无残留';
+    void vscode.window.showInformationMessage(`专有界面补丁状态：${state}。详情见输出面板。`);
   }
 }
 
 /**
- * 启动自愈：Cursor 升级、补丁文件丢失或词典过期时静默重新应用并冷重启。
+ * 首次安装且未打补丁时，弹出一次「应用并重启」引导。
  *
- * 仅对曾主动应用过汉化（GLOBAL_KEY_PATCH_APPLIED）的实例生效；同一 Cursor 版本上
- * apply 已失败过的跳过重试（{@link GLOBAL_KEY_APPLY_FAILED_VERSION}），避免
- * 「每次启动静默失败 → 反复弹窗」的循环。
- *
- * @param context 扩展上下文
- * @returns 启动时的补丁状态；环境不可检测时为 undefined
+ * 只询问不写入：用户点击「应用并重启」才执行补丁；拒绝后同一 Cursor
+ * 版本内不再弹（升级后再弹一次）。启动自愈（静默重打补丁）已移除。
+ * 主窗与 Agent 窗各自激活扩展：先抢到的窗口写入 PENDING_AT 标记，
+ * 后激活的窗口看到标记即跳过，避免双弹。
  */
-async function ensurePatchState(
-  context: vscode.ExtensionContext,
-): Promise<PatchOperationResult | undefined> {
-  if (!isBundleReady() || !isSupportedPlatform()) {
-    return undefined;
-  }
-
-  const status = await safeStatus(getEffectiveInstallRoot());
-  if (!status?.ok) {
-    return status;
-  }
-
-  if (status.patchInstalled && !status.patchStale) {
-    await context.globalState.update(GLOBAL_KEY_PATCH_APPLIED, true);
-    return status;
-  }
-
-  const wanted = context.globalState.get<boolean>(GLOBAL_KEY_PATCH_APPLIED);
-  const failedVersion = context.globalState.get<string>(GLOBAL_KEY_APPLY_FAILED_VERSION);
-  if (!wanted || failedVersion === (status.currentVersion ?? 'unknown')) {
-    return status;
-  }
-
-  logLine('[startup] 检测到补丁缺失或 Cursor 已升级，正在静默重新应用…');
-  await handleApply(context, { silent: true, autoRestart: true });
-  return status;
-}
-
-/**
- * 扩展激活后的启动引导：未打补丁且开启 autoApplyOnInstall 时弹窗。
- *
- * 已安装补丁时一律跳过引导；刚完成冷重启时也跳过，避免重复打扰；
- * 同一 Cursor 版本上 apply 已失败过的不再反复弹窗。
- *
- * @param context 扩展上下文
- * @param status 启动自愈返回的补丁状态；缺省时现查
- */
-async function runStartupSetup(
-  context: vscode.ExtensionContext,
-  status?: PatchOperationResult,
-): Promise<void> {
+async function runStartupSetup(context: vscode.ExtensionContext): Promise<void> {
   try {
     if (!isBundleReady() || !isSupportedPlatform()) {
       return;
     }
-
-    const st = status ?? (await safeStatus(getEffectiveInstallRoot()));
-    if (st?.patchInstalled) {
-      await context.globalState.update(GLOBAL_KEY_PATCH_APPLIED, true);
-      if (context.globalState.get<boolean>(GLOBAL_KEY_RESTARTING)) {
-        await context.globalState.update(GLOBAL_KEY_RESTARTING, false);
-      }
-      return;
-    }
-
     if (context.globalState.get<boolean>(GLOBAL_KEY_RESTARTING)) {
-      await context.globalState.update(GLOBAL_KEY_RESTARTING, false);
       return;
     }
 
-    const failedVersion = context.globalState.get<string>(GLOBAL_KEY_APPLY_FAILED_VERSION);
-    if (failedVersion && failedVersion === (st?.currentVersion ?? 'unknown')) {
-      return; // 本版本 apply 已失败过，不再反复弹「应用并重启」
-    }
-
-    const autoPrompt = vscode.workspace
-      .getConfiguration(CONFIG_SECTION)
-      .get<boolean>('autoApplyOnInstall', true);
-    if (!autoPrompt) {
+    const status = await runStatus(getEffectiveInstallRoot()).catch(() => undefined);
+    if (!status?.ok || status.patchInstalled) {
       return;
     }
 
-    await promptApplyAndRestart(context);
-  } catch (err) {
-    logLine(
-      `[startup] 启动引导失败: ${err instanceof Error ? err.message : String(err)}`,
+    const version = status.currentVersion ?? 'unknown';
+    if (context.globalState.get<string>(GLOBAL_KEY_APPLY_DECLINED_VERSION) === version) {
+      return;
+    }
+
+    // 跨窗口去重：标记已存在（另一窗口正在弹）则本窗口跳过
+    const pendingAt = context.globalState.get<number>(GLOBAL_KEY_PROMPT_PENDING_AT);
+    if (pendingAt && Date.now() - pendingAt < 60_000) {
+      return;
+    }
+    await context.globalState.update(GLOBAL_KEY_PROMPT_PENDING_AT, Date.now());
+
+    const choice = await vscode.window.showInformationMessage(
+      '是否要应用 Cursor 专有界面中文汉化？应用后需要重启 Cursor 才能生效。',
+      { modal: true },
+      '应用并重启',
     );
+    await context.globalState.update(GLOBAL_KEY_PROMPT_PENDING_AT, undefined);
+    if (choice === '应用并重启') {
+      await handleApply(context);
+    } else {
+      await context.globalState.update(GLOBAL_KEY_APPLY_DECLINED_VERSION, version);
+    }
+  } catch (err) {
+    logLine(`[startup] 安装引导失败: ${err instanceof Error ? err.message : String(err)}`);
   }
 }
 
 /**
- * 扩展激活：注册输出通道、四条命令，并异步执行启动引导。
+ * 扩展激活：注册输出通道与四条命令，并异步执行一次性安装引导。
+ *
+ * 不再执行任何启动自愈或引导（0.0.9 起不写安装目录）；
+ * 仅清除冷重启标记，保证此后卸载扩展时清理逻辑可正常执行。
  *
  * @param context VS Code 扩展上下文
  */
 export function activate(context: vscode.ExtensionContext): void {
   extensionContext = context;
+  uninstallTrace('activate', { build: '0.0.9-uninstall-watch-2', version: context.extension?.packageJSON?.version, extensionPath: context.extensionPath });
   context.subscriptions.push(getOutputChannel());
-
-  if (!isBundleReady()) {
-    void vscode.window.showErrorMessage(
-      'Cursor 专有界面汉化：补丁资源缺失。请安装完整构建的 .vsix 包。',
-    );
-  }
 
   if (!isSupportedPlatform()) {
     void vscode.window.showWarningMessage('Cursor 专有界面汉化：当前支持 Windows 与 macOS（beta）。');
   }
 
   context.subscriptions.push(
-    vscode.commands.registerCommand('cursorZh.doctor', () => void handleDoctor()),
-    vscode.commands.registerCommand('cursorZh.applyPatch', () => void handleApply(context, { autoRestart: true })),
+    vscode.commands.registerCommand('cursorZh.applyPatch', () => void handleApply(context)),
     vscode.commands.registerCommand('cursorZh.revertPatch', () => void handleRevert(context)),
     vscode.commands.registerCommand('cursorZh.showStatus', () => void handleStatus()),
+    vscode.commands.registerCommand('cursorZh.doctor', () => void handleDoctor()),
   );
 
-  void ensurePatchState(context).then((status) => runStartupSetup(context, status));
+  void context.globalState.update(GLOBAL_KEY_RESTARTING, false);
+  void runStartupSetup(context);
+  if (context.extensionMode !== vscode.ExtensionMode.Development) {
+    try {
+      const watcher = fs.watch(path.join(os.homedir(), '.cursor', 'extensions'),
+        { persistent: false }, () => { void cleanupAfterUninstall(); });
+      watcher.on('error', (error) => uninstallTrace('watch.error', error));
+      context.subscriptions.push({ dispose: () => watcher.close() });
+      uninstallTrace('watch.ready');
+    } catch (error) {
+      uninstallTrace('watch.error', error);
+    }
+  }
 }
 
 /**
- * 扩展卸载时 revert 安装目录补丁并冷重启。
+ * 判断本扩展是否已被卸载。
  *
- * 不在 deactivate 中同步 revert：否则正常退出 / Reload Window 会清掉补丁，
- * 导致 Settings 仍英文且每次启动重复弹「需要重启」。
+ * 磁盘事实有两处（都在用户主目录 ~/.cursor/extensions/）：
+ * - `extensions.json`：已安装扩展清单，VSIX 卸载后立即不含本扩展；
+ * - `.obsolete`：标记待删除的扩展文件夹，卸载后写入本扩展条目。
+ *
+ * 两处任一表明已卸载即返回 true；两处都无法读取（首装前、路径变化）
+ * 时返回 false——宁可不动，不误还原。
+ *
+ * @param manifestPath 注入用；默认 ~/.cursor/extensions/extensions.json
+ * @param obsoletePath 注入用；默认 ~/.cursor/extensions/.obsolete
+ */
+export function isExtensionUninstalled(manifestPath?: string, obsoletePath?: string): boolean {
+  const id = EXTENSION_ID.toLowerCase();
+  const extDir = path.join(os.homedir(), '.cursor', 'extensions');
+  const manifest = manifestPath ?? path.join(extDir, 'extensions.json');
+  const obsolete = obsoletePath ?? path.join(extDir, '.obsolete');
+
+  let manifestReadable = false;
+  try {
+    const entries = JSON.parse(fs.readFileSync(manifest, 'utf-8')) as Array<{
+      identifier?: { id?: string };
+    }>;
+    manifestReadable = true;
+    if (!entries.some((entry) => entry.identifier?.id?.toLowerCase() === id)) {
+      return true;
+    }
+  } catch {
+    // 清单缺失或损坏，交给 .obsolete 判定
+  }
+
+  try {
+    const obsoleteMap = JSON.parse(fs.readFileSync(obsolete, 'utf-8')) as Record<string, unknown>;
+    if (Object.keys(obsoleteMap).some((key) => key.toLowerCase().startsWith(id))) {
+      return true;
+    }
+  } catch {
+    // 无 .obsolete 标记
+  }
+
+  return false;
+}
+
+/**
+ * 扩展卸载时清理安装目录残留补丁并冷重启。
+ *
+ * 卸载判定走磁盘事实（{@link isExtensionUninstalled}），在 deactivate 内
+ * 同步完成——不依赖延时定时器（旧实现的 1 秒 setTimeout 会在扩展宿主
+ * 退出后永不执行，导致补丁残留且无提示）。
  *
  * - 冷重启：`suppressDeactivateRevert` / {@link GLOBAL_KEY_RESTARTING} 跳过。
  * - F5 调试：`ExtensionMode.Development` 下不 revert。
- * - Reload Window：延迟后扩展已 re-activate，跳过 revert。
- * - 正常退出 Cursor：进程结束，定时器通常不执行，补丁保留在磁盘。
- * - 卸载 VSIX：延迟后扩展 ID 从列表消失 → revert + 冷重启。
+ * - Reload Window：清单仍含本扩展（进程退出前不重写），不 revert。
+ * - 正常退出 Cursor：清单仍含本扩展，状态保持。
+ * - 卸载 VSIX：清单已不含本扩展 → 立即 revert + 冷重启。
  */
 export async function deactivate(): Promise<void> {
+  uninstallTrace('deactivate.enter');
+  await cleanupAfterUninstall();
+  extensionContext = undefined;
+}
+
+async function cleanupAfterUninstall(): Promise<void> {
+  if (uninstallRunning) return;
   if (suppressDeactivateRevert) {
     suppressDeactivateRevert = false;
+    uninstallTrace('skip.suppressed');
     return;
   }
-
   if (extensionContext?.globalState.get<boolean>(GLOBAL_KEY_RESTARTING)) {
+    uninstallTrace('skip.restarting');
     return;
   }
-
   const ctx = extensionContext;
-  extensionContext = undefined;
-
   if (!ctx || ctx.extensionMode === vscode.ExtensionMode.Development) {
+    uninstallTrace('skip.context', { mode: ctx?.extensionMode });
+    return;
+  }
+  if (!isExtensionUninstalled()) {
+    uninstallTrace('skip.installed');
     return;
   }
 
-  const installRoot = getEffectiveInstallRoot();
+  uninstallRunning = true;
+  try {
+    const installRoot = getEffectiveInstallRoot();
+    uninstallTrace('status.begin', { installRoot });
+    const installed = await isPatchInstalled(installRoot);
+    uninstallTrace('status.end', { installed });
+    if (!installed) return;
 
-  setTimeout(() => {
-    void (async () => {
-      try {
-        const ext = vscode.extensions.getExtension(EXTENSION_ID);
-        if (ext?.isActive) {
-          return;
-        }
-        if (ext) {
-          // 仍注册但未激活：多为退出过程，勿误 revert（禁用扩展请用手动「恢复英文」）
-          return;
-        }
+    uninstallTrace('schedule.begin');
+    let scheduled = false;
+    try {
+      scheduled = await scheduleRestartOnQuit(installRoot);
+    } catch (error) {
+      uninstallTrace('schedule.error', error);
+    }
+    uninstallTrace('schedule.end', { scheduled });
+    uninstallTrace('revert.begin');
+    const result = await runRevert(installRoot);
+    uninstallTrace('revert.end', result);
+    if (!result.ok || !scheduled) return;
 
-        const patched = await isPatchInstalled(installRoot);
-        if (!patched) {
-          return;
-        }
-
-        const result = await runRevert(installRoot);
-        logSection('扩展已卸载，已恢复英文界面（安装目录补丁已移除）', result.lines);
-        if (!result.ok) {
-          return;
-        }
-
-        suppressDeactivateRevert = true;
-        logLine('[deactivate] 扩展已卸载，正在自动重启 Cursor 以显示英文界面…');
-        await coldRestartCursor(installRoot);
-      } catch (err) {
-        logLine(
-          `[deactivate] revert 失败: ${err instanceof Error ? err.message : String(err)}`,
-        );
-      }
-    })();
-  }, POST_UNINSTALL_RESTART_DELAY_MS);
+    suppressDeactivateRevert = true;
+    uninstallTrace('quit.request');
+    // 宿主拆除时 RPC 可能已经关闭；看门狗回执才是外部进程启动证据。
+    void vscode.commands.executeCommand('workbench.action.quit').then(
+      () => uninstallTrace('quit.resolved'),
+      (error: unknown) => uninstallTrace('quit.rejected', error),
+    );
+  } catch (error) {
+    uninstallTrace('deactivate.error', error);
+  } finally {
+    uninstallTrace('deactivate.end');
+  }
 }

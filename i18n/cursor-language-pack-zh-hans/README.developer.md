@@ -13,8 +13,8 @@
 
 ```
 cursor-loc/
-├── packages/patch-core/     补丁引擎 @cursor-loc/patch-core
-├── packages/patch-cli/      CLI：cursor-zh apply/revert/…
+├── packages/patch-core/     补丁引擎 @cursor-loc/patch-core（增量 DOM 翻译 + 残留恢复）
+├── packages/patch-cli/      CLI：cursor-zh apply/revert/status/doctor
 ├── i18n/cursor-language-pack-zh-hans/
 │   ├── translations/        词典 SSOT（*.i18n.json）
 │   ├── generated/           build:i18n 产物（勿手改）
@@ -47,17 +47,19 @@ F5 调试：在 `i18n/cursor-language-pack-zh-hans` 打开，使用 `.vscode/lau
 | 校验 | 根目录 `npm run validate:i18n`、`npm run validate:dropdown` |
 | 提取候选 | `npm run extract` → `tools/output/candidates.json` |
 | 覆盖率/漏翻清单 | `npm run coverage` → `tools/output/coverage.json` + `tools/output/pending/index.md`（Cursor 更新后跑一次；清单供 issue 认领，产出物不入库） |
+
 | 发版回归 | `npm run regression`（apply → 断言四件套/checksums → revert → 断言字节级还原；发版前必跑，结束时为未打补丁状态） |
 
-修改词典后须：`npm run build` → 扩展 `npm run package` → 用户重新安装 VSIX 并「应用界面汉化」。
+0.0.9 起注入引擎为增量模式（无定时轮询、无原型劫持、变更只处理涉及节点），性能契约见 `src/__tests__/inject.performance-contract.test.ts`——改动注入脚本前先读它。
 
 ## 源码阅读顺序
 
-1. `src/extension.ts` — 命令注册、启动引导、deactivate 回滚  
+1. `src/extension.ts` — 命令注册（手动 apply / revert / status / doctor）、deactivate 卸载清理  
 2. `src/patchService.ts` — 动态加载 patch-core + 读取 bundle  
 3. `packages/patch-core/src/index.ts` — apply/revert/status/doctor API  
-4. `packages/patch-core/src/assets/cursor.inject.js` — 运行时 DOM 替换  
-5. `src/restartCursor.ts` — Windows 冷重启调度  
+4. `packages/patch-core/src/assets/cursor.inject.js` — 增量 DOM 翻译引擎（性能契约锁定）  
+5. `packages/patch-core/src/services/DesktopTranslator.ts` — 补丁写入与残留恢复  
+6. `src/restartCursor.ts` — Windows 冷重启调度  
 
 各文件顶部与关键函数均含 JSDoc，风格参考 `tools/extract-candidates.ts` 与 `chunk-planner.js` 的行内说明。
 
@@ -78,7 +80,7 @@ npx ovsx publish --pat <token>   # 需要 open-vsx.org 的 ggbdpq 命名空间�
 # 或先create再publish；发错可用 npx ovsx prune/delete 处理
 ```
 
-**Open VSX 版本不可覆盖**：同一版本号发布过一次即冻结，重新发布必须先递增 `package.json` 的 `version` 再打包。发布前必过：`npm run test:all` + `npm run regression`。市场文案的口径：**诚实披露本扩展修改 Cursor 安装目录，卸载即自动还原**（见 README.md 免责声明）。
+**Open VSX 版本不可覆盖**：同一版本号发布过一次即冻结，重新发布必须先递增 `package.json` 的 `version` 再打包。发布前必过：`npm run test:all` + `npm run regression`。市场文案的口径：**0.0.9 增量引擎修复打字/滚动卡顿，汉化保留；补丁仅手动应用，卸载扩展自动还原**（见 README.md 顶部说明）。
 
 ## 版本约定
 
