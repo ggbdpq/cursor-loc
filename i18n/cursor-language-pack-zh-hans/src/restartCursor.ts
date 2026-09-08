@@ -287,6 +287,113 @@ async function scheduleMacRestart(bundlePath: string): Promise<boolean> {
 }
 
 /**
+ * 卸载路径专用看门狗：经 explorer.exe 转发启动，spawn 即返回、零 await。
+ *
+ * 卸载扩展后扩展宿主约 1 秒内被回收，deactivate 里 await schtasks
+ * （/create + /run 约 1-2 秒）大概率被截断——实测「还原完成了、重启调度
+ * 没了」。explorer.exe 把命令转发给常驻 shell（不在 Cursor 的 Job Object
+ * 内）后立即返回，看门狗从此与扩展宿主生死无关。
+ *
+ * BAT 内不含 schtasks：转发本身已脱离进程树，无需任务计划中转。
+ */
+export function scheduleDetachedRestartOnQuit(exe: string): boolean {
+  const stamp = `${Date.now()}`;
+  const scriptPath = path.join(os.tmpdir(), `cursor-zh-quitwatch-${stamp}.bat`);
+  const vbsPath = path.join(os.tmpdir(), `cursor-zh-quitwatch-${stamp}.vbs`);
+  const logPath = path.join(os.tmpdir(), `cursor-zh-quitwatch-${stamp}.log`);
+  const cursorDir = path.dirname(exe);
+
+  const sys32 = 'C:\\Windows\\System32';
+  const batchContent = [
+    '@echo off',
+    'setlocal EnableDelayedExpansion',
+    `set "CURSOR_EXE=${escapeBatchPath(exe)}"`,
+    `set "CURSOR_DIR=${escapeBatchPath(cursorDir)}"`,
+    '',
+    'call :log "quit watchdog start"',
+    `${sys32}\\timeout.exe /t 2 /nobreak >nul 2>&1`,
+    '',
+    'set /a attempts=0',
+    ':waitloop',
+    `${sys32}\\tasklist.exe /FI "IMAGENAME eq Cursor.exe" /NH 2>nul | ${sys32}\\find.exe /i "Cursor.exe" >nul`,
+    'if errorlevel 1 goto gone',
+    'set /a attempts+=1',
+    'if !attempts! geq 20 goto forcekill',
+    `${sys32}\\timeout.exe /t 1 /nobreak >nul 2>&1`,
+    'goto waitloop',
+    '',
+    ':forcekill',
+    'call :log "timeout 20s: force kill leftover Cursor.exe"',
+    `${sys32}\\taskkill.exe /F /IM Cursor.exe /T >nul 2>&1`,
+    `${sys32}\\timeout.exe /t 2 /nobreak >nul 2>&1`,
+    '',
+    ':gone',
+    'call :log "cursor exited, launching"',
+    'cd /d "%CURSOR_DIR%"',
+    'start "" "%CURSOR_EXE%"',
+    'call :log "relaunch issued"',
+    `del "${escapeBatchPath(vbsPath)}" >nul 2>&1`,
+    'del "%~f0" >nul 2>&1',
+    'exit /b 0',
+    '',
+    ':log',
+    `echo [%date% %time%] %~1 >> "${escapeBatchPath(logPath)}"`,
+    'exit /b 0',
+  ].join('\r\n');
+
+  const vbsContent = [
+    'Set shell = CreateObject("WScript.Shell")',
+    `shell.Run "cmd /c ""${escapeVbsPath(scriptPath)}""", 0, False`,
+  ].join('\r\n');
+
+  fs.writeFileSync(scriptPath, batchContent, 'utf8');
+  fs.writeFileSync(vbsPath, vbsContent, 'utf8');
+  logLine(`[restart] 已生成卸载看门狗脚本: ${scriptPath}`);
+  logLine(`[restart] 看门狗日志: ${logPath}`);
+
+  try {
+    // explorer 转发给常驻 shell 后立即退出；转发出的 cmd 不在 Cursor Job Object 内
+    spawn('explorer.exe', [vbsPath], { detached: true, stdio: 'ignore' }).unref();
+    logLine('[restart] 卸载看门狗已经 explorer 转发启动（独立于 Cursor 进程树）。');
+    return true;
+  } catch (err: unknown) {
+    logLine(`[restart] 卸载看门狗启动失败: ${err instanceof Error ? err.message : String(err)}`);
+    return false;
+  }
+}
+
+/**
+ * 卸载路径的调度入口：只负责把看门狗安排出去（不触发 quit），保证
+ * deactivate 在宿主被回收前把「重启」这件事先送出进程树。
+ *
+ * Windows 走 explorer 转发；macOS 复用 detached 脚本（本就不受 Job 限制）。
+ */
+export async function scheduleRestartOnQuit(installRoot: string | undefined): Promise<boolean> {
+  if (process.platform === 'darwin') {
+    const exe = resolveCursorExecutableForRestart(installRoot);
+    const bundle = exe ? resolveMacAppBundle(exe) : undefined;
+    if (!bundle) {
+      logLine('[restart] 无法定位 Cursor.app，卸载后将需手动重启。');
+      return false;
+    }
+    return scheduleMacRestart(bundle);
+  }
+
+  if (process.platform !== 'win32') {
+    logLine('[restart] 当前平台不支持卸载自动重启。');
+    return false;
+  }
+
+  const exe = resolveCursorExecutableForRestart(installRoot);
+  if (!exe) {
+    logLine('[restart] 无法定位 Cursor 可执行文件，卸载后将需手动重启。');
+    void vscode.window.showWarningMessage('无法定位 Cursor 可执行文件，补丁已还原；请手动重启 Cursor 以回到英文界面。');
+    return false;
+  }
+  return scheduleDetachedRestartOnQuit(exe);
+}
+
+/**
  * 冷启动 Cursor：schtasks 看门狗负责「关旧开新」，扩展侧仅尽力触发 quit。
  *
  * Cursor 自带重启 ≠ workbench 命令，而是 Electron 内部 relaunch；扩展无权调用。

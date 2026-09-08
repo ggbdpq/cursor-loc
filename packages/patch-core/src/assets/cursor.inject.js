@@ -1,31 +1,35 @@
 /**
- * 注入到 workbench 副本头部的运行时 DOM 翻译脚本。
+ * 注入到 workbench 副本头部的运行时 DOM 翻译脚本（0.0.9 增量引擎）。
  *
  * 由 patch-core 在 apply 阶段写入 workbench.desktop.main_translated.js 顶部；
  * 词典 JSON 在构建时内联到本文件末尾的 REPLACEMENTS 变量。
+ *
+ * 与旧引擎（≤0.0.8）的性能差异——旧引擎卡顿的三个根源全部移除：
+ * 1. 无 100ms 定时轮询（旧：每秒 10 次全页扫描，与用户操作无关）；
+ * 2. 无 attachShadow 劫持（旧：强制 closed → open，侵入全局原型）；
+ * 3. 无每次变更全页 TreeWalker（旧：document.body 级 observer，打字每字符全扫）。
+ *
+ * 0.0.9 设计：
+ * - exact 词条（1422/1508）进 Map，O(1) 查找；partial/regex（86 条）仅对
+ *   未命中 exact 且较短的节点回退，长文本节点跳过 partial（partial 词条均为短语级）；
+ * - MutationObserver 只在 body 上做「变更门铃」，回调里只处理 mutations
+ *   实际涉及的节点，不做全页扫描；
+ * - rAF 合帧：同帧多次变更只处理一次；
+ * - 归一化与禁区（工作区代码不翻译）逻辑与 0.0.8 保持一致。
  */
 (function () {
   'use strict';
 
-  /** 强制 Shadow DOM 为 open，否则 Agent Window 等 closed shadow 内的文本无法被扫描。 */
-  try {
-    var originalAttachShadow = Element.prototype.attachShadow;
-    Element.prototype.attachShadow = function (init) {
-      var options = init || {};
-      if (options.mode === 'closed') {
-        options = Object.assign({}, options, { mode: 'open' });
-      }
-      return originalAttachShadow.call(this, options);
-    };
-  } catch (_shadowPatchError) {
-    // 忽略
-  }
-
   var cachedMappings = null;
+  var exactMap = null;        // normalizedText -> changeText
+  var partialRules = [];      // 短语级 partial 规则
+  var regexRules = [];        // regex 规则
   var sharedTranslator = null;
-  var mutationObserverStarted = false;
+  var observerStarted = false;
+  var scheduled = false;
+  var pendingNodes = null;    // Set<Node>，rAF 内消费
 
-  /** 需要扫描并翻译的 DOM 根节点选择器。 */
+  /** 需要扫描并翻译的 DOM 根节点选择器（与 0.0.8 一致，仅用于初始 pass）。 */
   var ROOT_SELECTORS = [
     '.monaco-dialog-box',
     '.monaco-dialog',
@@ -77,6 +81,9 @@
     '[data-ui-code-block-diff]',
   ].join(', ');
 
+  /** partial 回退的文本长度上限：超过视为长文本（正文/代码片段），跳过 86 条模糊规则。 */
+  var PARTIAL_MAX_LEN = 200;
+
   /**
    * 规范化 UI 文本，便于 exact 匹配（弯引号、不间断空格等）。
    *
@@ -94,55 +101,46 @@
   }
 
   /**
-   * 运行时 DOM 文本翻译器。
+   * 将词典拆分为 O(1) exact Map 与少量模糊规则表。
    *
-   * 按词典顺序对文本节点与部分 HTML 属性（placeholder、title、aria-label）做替换。
+   * @param {Array<{originalText: string, changeText: string, searchType: string, flags?: string}>} mappings 替换词典。
+   */
+  function buildIndexes(mappings) {
+    exactMap = new Map();
+    partialRules = [];
+    regexRules = [];
+
+    for (var i = 0; i < mappings.length; i++) {
+      var m = mappings[i];
+      if (m.searchType === 'exact') {
+        exactMap.set(normalizeForMatch(m.originalText), m.changeText);
+      } else if (m.searchType === 'partial') {
+        partialRules.push(m);
+      } else if (m.searchType === 'regex') {
+        try {
+          regexRules.push({ re: new RegExp(m.originalText, m.flags || 'g'), changeText: m.changeText });
+        } catch (_e) {
+          // 非法正则词条跳过，不影响其余翻译
+        }
+      }
+    }
+  }
+
+  /**
+   * 运行时 DOM 文本翻译器（增量模式）。
    */
   class TextTranslator {
-    /**
-     * @param {Array<{originalText: string, changeText: string, searchType: string, flags?: string}>} mappings 替换词典。
-     */
+    /** @param {Array<{originalText: string, changeText: string, searchType: string, flags?: string}>} mappings 替换词典。 */
     constructor(mappings) {
-      this.mappings = mappings;
+      buildIndexes(mappings);
       this.nodeCache = new WeakMap();
-    }
-
-    /**
-     * 对单段文本应用一条替换规则。
-     *
-     * @param {string} text 当前文本。
-     * @param {{originalText: string, changeText: string, searchType: string, flags?: string}} mapping 单条规则。
-     * @returns {string} 替换后的文本；未命中时返回原文。
-     */
-    applyMapping(text, mapping) {
-      if (mapping.searchType === 'exact') {
-        if (normalizeForMatch(text) === normalizeForMatch(mapping.originalText)) {
-          return mapping.changeText;
-        }
-        return text;
-      }
-
-      if (mapping.searchType === 'partial') {
-        if (text.includes(mapping.originalText)) {
-          return text.split(mapping.originalText).join(mapping.changeText);
-        }
-        return text;
-      }
-
-      if (mapping.searchType === 'regex') {
-        var regex = new RegExp(mapping.originalText, mapping.flags || 'g');
-        if (regex.test(text)) {
-          return text.replace(regex, mapping.changeText);
-        }
-      }
-
-      return text;
     }
 
     /**
      * 翻译单个文本节点，命中后写回 DOM。
      *
-     * 使用 WeakMap 缓存已处理内容，避免重复替换。
+     * exact 用 Map 查找；未命中且文本较短时回退 partial/regex。
+     * WeakMap 缓存已处理内容，避免重复替换。
      *
      * @param {Text} textNode DOM 文本节点。
      * @returns {boolean} 发生替换时返回 true。
@@ -158,19 +156,37 @@
         return false;
       }
 
-      var newText = originalText;
-      var changed = false;
+      var normalized = normalizeForMatch(originalText);
+      var newText = exactMap.get(normalized);
+      var changed = newText !== undefined;
 
-      for (var i = 0; i < this.mappings.length; i++) {
-        var mapping = this.mappings[i];
-        var replaced = this.applyMapping(newText, mapping);
-        if (replaced !== newText) {
-          newText = replaced;
-          changed = true;
+      // partial/regex 回退：仅限未命中 exact 的短文本（86 条规则，长文本跳过）
+      if (!changed && originalText.length <= PARTIAL_MAX_LEN) {
+        var i, rule, replaced;
+        for (i = 0; i < partialRules.length; i++) {
+          rule = partialRules[i];
+          if (originalText.includes(rule.originalText)) {
+            replaced = originalText.split(rule.originalText).join(rule.changeText);
+            if (replaced !== newText) {
+              newText = replaced;
+              changed = true;
+            }
+          }
+        }
+        for (i = 0; i < regexRules.length; i++) {
+          rule = regexRules[i];
+          rule.re.lastIndex = 0;
+          if (rule.re.test(originalText)) {
+            replaced = originalText.replace(rule.re, rule.changeText);
+            if (replaced !== newText) {
+              newText = replaced;
+              changed = true;
+            }
+          }
         }
       }
 
-      if (changed && newText !== originalText) {
+      if (changed && newText != null && newText !== originalText) {
         textNode.textContent = newText;
         this.nodeCache.set(textNode, newText);
         return true;
@@ -181,10 +197,9 @@
     }
 
     /**
-     * TreeWalker 节点过滤器：跳过 script/style/表单控件内文本。
+     * TreeWalker 节点过滤器：跳过 script/style/表单控件内文本与工作区禁区。
      *
-     * @param {Node} node 候选文本节点。
-     * @returns {number} NodeFilter 常量。
+     * @returns {Object} NodeFilter 风格的过滤器。
      */
     createTextNodeFilter() {
       return {
@@ -208,7 +223,10 @@
     }
 
     /**
-     * 遍历 root 下所有可见文本节点并翻译（含 open Shadow DOM）。
+     * 遍历 root 下所有可见文本节点并翻译。
+     *
+     * 仅对显式传入的 root 执行；不再递归展开全页 shadowRoot（旧引擎的
+     * querySelectorAll('*') 全页遍历已移除；closed shadow 内容不翻译）。
      *
      * @param {Node} rootNode 扫描根节点（Element 或 ShadowRoot）。
      * @returns {number} 被修改的文本节点数量。
@@ -239,24 +257,11 @@
         }
       }
 
-      var elementRoot = rootNode.nodeType === Node.ELEMENT_NODE
-        ? rootNode
-        : rootNode.host;
-      if (elementRoot && elementRoot.querySelectorAll) {
-        var hosts = elementRoot.querySelectorAll('*');
-        for (var i = 0; i < hosts.length; i++) {
-          var host = hosts[i];
-          if (host.shadowRoot) {
-            changedCount += this.translateElement(host.shadowRoot);
-          }
-        }
-      }
-
       return changedCount;
     }
 
     /**
-     * 翻译 input / button 等元素的 placeholder、title、aria-label 属性（含 Shadow DOM）。
+     * 翻译 root 下 input / button 等元素的 placeholder、title、aria-label 属性。
      *
      * @param {Node} rootNode 扫描根节点。
      * @returns {number} 被修改的属性数量。
@@ -306,27 +311,15 @@
             continue;
           }
 
-          var newValue = originalValue;
-          var changed = false;
+          var normalized = normalizeForMatch(originalValue);
+          var newValue = exactMap.has(normalized) ? exactMap.get(normalized) : originalValue;
+          var changed = newValue !== originalValue;
 
-          for (var k = 0; k < this.mappings.length; k++) {
-            var mapping = this.mappings[k];
-            var replaced = this.applyMapping(newValue, mapping);
-            if (replaced !== newValue) {
-              newValue = replaced;
-              changed = true;
-            }
-          }
-
-          if (changed && newValue !== originalValue) {
+          if (changed) {
             el.setAttribute(attr, newValue);
             attrCache[cacheKey] = true;
             changedCount++;
           }
-        }
-
-        if (el.shadowRoot) {
-          changedCount += this.translateAttributes(el.shadowRoot);
         }
       }
 
@@ -335,9 +328,7 @@
   }
 
   /**
-   * 收集当前页面中需要翻译的 DOM 根节点。
-   *
-   * 始终包含 document.body，避免 Agent Window 等 UI 落在 selector 之外。
+   * 收集当前页面中需要翻译的 DOM 根节点（仅初始 pass 使用）。
    *
    * @returns {Element[]} 去重后的根元素列表。
    */
@@ -357,23 +348,15 @@
       }
     }
 
-    if (document.body && !seen.has(document.body)) {
-      roots.push(document.body);
-    }
-
     return roots;
   }
 
   /**
-   * 执行一轮 DOM 翻译。
+   * 初始全页翻译：仅在激活时执行一次，覆盖启动时已渲染的界面。
    */
-  function runTranslationPass() {
-    if (!cachedMappings) {
-      return;
-    }
-
+  function runInitialPass() {
     if (!sharedTranslator) {
-      sharedTranslator = new TextTranslator(cachedMappings);
+      return;
     }
 
     var roots = collectRootElements();
@@ -385,27 +368,93 @@
     window.__cursorZhPatch = {
       active: true,
       count: cachedMappings.length,
+      mode: 'incremental',
     };
   }
 
   /**
-   * 监听 DOM 变更，React 重渲染后立即补译。
+   * 处理本次 mutation 记录涉及的新增/变更节点（增量核心）。
+   *
+   * @param {MutationRecord[]} mutations MutationObserver 回调的记录列表。
    */
-  function startMutationObserver() {
-    if (mutationObserverStarted || typeof MutationObserver === 'undefined' || !document.body) {
+  function processMutations(mutations) {
+    if (!sharedTranslator) {
       return;
     }
 
-    mutationObserverStarted = true;
-    var scheduled = false;
-    var observer = new MutationObserver(function () {
+    var seenElements = new Set();
+    var seenTexts = new Set();
+
+    for (var i = 0; i < mutations.length; i++) {
+      var m = mutations[i];
+
+      if (m.type === 'characterData' && m.target) {
+        sharedTranslator.translateTextNode(m.target);
+        continue;
+      }
+
+      if (m.type === 'childList') {
+        if (m.target && m.target.nodeType === Node.ELEMENT_NODE && !seenElements.has(m.target)) {
+          seenElements.add(m.target);
+        }
+        for (var j = 0; j < m.addedNodes.length; j++) {
+          var added = m.addedNodes[j];
+          if (!added || !added.isConnected) {
+            continue;
+          }
+          if (added.nodeType === Node.TEXT_NODE) {
+            if (!seenTexts.has(added)) {
+              seenTexts.add(added);
+              sharedTranslator.translateTextNode(added);
+            }
+          } else if (added.nodeType === Node.ELEMENT_NODE && !seenElements.has(added)) {
+            seenElements.add(added);
+          }
+        }
+      }
+    }
+
+    // 变更元素级处理：先子树翻译，再属性
+    seenElements.forEach(function (el) {
+      if (!el.isConnected) {
+        return;
+      }
+      sharedTranslator.translateElement(el);
+      sharedTranslator.translateAttributes(el);
+    });
+
+    window.__cursorZhPatch = {
+      active: true,
+      count: cachedMappings.length,
+      mode: 'incremental',
+    };
+  }
+
+  /**
+   * 监听 DOM 变更：只做门铃 + 增量处理。
+   *
+   * 同帧多次变更合并进一个 pendingNodes/records 批次，rAF 内消费，
+   * 打字/滚动时每帧最多处理一帧内的新增节点。
+   */
+  function startMutationObserver() {
+    if (observerStarted || typeof MutationObserver === 'undefined' || !document.body) {
+      return;
+    }
+
+    observerStarted = true;
+    var records = [];
+
+    var observer = new MutationObserver(function (muts) {
+      records = records.concat(muts);
       if (scheduled) {
         return;
       }
       scheduled = true;
       requestAnimationFrame(function () {
         scheduled = false;
-        runTranslationPass();
+        var batch = records;
+        records = [];
+        processMutations(batch);
       });
     });
 
@@ -416,23 +465,18 @@
     });
   }
 
-  /**
-   * 定时扫描并翻译界面文本。
-   *
-   * 每 100ms 执行一次，以覆盖 Settings、Agent Window 等动态渲染内容。
-   */
+  /** 启动入口：加载词典 → 初始 pass → 增量 observer。无任何定时器。 */
   function task() {
     try {
       if (!cachedMappings) {
         cachedMappings = '${replacementsArray}';
+        sharedTranslator = new TextTranslator(cachedMappings);
       }
-      runTranslationPass();
+      runInitialPass();
       startMutationObserver();
     } catch (_error) {
       // DOM not ready
     }
-
-    setTimeout(task, 100);
   }
 
   if (document.readyState === 'loading') {

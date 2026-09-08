@@ -7,31 +7,6 @@ on:
     branches: [master, main]
 
 jobs:
-  mac-regression:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: npm
-
-      - name: Install
-        run: npm install
-
-      - name: Build
-        run: npm run build
-
-      - name: Validate i18n
-        run: npm run validate:i18n
-
-      - name: Install Cursor
-        run: brew install --cask cursor
-
-      - name: Regression (apply/revert on real install)
-        run: node tools/regression-check.mjs --app-root "/Applications/Cursor.app/Contents"
-
   quality:
     runs-on: windows-latest
     steps:

@@ -278,7 +278,33 @@ export class DesktopTranslator extends CursorTranslator {
    *
    * 优先从 `.backup` 还原；若无备份则尝试恢复 `main_original` 字段。
    */
-  uninstall(): void {
+  /**
+   * 移除补丁文件并恢复 package.json。
+   *
+   * 可重复执行：无残留时明确返回无须恢复；补丁前备份缺失时报告受限项，
+   * 不猜测、不拼接原始文件内容。
+   *
+   * @returns 用户可读的结果行（含警告）。
+   */
+  uninstall(): string[] {
+    const hasLeftovers =
+      this.workbenchTargets.some((target) => fs.existsSync(target.translatedPath)) ||
+      fs.existsSync(this.saveInterceptorPath) ||
+      fs.existsSync(this.metaPath) ||
+      fs.existsSync(this.backupPackageJsonPath) ||
+      fs.existsSync(this.loaderBackupPath) ||
+      fs.existsSync(this.productBackupPath) ||
+      this.isLoaderPatched() ||
+      this.isPackageJsonPatched();
+
+    if (!hasLeftovers) {
+      return ['未检测到汉化补丁残留，界面已是原始状态，无须恢复。'];
+    }
+
+    const warnings: string[] = [];
+    const loaderWasPatched = this.isLoaderPatched();
+    const productBackupExists = fs.existsSync(this.productBackupPath);
+
     this.restoreWorkbenchLoader();
 
     for (const target of this.workbenchTargets) {
@@ -296,9 +322,35 @@ export class DesktopTranslator extends CursorTranslator {
     }
 
     this.restoreProductChecksums();
+    this.restorePackageJson(warnings);
 
+    if (loaderWasPatched && !productBackupExists) {
+      warnings.push(
+        `警告: 缺少 ${path.basename(this.productBackupPath)}，启动器校验和无法还原为原始值（拒绝凭空拼接），Cursor 启动时可能提示「安装已损坏」，升级或重装 Cursor 即可自动修复。`,
+      );
+    }
+
+    return ['已移除汉化补丁并恢复原始英文界面。请完全重启 Cursor。', ...warnings];
+  }
+
+  /** package.json main 是否仍指向补丁拦截器。 */
+  private isPackageJsonPatched(): boolean {
+    if (!fs.existsSync(this.readPackageJsonPath)) {
+      return false;
+    }
+    try {
+      const pkg = JSON.parse(fs.readFileSync(this.readPackageJsonPath, 'utf-8')) as PackageJson;
+      return pkg.main === './out/cursorTranslatorMain.js';
+    } catch {
+      return false;
+    }
+  }
+
+  /** 还原 package.json main：备份优先（还原后删除备份），其次 main_original；两者皆缺时报告。 */
+  private restorePackageJson(warnings: string[]): void {
     if (fs.existsSync(this.backupPackageJsonPath)) {
       fs.copyFileSync(this.backupPackageJsonPath, this.readPackageJsonPath);
+      fs.unlinkSync(this.backupPackageJsonPath);
       return;
     }
 
@@ -313,6 +365,10 @@ export class DesktopTranslator extends CursorTranslator {
       packageJson.main = packageJson.main_original;
       delete packageJson.main_original;
       fs.writeFileSync(this.readPackageJsonPath, JSON.stringify(packageJson, null, 2), 'utf-8');
+    } else if (packageJson.main === './out/cursorTranslatorMain.js') {
+      warnings.push(
+        '警告: package.json 缺少备份与 main_original 字段，无法确定原始 main 入口（拒绝猜测），请重装 Cursor 修复。',
+      );
     }
   }
 

@@ -2,6 +2,23 @@
 
 本文件遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循 [语义化版本](https://semver.org/lang/zh-CN/)。
 
+## [0.0.9] - 2026-09-08
+
+### Changed
+
+- **注入脚本重写为增量翻译引擎**，消除 0.0.8 及更早版本的打字/滚动卡顿，汉化能力保留：
+  - 移除每 100ms 定时全页扫描（旧引擎每秒 10 次全页词典匹配，与用户操作无关）
+  - 移除 `Element.prototype.attachShadow` 原型劫持（closed Shadow DOM 内文本不再翻译，属可接受取舍）
+  - 变更处理从「每次 DOM 变更 rAF 全页 TreeWalker 重扫」改为「只处理本次 mutation 涉及的节点」，rAF 合帧
+  - 词典 exact 词条（1422/1508）改用 Map O(1) 查找；partial/regex（86 条）仅对未命中且 ≤200 字符的节点回退
+  - 界面 `window.__cursorZhPatch` 增加 `mode: 'incremental'` 自检标记
+- 「应用界面汉化」保留为**手动命令**；移除启动自愈（Cursor 升级后静默重打补丁）与 `cursorZh.autoApplyOnInstall` 安装引导：扩展激活时不再修改安装目录，补丁只在你点「应用」时写入
+
+### Fixed
+
+- revert 恢复 package.json 后 `package.json.backup` 永久残留；第二次恢复时备份被反复覆盖而非删除
+- 备份缺失时 revert 从静默通过改为如实报告受限项（校验和无法还原、原始 main 未知），拒绝猜测或拼接原始文件内容
+
 ## [0.0.8] - 2026-09-04
 
 ### Fixed

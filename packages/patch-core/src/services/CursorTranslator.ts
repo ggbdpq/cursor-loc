@@ -34,8 +34,8 @@ export abstract class CursorTranslator {
    */
   abstract install(replacements: readonly Replacement[], cursorVersion?: string): void;
 
-  /** 删除补丁文件并恢复 package.json。 */
-  abstract uninstall(): void;
+  /** 移除补丁文件并恢复原始入口；返回用户可读结果行（含警告）。可重复执行。 */
+  abstract uninstall(): string[];
 
   /**
    * 当前平台是否受支持。

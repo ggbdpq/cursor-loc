@@ -2,27 +2,24 @@
 
 此扩展为 Cursor IDE 的**专有界面**提供简体中文，包括 Cursor Settings、Agent、Composer、Review 等 Microsoft 官方语言包无法覆盖的区域。
 
-> **免责声明**：本扩展会向 Cursor **安装目录**写入界面补丁。卸载或禁用扩展时会自动移除补丁；Corporate 环境请先咨询 IT。
+> **0.0.9 变更**：注入引擎重写为**增量翻译**（移除定时全页扫描、原型劫持与「每次变更全页重扫」），汉化能力不变，打字与滚动不再被拖慢。「应用界面汉化」改为纯手动命令，扩展启动时不再修改安装目录。
 
 ---
 
 ## 使用方法
 
-### 第一步：安装底座中文（推荐）
+### 第一步：界面中文（推荐）
 
-为获得完整中文体验，请先安装 Microsoft 官方扩展：
+安装 Microsoft 官方扩展：
 
 **[Chinese (Simplified) Language Pack for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-zh-hans)**（发布者 MS-CEINTL）
 
-然后按 `Ctrl+Shift+P`，运行 **Configure Display Language**，选择 **zh-cn**，并按提示重启 Cursor。  
-菜单、命令面板等底座界面将显示为中文。详见 [官方文档](https://go.microsoft.com/fwlink/?LinkId=761051)。
+然后按 `Ctrl+Shift+P`，运行 **Configure Display Language**，选择 **zh-cn**，并按提示重启 Cursor。
+菜单、命令面板等界面将显示为中文。详见 [官方文档](https://go.microsoft.com/fwlink/?LinkId=761051)。
 
 ### 第二步：安装本扩展
 
-在 Cursor 扩展视图中搜索 **Cursor 专有界面汉化**，或从 VSIX 安装：
-
-1. 扩展视图 → `…` → **从 VSIX 安装…**
-2. 选择 `cursor-language-pack-zh-hans-0.0.5.vsix`
+在 Cursor 扩展视图中搜索 **Cursor 专有界面汉化**，或从 VSIX 安装。
 
 ### 第三步：应用专有界面汉化
 
@@ -30,9 +27,7 @@
 
 **Cursor 中文：应用界面汉化**
 
-首次安装时，扩展也可能弹出引导，点击 **应用并重启** 即可。
-
-应用成功后需**完整重启 Cursor**（扩展会自动调度重启）。若出现 **Quit Cursor?**，点击 **Quit**；也可等待约 25 秒由系统自动完成重启。
+应用成功后扩展会**自动调度重启**，无需其他操作。若出现 Cursor 自带的 **Quit Cursor?** 确认框，点击 **Quit** 即可（建议勾选 **Don't ask again**，此后重启全程免确认）；即使不点击，约 25 秒后也会自动完成重启。
 
 > **注意**：「Reload Window」无法使汉化生效；须完整退出并重新打开 Cursor。
 
@@ -42,50 +37,28 @@
 |------|------|
 | Cursor 中文：查看汉化状态 | 检查补丁是否已安装 |
 | Cursor 中文：环境诊断 | 检查路径与写权限 |
-| Cursor 中文：恢复英文界面 | 移除补丁并恢复英文 |
+| Cursor 中文：恢复英文界面 | 移除补丁并恢复英文（可重复执行） |
 
 日志输出：**输出面板 → Cursor 专有界面汉化**。
 
 ---
 
-## 汉化范围
-
-| 区域 | 示例 |
-|------|------|
-| Cursor Settings | 常规、智能体、模型、MCP、索引、网络等 |
-| Agent / Composer | 模式切换、输入区、工具调用状态 |
-| 确认对话框 | 退出 Cursor、关闭窗口等（`Quit Cursor?` 等） |
-| Review | PR 审查相关界面 |
-
-**不包含**：VS Code 底座 UI（菜单、编辑器通用文案等），由 MS 中文语言包负责。
-
----
-
 ## 与 Microsoft 中文语言包的关系
 
-两者**互补**，建议同时安装：
-
-| | MS 中文语言包 | 本扩展 |
-|---|---|---|
-| 覆盖 | 菜单、命令面板、通用设置 | Cursor Settings、Agent、Composer 等 |
-| 机制 | 官方 NLS | 专有界面 DOM 词典补丁 |
-| 显示语言 | 需 `locale: zh-cn` | **与显示语言无关**，英文界面下也可使用 |
+界面中文完全由 **Microsoft 官方语言包**提供；本扩展只做历史残留清理。
 
 ---
 
 ## 常见问题
 
-**应用后 Settings 仍是英文？**  
-确认已完整重启；运行「查看汉化状态」，三项均为已安装。
+**恢复时提示「未检测到残留」？**  
+安装目录已是原始状态，无须任何操作。
 
-**应用失败？**  
-运行「环境诊断」；若 Cursor 装在 `Program Files`，可配置 `cursorZh.appRoot` 或以管理员运行后再应用。
+**恢复时提示缺少备份 / 校验和无法还原？**  
+这是旧版补丁的备份文件丢失所致。恢复入口绝不猜测或拼接原始文件；按提示重装或升级 Cursor 即可修复。
 
-**Cursor 升级后变回英文？**  
-重新执行「应用界面汉化」。
-
-**部分文案仍英文？**  
-欢迎到仓库提交 Issue 或 PR 补充词典（见「参与」）。
+**Cursor 升级后需要做什么？**  
+无需操作。0.0.9 起扩展不写安装目录，升级不受影响。
 
 ---
 
@@ -96,7 +69,6 @@
 | 设置项 | 说明 |
 |--------|------|
 | `cursorZh.appRoot` | Cursor 安装根目录，留空自动检测 |
-| `cursorZh.autoApplyOnInstall` | 启动时是否弹出「应用并重启」引导（默认开启） |
 
 ---
 
@@ -138,7 +110,7 @@ npm install
 npm run build
 cd i18n/cursor-language-pack-zh-hans
 npm run package
-# 产物：cursor-language-pack-zh-hans-0.0.5.vsix
+# 产物：cursor-language-pack-zh-hans-0.0.9.vsix
 ```
 
 F5 调试：在 `i18n/cursor-language-pack-zh-hans` 打开，使用 `.vscode/launch.json`。

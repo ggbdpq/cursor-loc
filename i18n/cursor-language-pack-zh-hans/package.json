@@ -1,8 +1,8 @@
 {
   "name": "cursor-language-pack-zh-hans",
   "displayName": "Cursor 专有界面汉化 (简体中文)",
-  "description": "为 Cursor Settings、Agent、Composer 等专有界面提供简体中文。建议与 Microsoft 中文语言包配合使用。支持 Windows 与 macOS（beta）。",
-  "version": "0.0.8",
+  "description": "为 Cursor Settings、Agent、Composer 等专有界面提供简体中文（0.0.9 增量引擎，打字与滚动不再卡顿）。建议与 Microsoft 中文语言包配合使用。支持 Windows 与 macOS（beta）。",
+  "version": "0.0.9",
   "publisher": "ggbdpq",
   "author": {
     "name": "ggbdpq"
@@ -85,11 +85,6 @@
           "type": "string",
           "default": "",
           "description": "Cursor 安装根目录（留空则自动检测），例如 D:\\WEBDEV\\cursor"
-        },
-        "cursorZh.autoApplyOnInstall": {
-          "type": "boolean",
-          "default": true,
-          "description": "启动时若检测到专有界面未汉化，是否弹出引导并提示应用补丁"
         }
       }
     }
