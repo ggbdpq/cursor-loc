@@ -1,13 +1,5 @@
-/**
- * 卸载路径看门狗测试（scheduleRestartOnQuit）。
- *
- * 缺陷背景：卸载扩展后扩展宿主约 1 秒内被回收，deactivate 里
- * await schtasks（/create + /run，约 1-2 秒）大概率被截断——实测
- * 「还原完成了、重启调度没了」。explorer.exe 会把命令转发给常驻
- * shell（不在 Cursor 的 Job Object 内）后立即返回，spawn 即返回、
- * 零 await，看门狗与扩展宿主生死无关。
- */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { EventEmitter } from 'node:events';
 
 const mockSpawn = vi.fn().mockReturnValue({ unref: vi.fn() });
 const mockWriteFileSync = vi.fn();
@@ -43,7 +35,11 @@ import { scheduleRestartOnQuit } from '../restartCursor.js';
 describe('scheduleRestartOnQuit（卸载路径，explorer 转发看门狗）', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    mockSpawn.mockReturnValue({ unref: vi.fn() });
+    mockSpawn.mockImplementation(() => {
+      const child = Object.assign(new EventEmitter(), { unref: vi.fn() });
+      queueMicrotask(() => child.emit('spawn'));
+      return child;
+    });
     mockExistsSync.mockReturnValue(true);
     Object.defineProperty(process, 'platform', { value: 'win32', configurable: true });
     Object.defineProperty(process, 'execPath', {
@@ -53,7 +49,7 @@ describe('scheduleRestartOnQuit（卸载路径，explorer 转发看门狗）', (
     });
   });
 
-  it('win32：写入隐藏启动 VBS 并经 explorer.exe 转发（spawn 即返回）', async () => {
+  it('win32：写入隐藏启动 VBS 并经 explorer.exe 转发（等待进程创建事件）', async () => {
     const result = await scheduleRestartOnQuit('D:\\DevTools\\AI\\SpaceX\\Cursor');
 
     expect(result).toBe(true);
@@ -82,5 +78,13 @@ describe('scheduleRestartOnQuit（卸载路径，explorer 转发看门狗）', (
     const result = await scheduleRestartOnQuit('D:\\DevTools\\AI\\SpaceX\\Cursor');
     expect(result).toBe(false);
     expect(mockSpawn).not.toHaveBeenCalled();
+  });
+
+  it('异步进程创建失败返回 false，而不是报告重启已调度', async () => {
+    const child = Object.assign(new EventEmitter(), { unref: vi.fn() });
+    mockSpawn.mockReturnValue(child);
+    const pending = scheduleRestartOnQuit('D:\\Cursor');
+    queueMicrotask(() => child.emit('error', new Error('ENOENT')));
+    expect(await pending).toBe(false);
   });
 });

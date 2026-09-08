@@ -25,6 +25,7 @@ import {
   runStatus,
 } from './patchService.js';
 import { coldRestartCursor, scheduleRestartOnQuit } from './restartCursor.js';
+import { uninstallTrace } from './uninstallTrace.js';
 
 /** 扩展在 marketplace 中的完整 ID（publisher.name）。 */
 const EXTENSION_ID = 'ggbdpq.cursor-language-pack-zh-hans';
@@ -64,6 +65,7 @@ let suppressDeactivateRevert = false;
 
 /** activate 时保存，供 deactivate 读取 globalState。 */
 let extensionContext: vscode.ExtensionContext | undefined;
+let uninstallRunning = false;
 
 /**
  * 读取用户配置的 Cursor 安装根目录。
@@ -267,6 +269,7 @@ async function runStartupSetup(context: vscode.ExtensionContext): Promise<void> 
  */
 export function activate(context: vscode.ExtensionContext): void {
   extensionContext = context;
+  uninstallTrace('activate', { build: '0.0.9-uninstall-watch-2', version: context.extension?.packageJSON?.version, extensionPath: context.extensionPath });
   context.subscriptions.push(getOutputChannel());
 
   if (!isSupportedPlatform()) {
@@ -282,6 +285,17 @@ export function activate(context: vscode.ExtensionContext): void {
 
   void context.globalState.update(GLOBAL_KEY_RESTARTING, false);
   void runStartupSetup(context);
+  if (context.extensionMode !== vscode.ExtensionMode.Development) {
+    try {
+      const watcher = fs.watch(path.join(os.homedir(), '.cursor', 'extensions'),
+        { persistent: false }, () => { void cleanupAfterUninstall(); });
+      watcher.on('error', (error) => uninstallTrace('watch.error', error));
+      context.subscriptions.push({ dispose: () => watcher.close() });
+      uninstallTrace('watch.ready');
+    } catch (error) {
+      uninstallTrace('watch.error', error);
+    }
+  }
 }
 
 /**
@@ -342,59 +356,63 @@ export function isExtensionUninstalled(manifestPath?: string, obsoletePath?: str
  * - 卸载 VSIX：清单已不含本扩展 → 立即 revert + 冷重启。
  */
 export async function deactivate(): Promise<void> {
+  uninstallTrace('deactivate.enter');
+  await cleanupAfterUninstall();
+  extensionContext = undefined;
+}
+
+async function cleanupAfterUninstall(): Promise<void> {
+  if (uninstallRunning) return;
   if (suppressDeactivateRevert) {
     suppressDeactivateRevert = false;
+    uninstallTrace('skip.suppressed');
     return;
   }
-
   if (extensionContext?.globalState.get<boolean>(GLOBAL_KEY_RESTARTING)) {
+    uninstallTrace('skip.restarting');
     return;
   }
-
   const ctx = extensionContext;
-  extensionContext = undefined;
-
   if (!ctx || ctx.extensionMode === vscode.ExtensionMode.Development) {
+    uninstallTrace('skip.context', { mode: ctx?.extensionMode });
     return;
   }
-
   if (!isExtensionUninstalled()) {
+    uninstallTrace('skip.installed');
     return;
   }
 
-  const installRoot = getEffectiveInstallRoot();
-
+  uninstallRunning = true;
   try {
-    if (!(await isPatchInstalled(installRoot))) {
-      return;
+    const installRoot = getEffectiveInstallRoot();
+    uninstallTrace('status.begin', { installRoot });
+    const installed = await isPatchInstalled(installRoot);
+    uninstallTrace('status.end', { installed });
+    if (!installed) return;
+
+    uninstallTrace('schedule.begin');
+    let scheduled = false;
+    try {
+      scheduled = await scheduleRestartOnQuit(installRoot);
+    } catch (error) {
+      uninstallTrace('schedule.error', error);
     }
-
-    // 先调度看门狗再还原：explorer 转发的调度 spawn 即返回，不依赖宿主存活；
-    // 还原是纯本地文件操作，能在看门狗 2 秒等待期内完成。顺序反了会重现
-    // 「还原成功但重启调度被宿主退出截断」。
-    const scheduled = await scheduleRestartOnQuit(installRoot);
-
+    uninstallTrace('schedule.end', { scheduled });
+    uninstallTrace('revert.begin');
     const result = await runRevert(installRoot);
-    logSection('扩展已卸载，已恢复英文界面（安装目录补丁已移除）', result.lines);
-    if (!result.ok) {
-      void vscode.window.showWarningMessage(
-        '汉化扩展已卸载，但安装目录补丁自动还原失败。请完全重启 Cursor 后执行 npm run revert，或重新安装扩展后用「恢复英文界面」。',
-      );
-      return;
-    }
+    uninstallTrace('revert.end', result);
+    if (!result.ok || !scheduled) return;
 
     suppressDeactivateRevert = true;
-    if (scheduled) {
-      logLine('[deactivate] 扩展已卸载，看门狗将关闭并重启 Cursor 以显示英文界面…');
-      void vscode.commands.executeCommand('workbench.action.quit');
-    } else {
-      void vscode.window.showWarningMessage(
-        '补丁已还原，但自动重启未能发起。请手动完全退出并重新打开 Cursor 以回到英文界面。',
-      );
-    }
-  } catch (err) {
-    logLine(
-      `[deactivate] revert 失败: ${err instanceof Error ? err.message : String(err)}`,
+    uninstallTrace('quit.request');
+    // 宿主拆除时 RPC 可能已经关闭；看门狗回执才是外部进程启动证据。
+    void vscode.commands.executeCommand('workbench.action.quit').then(
+      () => uninstallTrace('quit.resolved'),
+      (error: unknown) => uninstallTrace('quit.rejected', error),
     );
+  } catch (error) {
+    uninstallTrace('deactivate.error', error);
+  } finally {
+    uninstallTrace('deactivate.end');
   }
 }
