@@ -84,7 +84,11 @@ async function main() {
       replacements,
     };
 
-    const outPath = path.join(translationsDir, dest);
+    const outPath = path.resolve(translationsDir, dest);
+    if (!outPath.startsWith(translationsDir + path.sep)) {
+      console.warn(`跳过非法目标: ${dest}`);
+      continue;
+    }
     fs.mkdirSync(path.dirname(outPath), { recursive: true });
     fs.writeFileSync(outPath, JSON.stringify(out, null, 2), 'utf-8');
     console.log(`  ${dest} (${replacements.length} 条)`);

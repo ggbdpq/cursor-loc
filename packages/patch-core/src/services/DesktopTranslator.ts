@@ -53,7 +53,11 @@ function loaderImportTranslated(t: string, m: string): string {
  */
 function loadAsset(name: string): string {
   const dir = path.dirname(fileURLToPath(import.meta.url));
-  const assetPath = path.join(dir, '..', 'assets', name);
+  const assetsRoot = path.resolve(dir, '..', 'assets');
+  const assetPath = path.resolve(assetsRoot, name);
+  if (!assetPath.startsWith(assetsRoot + path.sep)) {
+    throw new Error(`非法资源名: ${name}`);
+  }
   return fs.readFileSync(assetPath, 'utf-8');
 }
 
