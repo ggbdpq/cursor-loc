@@ -50,7 +50,7 @@ F5 调试：在 `i18n/cursor-language-pack-zh-hans` 打开，使用 `.vscode/lau
 
 | 发版回归 | `npm run regression`（apply → 断言四件套/checksums → revert → 断言字节级还原；发版前必跑，结束时为未打补丁状态） |
 
-0.0.9 起注入引擎为增量模式（无定时轮询、无原型劫持、变更只处理涉及节点），性能契约见 `src/__tests__/inject.performance-contract.test.ts`——改动注入脚本前先读它。
+0.0.9 起注入引擎为增量模式（无定时轮询、无原型劫持、变更只处理涉及节点）；0.0.11 进一步热路径止血——所有 mutation 入口统一禁区判断（`shouldSkipNode`）、childList 只处理 addedNodes、翻译调度从 rAF 改为 `requestIdleCallback` 低优先级分片（单批 ≤3ms）、observer 拆两级（body 门铃只开 childList，characterData 只监听发现的汉化区域容器）。性能契约见 `src/__tests__/inject.performance-contract.test.ts`（实现形态）与 `src/__tests__/inject.hot-path-behavior.test.ts`（行为下界）——改动注入脚本前先读它们。
 
 ## 源码阅读顺序
 

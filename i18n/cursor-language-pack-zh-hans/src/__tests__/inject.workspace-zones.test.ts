@@ -49,4 +49,25 @@ describe('cursor.inject.js 工作区禁区', () => {
     expect(closestIdx).toBeGreaterThan(filterIdx);
     expect(acceptIdx).toBeGreaterThan(closestIdx);
   });
+
+  it('所有 mutation 入口统一先过禁区（0.0.11 shouldSkipNode）', () => {
+    // 0.0.9 的 characterData/addedNodes 直调 translateTextNode 绕开了过滤器禁区，
+    // Monaco .view-lines 打字产生的每次字符变更都进入完整匹配流程（卡顿根因之一）
+    expect(source).toContain('function shouldSkipNode(');
+
+    // processMutations 内不得直接调用翻译——必须经 enqueueNode 统一禁区判断
+    const pmIdx = source.indexOf('function processMutations(');
+    const pmEnd = source.indexOf('function ', pmIdx + 10);
+    const pmBody = source.slice(pmIdx, pmEnd);
+    expect(pmBody).not.toContain('translateTextNode(');
+    expect(pmBody).not.toContain('translateElement(');
+    expect(pmBody).toContain('enqueueNode');
+
+    // enqueueNode 入口与 translateElement 根节点入口都做禁区短路
+    const enqIdx = source.indexOf('function enqueueNode(');
+    expect(source.slice(enqIdx, source.indexOf('}', enqIdx))).toContain('shouldSkipNode');
+    const teIdx = source.indexOf('translateElement(rootNode)');
+    const teBody = source.slice(teIdx, source.indexOf('createTreeWalker', teIdx));
+    expect(teBody).toContain('NO_TRANSLATE_SELECTOR');
+  });
 });

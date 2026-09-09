@@ -1,8 +1,8 @@
 {
   "name": "cursor-language-pack-zh-hans",
   "displayName": "Cursor 专有界面汉化 (简体中文)",
-  "description": "为 Cursor Settings、Agent、Composer 等专有界面提供简体中文（0.0.9 增量引擎，打字与滚动不再卡顿）。建议与 Microsoft 中文语言包配合使用。支持 Windows 与 macOS（beta）。",
-  "version": "0.0.10",
+  "description": "为 Cursor Settings、Agent、Composer 等专有界面提供简体中文（idle 分片增量引擎，输入滚动零干扰）。建议与 Microsoft 中文语言包配合使用。支持 Windows 与 macOS（beta）。",
+  "version": "0.0.11",
   "publisher": "ggbdpq",
   "author": {
     "name": "ggbdpq"

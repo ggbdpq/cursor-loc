@@ -2,6 +2,31 @@
 
 本文件遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循 [语义化版本](https://semver.org/lang/zh-CN/)。
 
+## [0.0.11] - 2026-09-09
+
+### Changed
+
+- **注入引擎热路径止血**：0.0.9/0.0.10 的增量引擎在文件滚动与输入时仍有卡顿，本版把翻译工作彻底移出交互关键路径，四项根因逐一修复：
+  - **统一禁区入口**：新增 `shouldSkipNode()`，characterData、childList 新增节点、`translateElement()` 根节点、`translateAttributes()` 全部入口先过禁区判断。此前 `characterData` 直调 `translateTextNode` 绕开了 TreeWalker 过滤器的禁区检查，Monaco `.view-lines` 打字产生的每次字符变更都跑完整词典匹配流程（卡顿首因）
+  - **childList 只处理 addedNodes**：不再把变更父容器 `m.target` 加入重扫集合——往大容器加 1 个节点只处理那 1 个节点，不再 TreeWalker 整个父容器
+  - **rAF 改为 idle 分片**：翻译调度从 `requestAnimationFrame`（绘制前同步执行、与 Monaco layout/React render 抢 16.7ms 帧预算）改为 `requestIdleCallback`（兜底截止 300ms，不可用时降级 MessageChannel 宏任务），单批 JS 执行 ≤3ms，超预算让出主线程下一空闲片继续；汉化可能晚几十毫秒出现，输入滚动优先
+  - **Observer 缩圈两级化**：body 门铃（L0）只开 `childList`（Monaco 打字的 characterData 记录从源头消失，不再进入任何 JS 回调），专职发现汉化区域容器；发现的容器（Settings/Agent/Composer/Dialog/Menu 等）注册共享 L1 监听（childList + characterData）。Monaco/Explorer/Terminal 等工作区热点零记录零处理
+  - 新增静态性能契约（`inject.performance-contract.test.ts`）与行为契约（`inject.hot-path-behavior.test.ts`：Monaco 连续输入 1000 次 characterData 翻译函数调用为 0、虚拟滚动新增 5000 节点零 TreeWalker、分片超预算必让出）
+
+### Fixed
+
+- 新增元素的 placeholder/title/aria-label 属性可能漏翻：`translateAttributes` 的 `querySelectorAll` 不含根元素自身，此前依赖父容器重扫间接覆盖，childList 取消重扫后改为显式检查根元素自身
+
+### 行为取舍
+
+- 不在汉化区域选择器内的动态挂载 UI 不再被增量翻译（启动时已存在的内容仍由初始 pass 的 `.workbench` 兜底覆盖）；标准 workbench 界面由 Microsoft 中文语言包静态翻译，Cursor 专有界面若因版本更新改版漏翻，需向词典/区域选择器补充对应容器
+
+## [0.0.10] - 2026-09-08
+
+### Fixed
+
+- 卸载时恢复原文件并按需重启 Cursor；0.0.9 增量引擎随扩展重新发布
+
 ## [0.0.9] - 2026-09-08
 
 ### Changed
